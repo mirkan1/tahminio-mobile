@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View} from 'react-native';
+import { View } from 'react-native';
 
 const Card = (props) => {
 	return (
