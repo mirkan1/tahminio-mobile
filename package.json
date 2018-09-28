@@ -1,0 +1,40 @@
+{
+  "name": "tahminioreactnative",
+  "version": "1.0.0",
+  "description": "react-native app",
+  "main": "index.js",
+  "dependencies": {
+    "@babel/runtime": "^7.0.0",
+    "axios": "^0.18.0",
+    "babel-jest": "^23.6.0",
+    "jest": "^23.6.0",
+    "metro-react-native-babel-preset": "^0.45.6",
+    "react": "^16.5.0",
+    "react-native": "^0.57.1",
+    "react-test-renderer": "^16.5.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.6.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0"
+  },
+  "scripts": {
+    "test": "react-native run-android"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mirkan1/tahminio-mobile.git"
+  },
+  "keywords": [
+    "tahminio"
+  ],
+  "author": "mirkan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mirkan1/tahminio-mobile/issues"
+  },
+  "homepage": "https://github.com/mirkan1/tahminio-mobile#readme"
+}

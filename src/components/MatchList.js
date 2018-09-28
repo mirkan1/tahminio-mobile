@@ -29,7 +29,6 @@ class MatchList extends Component {
 	};
 
 	render() {
-		console.log(this.state.teams);
 		return (
 			<ScrollView>
 				{this.renderMatches()}
