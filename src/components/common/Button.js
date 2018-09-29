@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Text, TouchableOpacity } from 'react-native'
 // TouchableOpacity is touch button when you touch it opacite itself to 0.1 then becomes normal again 
 
@@ -13,7 +13,7 @@ const Button = ({ onPress, children }) => {
       </Text>
     </TouchableOpacity>
   )
-};
+}
 
 const styles = {
   textStyle: {

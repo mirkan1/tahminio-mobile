@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, Image } from 'react-native' //Linking is for openURL and more stuff open handling links in React-native
+import { Text, View, Image } from 'react-native' // Linking is for openURL and more stuff open handling links in React-native
 import { Card, CardSection } from './common'
 
 const MatchDetail = (props) => {
@@ -15,7 +15,7 @@ const MatchDetail = (props) => {
           <Text>{props.home_team.id}</Text>
         </View>
         <View style={styles.headerContentStyle}>
-          <Text>1-0</Text>
+          <Text>{props.first_half_score}</Text>
         </View>
         <View style={styles.thumbnailContainerStyleRight}>
           <Image
@@ -28,13 +28,34 @@ const MatchDetail = (props) => {
       </CardSection>
     </Card>
   )
-};
-
+}
+      /////////////////////////////////////////////////////////////////////////
+	    // TODO														                                    //  
+	    // Left team must be stick on left side of card..		                  //
+      ////////////////////////////////////////////////////////////////////////
+      
 const styles = {
+  thumbnailContainerStyleLeft: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 5,
+    marginRight: 10
+  },
   headerContentStyle: {
+    flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-around',
     alignItems: 'center'
+  },
+  thumbnailContainerStyleRight: {
+    flex: 1,
+    flexDirection: 'row-reverse',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 10,
+    marginRight: 5
   },
   headerTextStyle: {
     fontSize: 18
@@ -42,20 +63,6 @@ const styles = {
   thumbnailStyle: {
     height: 50,
     width: 50
-  },
-  thumbnailContainerStyleLeft: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: 5,
-    marginRight: 10
-  },
-  thumbnailContainerStyleRight: {
-    flexDirection: 'row-reverse',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: 10,
-    marginRight: 5
   },
   imageStyle: {
     height: 300,

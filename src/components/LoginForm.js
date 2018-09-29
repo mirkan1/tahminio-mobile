@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { Button, Card, CardSection, Input, Spinner } from './common';
 import MatchList from './MatchList';
 
