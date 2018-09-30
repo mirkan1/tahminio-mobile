@@ -25,16 +25,67 @@ class MatchList extends Component {
 	//////////////////////////////////////////////////////////////
 
 	renderMatches() {
+		const { teams, league } = this.state;
+		const wholeLeague = []
 		// var lig = [];
 		// for (let i=0;i<this.state.teams.length;i++) {
 		// 	if (this.state.teams[i].league.name === this.state.teams[3].league.name) {
 		// 		lig.push(this.state.teams[i].home_team.name)
 		// 	}
 		// };
-		// console.log(lig);
+		// var obj = {};
+		function isEmpty(obj) {
+			return Object.keys(obj).length === 0;
+		};
 
-		return this.state.teams.map(team => 
-			<MatchDetail 
+		for (let i=0;i<teams.length;i++) {
+			let value = league.filter(lig => lig === teams[i].league.name);
+			if (isEmpty(value)) {
+				league.push(teams[i].league.name);
+				wholeLeague.push(teams[i].league.name);
+			}
+		};
+
+		for (let i=0;i<league.length;i++) {
+			league[i] = { [league[i]]: []}
+		};
+
+		teams.map(team => {
+			for (let i=0;i<wholeLeague.length;i++) {
+				if (team.league.name === wholeLeague[i]) {
+					league[i][ [team.league.name] ].push(team.home_team.name);
+					league[i][ [team.league.name] ].push(team.away_team.name);
+				};
+			}
+		});
+
+		// teams.map(team => {
+		// 	for (let i=0;i<wholeLeague.length;i++) {
+		// 		if (team.league.name === wholeLeague[i]) {
+		// 			league.push(teams.map(team =>
+		// 				<MatchDetail
+		// 					key={team.id}
+		// 					home_team={team.home_team} 
+		// 					away_team={team.away_team} 
+		// 					league={team.league}
+		// 					score={team.first_half_score}
+		// 				/>
+		// 				)
+		// 			)
+		// 		}				
+		// 	}
+			
+		// });
+
+		// return wholeLeague.map(league =>
+		// 	<MatchDetail
+		// 		key={league}
+		// 		team={this.state.teams}
+		// 	/>
+		// );
+
+		return teams.map(team =>
+			<MatchDetail
 				key={team.id}
 				home_team={team.home_team} 
 				away_team={team.away_team} 
@@ -42,12 +93,71 @@ class MatchList extends Component {
 				score={team.first_half_score}
 			/>
 		);
-	};
+	}; 
 
+	renderMatchesWithLeague() {
+		const { teams, league } = this.state;
+
+		const wholeLeague = [];
+		for (let i=0;i<teams.length;i++) {
+					let value = league.filter(lig => lig === teams[i].league.name);
+					if (isEmpty(value)) {
+						league.push(teams[i].league.name);
+						wholeLeague.push(teams[i].league.name);
+					}
+				};
+
+		function isEmpty(obj) {
+			return Object.keys(obj).length === 0;
+		};
+
+		return wholeLeague.map(league => {
+			const kasim = teams.filter(team => team.league.name === league);
+			return kasim.map(team =>
+				<MatchDetail
+					key={team.id}
+					home_team={team.home_team} 
+					away_team={team.away_team} 
+					league={team.league}
+					score={team.first_half_score}
+				/>
+			)  
+		})
+
+		if (!isEmpty(teams)) {
+			const kasim = teams.filter(team => team.league.id === 81); 
+			return kasim.map(team => 
+				<MatchDetail
+					key={team.id}
+					home_team={team.home_team} 
+					away_team={team.away_team} 
+					league={team.league}
+					score={team.first_half_score}
+				/>
+			)
+		};
+		//const empire = teams.filter(pilot => pilot.faction === "Empire");
+
+
+		// teams.map(team => {
+		// 	if (team.league.id === 81) {
+		// 		return (
+		// 			<MatchDetail
+		// 				key={team.id}
+		// 				home_team={team.home_team} 
+		// 				away_team={team.away_team} 
+		// 				league={team.league}
+		// 				score={team.first_half_score}
+		// 			/>
+		// 		)
+		// 	}
+		// })
+	}
 	render() {
+		console.log(this.state);
 		return (
 			<ScrollView>
-				{this.renderMatches()}
+				{this.renderMatchesWithLeague()}
 			</ScrollView>
 		);
 	};

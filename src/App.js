@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-//import axios from 'axios';
 import { Header, Button, Spinner } from './components/common';
 import LoginForm from './components/LoginForm';
 import MatchList from './components/MatchList';
@@ -8,7 +7,7 @@ import OptionsList from './components/OptionsList';
 
 
 class App extends Component {
-	state = { info: [], loggedIn: null, loggedInForm: false, value: '' }
+	state = { info: [], loggedIn: null, loggedInForm: false, value: 'match' }
 
 	//componentWillMount() {
 		// axios.post('http://api.tahmin.io/v1/users/login/', {
@@ -26,7 +25,7 @@ class App extends Component {
 	// 	return <MatchList />
 	// }
 
-	renderLogin(v) {
+	renderLogin() {
 		if (this.state.value === 'login') {
 			return <LoginForm />;
 		} else if (this.state.value === 'match') {
@@ -37,7 +36,6 @@ class App extends Component {
 	}
 
 	render() {
-		console.log(this.state)
 		return (
 			<View>
 				<Header 
