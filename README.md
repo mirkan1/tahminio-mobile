@@ -17,3 +17,6 @@
 ## TO RUN [import fs from 'fs';] like modules 
 - node --experimental-modules ["INSERT YOUR JS FILE NAME HERE"].mjs
 - or use var [fs = require('fs')] instead
+
+## Redux
+- npm install --save reduct react-redux
