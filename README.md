@@ -19,7 +19,7 @@
 - or use var [fs = require('fs')] instead
 
 ## Redux
-- npm install --save reduct react-redux
+- npm install --save redux react-redux
 ```
  	const reducer = (state = [], action) => {
 		if (action.type === "split_string") {
