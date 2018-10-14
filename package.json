@@ -22,12 +22,22 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-promise": "^4.0.1",
-    "eslint-plugin-standard": "^4.0.0",
-    "jest": "23.6.0",
-    "metro-react-native-babel-preset": "0.48.1",
-    "react-test-renderer": "16.6.0-alpha.8af6728"
+    "eslint-plugin-standard": "^4.0.0"
   },
-  "jest": {
-    "preset": "react-native"
-  }
+  "scripts": {
+    "test": "react-native run-android"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mirkan1/tahminio-mobile.git"
+  },
+  "keywords": [
+    "tahminio"
+  ],
+  "author": "mirkan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mirkan1/tahminio-mobile/issues"
+  },
+  "homepage": "https://github.com/mirkan1/tahminio-mobile#readme"
 }

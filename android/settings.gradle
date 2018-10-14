@@ -1,3 +1,7 @@
+<<<<<<< HEAD
 rootProject.name = 'tahminioMobile'
+=======
+rootProject.name = 'tahminIoReactNative'
+>>>>>>> ddb56f666ec0a14b2e00cc5365f427aa7a796558
 
 include ':app'

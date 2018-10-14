@@ -84,7 +84,7 @@ class MatchList extends Component {
 		// 	/>
 		// );
 
-		return teams.map(team =>	// if team.lauage.id == 81 //
+		return teams.map(team =>
 			<MatchDetail
 				key={team.id}
 				home_team={team.home_team} 

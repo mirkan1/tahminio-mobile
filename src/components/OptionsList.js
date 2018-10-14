@@ -21,4 +21,8 @@ const OptionsList = () => {
   )
 }
 
+<<<<<<< HEAD
 export default OptionsList;
+=======
+export default OptionsList
+>>>>>>> ddb56f666ec0a14b2e00cc5365f427aa7a796558
