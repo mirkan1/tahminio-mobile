@@ -1,2 +1,8 @@
-react-native
-axios
+"@babel/runtime": "^7.1.2",
+"axios": "^0.18.0",
+"lodash": "^4.17.11",
+"react": "16.6.0-alpha.8af6728",
+"react-native": "0.57.4",
+"react-redux": "^5.1.0",
+"redux": "^4.0.1",
+"redux-thunk": "^2.3.0"
