@@ -1,7 +1,3 @@
 <resources>
-<<<<<<< HEAD
     <string name="app_name">tahminioMobile</string>
-=======
-    <string name="app_name">tahminIoReactNative</string>
->>>>>>> ddb56f666ec0a14b2e00cc5365f427aa7a796558
 </resources>

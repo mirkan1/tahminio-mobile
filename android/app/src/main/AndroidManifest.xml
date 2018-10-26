@@ -1,9 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-<<<<<<< HEAD
     package="com.tahminiomobile">
-=======
-    package="com.tahminioreactnative">
->>>>>>> ddb56f666ec0a14b2e00cc5365f427aa7a796558
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
