@@ -5,6 +5,7 @@ import { pageChanged } from '../actions';
 import LoginForm from './LoginForm';
 import Header from './Header';
 import OptionsPage from './OptionsPage';
+import MatchPage from './MatchPage';
 
 class MainPage extends Component {
   onPageChange (page) {
@@ -17,8 +18,8 @@ class MainPage extends Component {
         return <OptionsPage />
       case 'login_page':
         return <LoginForm />
-      case 'main_page':
-        return <LoginForm />      
+      case 'match_page':
+        return <MatchPage />      
     };
 
     if (this.props.page) {

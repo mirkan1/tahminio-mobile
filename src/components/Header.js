@@ -18,7 +18,7 @@ class Header extends Component {
           <Button onPress={() => this.onPageChange('options_page')}>Options</Button>
         </View>
         <View style={styles.headerStyle}>
-          <Button onPress={() => this.onPageChange('matches_page')}>tahminio</Button>
+          <Button onPress={() => this.onPageChange('match_page')}>tahminio</Button>
         </View>
         <View style={styles.loginStyle}>
           <Button onPress={() => this.onPageChange('login_page')}>
