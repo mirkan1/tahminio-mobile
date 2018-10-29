@@ -12,28 +12,30 @@ class MatchPage extends Component {
   componentWillMount() {
 		axios.get('http://api.tahmin.io/v1/matches/?format=json')
 			.then(response => {
+        console.log(response)
         this.setState({ 
           render: true,
-          teams: _.map(response.data, (key, value) => {return {...key, value}})
+          teams: _.map(response.data, (item, key) => {return {...item, key}})
         })
       })
       .catch(err => {console.log(err)})
-      
-      /*away_team: response.data.match.away_team, 
-				home_team: response.data.match.home_team,
-				league: response.data.match.league }));*/ // tek tek cekecekmisim amk xdxd
   };
 
   showData(){
-    // TODO make it much more beautiful
+    // TODO
+    // Fix key error:
+    //   VirtualizedList: missing keys for items, make sure to specify a key property 
+    //   on each item or provide a custom keyExtractor.
     // Learn FlatList better
     // val'i kullan unutma
+    // Lig'e gore sirala:
+    //   ayni ligdeki takimlar alt alta gelsinler
     if (this.state.render){
       return (
         <View>
         <FlatList
           data={this.state.teams}
-          renderItem={({ item }) => <Text>{item.away_team.name}</Text>}
+          renderItem={({ item }) => this.renderRow(item)}//<Text>{item.away_team.name}</Text>}
         />
         </View>
       )}

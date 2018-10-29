@@ -81,3 +81,6 @@ On back-end
   
 ## react-native-router-flux
 - npm install --save react-native-router-flux
+
+## How to save globally on npm
+$ npm install -g eslint

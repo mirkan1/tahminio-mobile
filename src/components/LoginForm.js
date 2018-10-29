@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native';
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { emailChanged, passwordChanged, loginUser, logoutUser } from '../actions'
+import { emailChanged, passwordChanged, loginUser, logoutUser } from '../actions';
 import { Card, CardSection, Input, Button, Spinner } from './common';
 
 class LoginForm extends Component {
@@ -32,7 +32,7 @@ class LoginForm extends Component {
   renderError() {
     if (this.props.error) {
       return (
-        <View style={{backgroundColor: 'white'}}>
+        <View style={{ backgroundColor: 'white' }}>
           <Text style={styles.errorTextStyle}>
             {this.props.error}
           </Text>
