@@ -4,6 +4,7 @@ import {
   MATCH_FETCH, 
   MATCH_CLICKED,
   MATCH_RENDER,
+  MATCH_INFO,
 } from './types';
 
 export const matchFetch = () => {
@@ -26,5 +27,12 @@ export const clickedMatch = (value) => {
 	return {
 		type: MATCH_CLICKED,
 		payload: value
+	}
+}
+
+export const getMatchInfo = (info) => {
+	return {
+		type: MATCH_INFO,
+		payload: info.match
 	}
 }

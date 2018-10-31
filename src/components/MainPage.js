@@ -14,7 +14,6 @@ class MainPage extends Component {
   };
 
   renderPage() {
-    console.log(this.props.page);
     switch (this.props.page) {
       case 'options_page':
         return <OptionsPage />
@@ -35,7 +34,10 @@ class MainPage extends Component {
         </View>
       );
     }
-    return <Text>SA</Text>
+    return (
+      <Text>This is main page</Text>
+    );
+ 
   }
   render () {
     return (

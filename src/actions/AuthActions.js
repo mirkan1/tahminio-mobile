@@ -52,7 +52,7 @@ const LoginUserSuccess = (dispatch, user) => {
 };
 
 export const logoutUser = ({ token }) => {
-  console.log("on actions", token);
+  console.log("TOKEN:", token);
   return (dispatch) => {
     dispatch({ type: LOGOUT_USER });
     axios.get('http://api.tahmin.io/v1/users/logout/',

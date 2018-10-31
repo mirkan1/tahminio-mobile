@@ -2,13 +2,19 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Text, View, FlatList } from 'react-native';
-import { matchFetch } from '../actions';
+import { matchFetch, pageChanged, getMatchInfo } from '../actions';
 import ListItem from './ListItem';
 
 
 class MatchPage extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.matchFetch();
+  };
+
+  onPageChange(page, match) {
+    this.props.pageChanged({ page }); // changes pageName
+    this.props.getMatchInfo({ match });
+
   };
 
   showData(){
@@ -30,18 +36,26 @@ class MatchPage extends Component {
           renderItem={({ item }) => this.renderRow(item)}//<Text>{item.away_team.name}</Text>}
         />
         </View>
-      )}
+    )} else {
+        return <Text>Nothing to show</Text>;
+      }
+
   }
 
+
   renderRow(match) {
-    return <ListItem match={match} />;
-  }
+    return (
+      <ListItem 
+        match={match}
+        onPress={() => this.onPageChange('match_detail', match)}
+      />
+    )
+  };
 
   render() {
     return (
       <View>
         {this.showData()}
-        <Text>Nothing to show</Text>
       </View>
     )
   }
@@ -50,4 +64,7 @@ class MatchPage extends Component {
 const mapStateTopProps = state => {
   return { render: state.team.render, match: state.team.match };
 }
-export default connect(mapStateTopProps, { matchFetch })(MatchPage);
+export default connect(mapStateTopProps, { 
+  matchFetch,
+  pageChanged,
+  getMatchInfo })(MatchPage);

@@ -9,3 +9,4 @@ export const LOGOUT_USER = 'logout_user';
 export const MATCH_FETCH = 'match_fetch';
 export const MATCH_CLICKED = 'match_clicked';
 export const MATCH_RENDER = 'match_render';
+export const MATCH_INFO = 'match_info';
