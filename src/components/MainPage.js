@@ -6,6 +6,7 @@ import LoginForm from './LoginForm';
 import Header from './Header';
 import OptionsPage from './OptionsPage';
 import MatchPage from './MatchPage';
+import MatchDetail from './MatchDetail';
 
 class MainPage extends Component {
   onPageChange (page) {
@@ -13,13 +14,16 @@ class MainPage extends Component {
   };
 
   renderPage() {
-    switch (this.props.page.pageName) {
+    console.log(this.props.page);
+    switch (this.props.page) {
       case 'options_page':
         return <OptionsPage />
       case 'login_page':
         return <LoginForm />
       case 'match_page':
-        return <MatchPage />      
+        return <MatchPage />
+      case 'match_detail':
+        return <MatchDetail />   
     };
 
     if (this.props.page) {
@@ -75,6 +79,6 @@ const styles = {
 }
 
 const mapStateTopProps = state => {
-  return { page: state.page };
+  return { page: state.page.pageName };
 }
-export default connect(mapStateTopProps, { })(MainPage);
+export default connect(mapStateTopProps, { pageChanged })(MainPage);

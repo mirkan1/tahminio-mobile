@@ -1,40 +1,32 @@
 import axios from 'axios';
-import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Text, View, FlatList } from 'react-native';
+import { matchFetch } from '../actions';
 import ListItem from './ListItem';
 
 
 class MatchPage extends Component {
-  state = { render: false, teams: null };
-
   componentWillMount() {
-		axios.get('http://api.tahmin.io/v1/matches/?format=json')
-			.then(response => {
-        console.log(response)
-        this.setState({ 
-          render: true,
-          teams: _.map(response.data, (item, key) => {return {...item, key}})
-        })
-      })
-      .catch(err => {console.log(err)})
+    this.props.matchFetch();
   };
 
   showData(){
     // TODO
     // Fix key error:
     //   VirtualizedList: missing keys for items, make sure to specify a key property 
-    //   on each item or provide a custom keyExtractor.
+    //   on each item or provibde a custom keyExtractor.
     // Learn FlatList better
     // val'i kullan unutma
     // Lig'e gore sirala:
     //   ayni ligdeki takimlar alt alta gelsinler
-    if (this.state.render){
+    const { render, match } = this.props;
+
+    if (render){
       return (
         <View>
         <FlatList
-          data={this.state.teams}
+          data={match}
           renderItem={({ item }) => this.renderRow(item)}//<Text>{item.away_team.name}</Text>}
         />
         </View>
@@ -55,4 +47,7 @@ class MatchPage extends Component {
   }
 }
 
-export default MatchPage;
+const mapStateTopProps = state => {
+  return { render: state.team.render, match: state.team.match };
+}
+export default connect(mapStateTopProps, { matchFetch })(MatchPage);

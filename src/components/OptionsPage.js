@@ -1,6 +1,7 @@
-import React from 'react'
-import { Text } from 'react-native'
-import { Card, CardSection } from './common'
+import React from 'react';
+import { Text } from 'react-native';
+import { Card, CardSection } from './common';
+import { Button } from 'react-native-elements';
 
 const OptionsPage = () => {
   return (
@@ -16,6 +17,11 @@ const OptionsPage = () => {
 
       <CardSection>
         <Text>option3</Text>
+        <Button 
+          raised
+          title='BUTTON'
+          icon={{name: 'envira', type: 'font-awesome'}}
+        />
       </CardSection>
     </Card>
   )

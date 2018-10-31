@@ -1,10 +1,15 @@
+import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { Text, TouchableWithoutFeedback, View, Image } from 'react-native';
 import { CardSection } from './common';
+import { clickedMatch } from '../actions';
 
 class ListItem extends Component {
+  // TODO
+  // find a way to render clicked page
   onRowPress() {
-    return console.log(this)
+    console.log("lol");
+    //INITIAL_STATE.pageName = 'match_detail';
   }
 
   render() {
