@@ -3,36 +3,37 @@ import _ from 'lodash';
 import { 
   MATCH_FETCH, 
   MATCH_CLICKED,
-  MATCH_RENDER,
   MATCH_INFO,
 } from './types';
 
 export const matchFetch = () => {
   return (dispatch) => {
-  	//dispatch({ type: MATCH_FETCH });
+    //dispatch({ type: MATCH_FETCH });
 
-  	axios.get('http://api.tahmin.io/v1/matches/?format=json')
-			.then(response => {
-				dispatch({
-			    type: MATCH_FETCH,
-			    payload: _.map(response.data, (item, key) => {return {...item, key}})
-			  })
+    axios.get('http://api.tahmin.io/v1/matches/?format=json')
+      .then(response => {
+        dispatch({
+          type: MATCH_FETCH,
+          payload: _.map(response.data, (item, key) => { 
+            return { ...item, key }; 
+          })
+        });
       })
-      .catch(err => {console.log(err)})
-  }
+      .catch(err => { console.log(err); });
+  };
 };
 
 
 export const clickedMatch = (value) => {
-	return {
-		type: MATCH_CLICKED,
-		payload: value
-	}
-}
+  return {
+    type: MATCH_CLICKED,
+    payload: value
+  };
+};
 
 export const getMatchInfo = (info) => {
-	return {
-		type: MATCH_INFO,
-		payload: info.match
-	}
-}
+  return {
+    type: MATCH_INFO,
+    payload: info.match
+  };
+};

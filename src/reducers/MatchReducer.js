@@ -1,5 +1,5 @@
 import { 
-	MATCH_FETCH, 
+  MATCH_FETCH, 
   MATCH_CLICKED,
   MATCH_RENDER,
   MATCH_INFO, 
@@ -15,13 +15,13 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case MATCH_FETCH:
-      return { ...state, render: true, match: action.payload};
+      return { ...state, render: true, match: action.payload };
     case MATCH_CLICKED:
-    	return { ...state, teams: action.payload};
+      return { ...state, teams: action.payload };
     case MATCH_RENDER:
-    	return;
+      return;
     case MATCH_INFO:
-    	return { ...state, currentTeams: action.payload }
+      return { ...state, currentTeams: action.payload };
     default:
       return state;
   }

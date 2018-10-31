@@ -22,13 +22,14 @@ export default (state = INITIAL_STATE, action) => {
     case PASSWORD_CHANGED:
       return { ...state, password: action.payload };
     case LOGIN_USER:
-      return {...state, loading: true, error: '' };
+      return { ...state, loading: true, error: '' };
     case LOGIN_USER_SUCCESS:
-      return { ...state, ...INITIAL_STATE, user: action.payload }; // After logged in with the help of second argument clears INITIAL_STATE 
+      // After logged in with the help of second argument clears INITIAL_STATE
+      return { ...state, ...INITIAL_STATE, user: action.payload };  
     case LOGIN_USER_FAIL:
       return { ...state, error: 'Authentication Failed.', password: '', loading: false }; 
     case LOGOUT_USER:
-      return {...state, ...INITIAL_STATE, user: null };
+      return { ...state, ...INITIAL_STATE, user: null };
     default:
       return state;
   }

@@ -1,17 +1,7 @@
-import { connect } from 'react-redux';
-import React, { Component } from 'react';
 import { Text, TouchableWithoutFeedback, View, Image } from 'react-native';
 import { CardSection } from './common';
-import { clickedMatch } from '../actions';
-/*
-class ListItem extends Component {
-  // TODO
-  // find a way to render clicked page
-  onRowPress() {
-    //INITIAL_STATE.pageName = 'match_detail';
-  }*/
 
-const ListItem = ({ match, onPress, getMatchInfo }) => {
+const ListItem = ({ match, onPress }) => {
   const { away_team, home_team } = match;
   return (
     <TouchableWithoutFeedback onPress={onPress}>
@@ -34,8 +24,8 @@ const ListItem = ({ match, onPress, getMatchInfo }) => {
         </CardSection>
       </View>
     </TouchableWithoutFeedback>
-  )
-}
+  );
+};
 
 const styles = {
   titleStyle: {

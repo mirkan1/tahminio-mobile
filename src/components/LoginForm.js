@@ -18,34 +18,11 @@ class LoginForm extends Component {
     this.props.loginUser({ email, password });
   }
 
-  renderButton() {
-    if (this.props.loading) {
-      return <Spinner size="large" />;
-    }
-    return (
-      <Button onPress={this.onButtonPress.bind(this)}>
-        Login
-      </Button>
-    );
-  }
-
-  renderError() {
-    if (this.props.error) {
-      return (
-        <View style={{ backgroundColor: 'white' }}>
-          <Text style={styles.errorTextStyle}>
-            {this.props.error}
-          </Text>
-        </View>
-      );
-    }
-  };
-
   onLogoutUser() {
     const { token } = this.props.user.data;
 
-    this.props.logoutUser({ token })
-  };
+    this.props.logoutUser({ token });
+  }
 
   userLoggedIn() {
     const { user } = this.props;
@@ -61,43 +38,68 @@ class LoginForm extends Component {
           </CardSection>
         </View>
       );
-  };
+  }
+
+  renderError() {
+    if (this.props.error) {
+      return (
+        <View style={{ backgroundColor: 'white' }}>
+          <Text style={styles.errorTextStyle}>
+            {this.props.error}
+          </Text>
+        </View>
+      );
+    }
+  }
+
+  renderButton() {
+    if (this.props.loading) {
+      return <Spinner size="large" />;
+    }
+    return (
+      <Button onPress={this.onButtonPress.bind(this)}>
+        Login
+      </Button>
+    );
+  }
 
   render() {
     if (this.props.user === null) {
-    return (
-      <Card>
-        <CardSection>
-          <Input 
-            label="Username"
-            placeholder="username123"
-            onChangeText={this.onEmailChange.bind(this)}
-            value={this.props.email}
-          />
-        </CardSection>
-
-        <CardSection>
-          <Input
-            secureTextEntry
-            label="Password"
-            placeholder="password"
-            onChangeText={this.onPasswordChange.bind(this)}
-            value={this.props.password}
-          />
-        </CardSection>
-        
-        {this.renderError()}
-
-        <CardSection>
-          {this.renderButton()}
-        </CardSection>
-      </Card>
-    )} else {
       return (
+        <Card>
+          <CardSection>
+            <Input 
+              label="Username"
+              placeholder="username123"
+              onChangeText={this.onEmailChange.bind(this)}
+              value={this.props.email}
+            />
+          </CardSection>
+
+          <CardSection>
+            <Input
+              secureTextEntry
+              label="Password"
+              placeholder="password"
+              onChangeText={this.onPasswordChange.bind(this)}
+              value={this.props.password}
+            />
+          </CardSection>
+          
+          {this.renderError()}
+
+          <CardSection>
+            {this.renderButton()}
+          </CardSection>
+        </Card>
+      );
+  }
+
+    return (
       <CardSection>
         {this.userLoggedIn()}
       </CardSection>
-    )};
+    );
   }
 }
 
@@ -107,7 +109,7 @@ const styles = {
     alignSelf: 'center',
     color: 'red'
   }
-}
+};
 const mapStateTopProps = state => {
   return {
     email: state.auth.email,
@@ -115,8 +117,8 @@ const mapStateTopProps = state => {
     error: state.auth.error,
     loading: state.auth.loading,
     user: state.auth.user,
-  }
-}
+  };
+};
 
 export default connect(mapStateTopProps, { 
   emailChanged, passwordChanged, loginUser, logoutUser

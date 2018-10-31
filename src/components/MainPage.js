@@ -9,43 +9,32 @@ import MatchPage from './MatchPage';
 import MatchDetail from './MatchDetail';
 
 class MainPage extends Component {
-  onPageChange (page) {
+  onPageChange(page) {
     this.props.pageChanged({ page });
-  };
+  }
 
   renderPage() {
     switch (this.props.page) {
       case 'options_page':
-        return <OptionsPage />
+        return <OptionsPage />;
       case 'login_page':
-        return <LoginForm />
+        return <LoginForm />;
       case 'match_page':
-        return <MatchPage />
+        return <MatchPage />;
       case 'match_detail':
-        return <MatchDetail />   
-    };
-
-    if (this.props.page) {
-      return (
-        <View style={{backgroundColor: 'white'}}>
-          <Text style={styles.errorTextStyle}>
-            {this.props.error}
-          </Text>
-        </View>
-      );
-    }
-    return (
-      <Text>This is main page</Text>
-    );
- 
+        return <MatchDetail />;
+      default:
+        return <MatchPage />;
+    } 
   }
-  render () {
+
+  render() {
     return (
       <View>
         <Header />
         {this.renderPage()}
       </View>
-    )
+    );
   }
 }
 
@@ -78,9 +67,10 @@ const styles = {
     flex: 1,
     alignItems: 'center'
   }
-}
+};
 
 const mapStateTopProps = state => {
   return { page: state.page.pageName };
-}
+};
+
 export default connect(mapStateTopProps, { pageChanged })(MainPage);

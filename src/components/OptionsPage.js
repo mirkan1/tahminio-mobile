@@ -1,7 +1,7 @@
+import { Button } from 'react-native-elements';
 import React from 'react';
 import { Text } from 'react-native';
 import { Card, CardSection } from './common';
-import { Button } from 'react-native-elements';
 
 const OptionsPage = () => {
   return (
@@ -20,11 +20,11 @@ const OptionsPage = () => {
         <Button 
           raised
           title='BUTTON'
-          icon={{name: 'envira', type: 'font-awesome'}}
+          icon={{ name: 'envira', type: 'font-awesome' }}
         />
       </CardSection>
     </Card>
-  )
-}
+  );
+};
 
 export default OptionsPage;

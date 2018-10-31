@@ -6,9 +6,9 @@ import { Button } from './common';
 
 
 class Header extends Component {
-  onPageChange (page) {
+  onPageChange(page) {
     this.props.pageChanged({ page }); // changes pageName
-  };
+  }
 
   render () {
     return (

@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Text, View, FlatList } from 'react-native';
+import { Text, View } from 'react-native';
 
 class MatchDetail extends Component {
   // TODO
   // Insert match detail here of the clicked match
-  componentDidMount() {};
+  componentDidMount() {}
 
   render() {
-    const { away_team, home_team, league } = this.props.teams
+    const { away_team, home_team, league } = this.props.teams;
     return (
       <View>
         <Text>===MATCHDETAIL PAGE===</Text>
@@ -25,11 +25,12 @@ class MatchDetail extends Component {
         <Text>SCORE: {this.props.teams.score}</Text>
         <Text>KEY: {this.props.teams.key}</Text>
       </View>
-    )
+    );
   }
 }
 
 const mapStateTopProps = state => {
   return { teams: state.team.currentTeams };
-}
+};
+
 export default connect(mapStateTopProps, {})(MatchDetail);
