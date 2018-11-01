@@ -83,4 +83,4 @@ export const loginUser = ({ email, password }) => {
 - npm install --save react-native-router-flux
 
 ## How to save globally on npm
-$ npm install -g eslint
+- npm install -g eslint
