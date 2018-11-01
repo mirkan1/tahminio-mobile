@@ -21,25 +21,25 @@
 ## Redux
 - npm install --save redux react-redux
 ```
- 	const reducer = (state = [], action) => {
-		if (action.type === "split_string") {
-			return action.payload.split('');
-		}
-			return state;
-	};
-
-	const store = Redux.createStore(reducer);
-
-	store.getState(); // output = []
-
-	const action = {
-		type: "split_string"
-		payload: 'something'	// payload is object that we want it to be actioned
+const reducer = (state = [], action) => {
+	if (action.type === "split_string") {
+		return action.payload.split('');
 	}
+		return state;
+};
 
-	store.dispatch(action);
+const store = Redux.createStore(reducer);
 
-	store.getState();
+store.getState(); // output = []
+
+const action = {
+	type: "split_string"
+	payload: 'something'	// payload is object that we want it to be actioned
+}
+
+store.dispatch(action);
+
+store.getState();
 ```
 
 ## react-thunk:
