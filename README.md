@@ -65,16 +65,16 @@ render() {
 
 On back-end
 ```
-		export const loginUser = ({ email, password }) => {
-      return (dispatch) => {
-        dispatch({ type: LOGIN_USER });
+export const loginUser = ({ email, password }) => {
+  return (dispatch) => {
+    dispatch({ type: LOGIN_USER });
 
-        firebase.auth().signInWithEmailAndPassword(email, password)
-          .then(user => LoginUserSuccess(dispatch, user))         
-          // dispatch it first argument becuase it tells the funtion to wait until process is complete
-          .catch((error) => {console.log(error)});
-      };
-    };
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then(user => LoginUserSuccess(dispatch, user))         
+      // dispatch it first argument becuase it tells the funtion to wait until process is complete
+      .catch((error) => {console.log(error)});
+  };
+};
 ```
 - dispatch is async way of redux-thunk
 - After action creator called and returned a function, Redux-thunk sees that we return a function, calls it with 'dispatch', and waits until request is complete then runs it then Dispatch the action
