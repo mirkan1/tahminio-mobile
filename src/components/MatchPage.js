@@ -26,6 +26,10 @@ class MatchPage extends Component {
     // val'i kullan unutma
     // Lig'e gore sirala:
     //   ayni ligdeki takimlar alt alta gelsinler
+    
+    // const league = [];
+    // for (const i of "DATAYI_GIR") { league.includes(i.league.name) ? {} : league = league.concat(i.league.name) };
+    
     const { render, match } = this.props;
 
     if (render) {

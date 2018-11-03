@@ -1,3 +1,4 @@
+import React, { Component } from 'react';
 import { Text, TouchableWithoutFeedback, View, Image } from 'react-native';
 import { CardSection } from './common';
 
