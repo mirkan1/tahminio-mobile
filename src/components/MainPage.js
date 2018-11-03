@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Text, View } from 'react-native';
+import { Text, View, BackHandler } from 'react-native';
 import { pageChanged } from '../actions';
 import LoginForm from './LoginForm';
 import Header from './Header';
@@ -9,12 +9,39 @@ import MatchPage from './MatchPage';
 import MatchDetail from './MatchDetail';
 
 class MainPage extends Component {
+  state = { count: 0 };
+
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
+  }
+
+  handleBackPress = () => {
+    // Looks work fine but might need some tests later
+    
+    const { previosPage, pageName } = this.props.pages;
+
+    if (previousPage !== '') {
+      this.onPageChange(this.props.pages.previousPage);
+      return true;
+    } else if (this.state.count === 0 && pageName !== 'match_page') {
+        this.onPageChange(this.props.pages.previousPage);
+        this.setState({ count: 1 });
+        return true;
+    } else {
+        this.setState({ count: 0 });
+    }
+  }
+
   onPageChange(page) {
     this.props.pageChanged({ page });
   }
 
   renderPage() {
-    switch (this.props.page) {
+    switch (this.props.pages.pageName) {
       case 'options_page':
         return <OptionsPage />;
       case 'login_page':
@@ -25,10 +52,11 @@ class MainPage extends Component {
         return <MatchDetail />;
       default:
         return <MatchPage />;
-    } 
+    }
   }
 
   render() {
+    console.log(this.props.pages)
     return (
       <View>
         <Header />
@@ -70,7 +98,7 @@ const styles = {
 };
 
 const mapStateTopProps = state => {
-  return { page: state.page.pageName };
+  return { pages: state.page };
 };
 
 export default connect(mapStateTopProps, { pageChanged })(MainPage);
