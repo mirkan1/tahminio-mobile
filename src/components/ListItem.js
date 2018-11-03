@@ -9,17 +9,17 @@ const ListItem = ({ match, onPress }) => {
       <View>
         <CardSection>
           <Image
-            source={{ uri: away_team.logo }}
+            source={{ uri: home_team.logo }}
             style={styles.thumbnailStyle}
           />
           <Text style={styles.titleStyle}>
-            {away_team.name}
-          </Text>
-          <Text style={styles.titleStyle}>
             {home_team.name}
           </Text>
+          <Text style={styles.titleStyle}>
+            {away_team.name}
+          </Text>
           <Image
-            source={{ uri: home_team.logo }}
+            source={{ uri: away_team.logo }}
             style={styles.thumbnailStyle}
           />
         </CardSection>

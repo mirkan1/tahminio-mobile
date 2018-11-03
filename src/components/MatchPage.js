@@ -19,9 +19,6 @@ class MatchPage extends Component {
 
   showData() {
     // TODO
-    // Fix key error:
-    //   VirtualizedList: missing keys for items, make sure to specify a key property 
-    //   on each item or provide a custom keyExtractor.
     // Learn FlatList better
     // val'i kullan unutma
     // Lig'e gore sirala:
@@ -38,6 +35,7 @@ class MatchPage extends Component {
           <FlatList
             data={match}
             renderItem={({ item }) => this.renderRow(item)}
+            keyExtractor={(item, index) => index.toString()}
           />
         </View>
       );
