@@ -85,5 +85,6 @@ export const loginUser = ({ email, password }) => {
 ## How to save globally on npm
 - npm install -g eslint
 
-##  react-native-elements https://react-native-training.github.io/react-native-elements/
+##  react-native-elements
 - Quality elements for react-native projects
+- https://react-native-training.github.io/react-native-elements/docs/0.19.1/getting_started.html
