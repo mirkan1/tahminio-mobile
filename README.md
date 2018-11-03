@@ -1,4 +1,4 @@
-# tahminioRN
+# tahminio-mobile
 - Mobile view for tahmin.io
 
 ## TO INSTALL REQUIREMENTS (I guess)
