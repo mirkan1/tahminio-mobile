@@ -20,15 +20,14 @@ class MainPage extends Component {
   }
 
   handleBackPress = () => {
-    // Looks work fine but might need some tests later
-    
-    const { previosPage, pageName } = this.props.pages;
+    // TODO a lil bug in here fix it later
+    const { previousPage, pageName } = this.props.pages;
 
     if (previousPage !== '') {
-      this.onPageChange(this.props.pages.previousPage);
+      this.onPageChange(previousPage);
       return true;
     } else if (this.state.count === 0 && pageName !== 'match_page') {
-        this.onPageChange(this.props.pages.previousPage);
+        this.onPageChange(previousPage);
         this.setState({ count: 1 });
         return true;
     } else {
@@ -56,7 +55,6 @@ class MainPage extends Component {
   }
 
   render() {
-    console.log(this.props.pages)
     return (
       <View>
         <Header />
