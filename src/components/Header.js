@@ -12,7 +12,6 @@ class Header extends Component {
   }
 
   render () {
-    console.log(this.props.teams)
     return (
       <View style={styles.viewStyle}>
         <View style={styles.optionsStyle}>
