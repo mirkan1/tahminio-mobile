@@ -18,8 +18,6 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, render: true, match: action.payload };
     case MATCH_CLICKED:
       return { ...state, teams: action.payload };
-    case MATCH_RENDER:
-      return;
     case MATCH_INFO:
       return { ...state, currentTeams: action.payload };
     default:

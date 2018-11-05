@@ -1,20 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View } from 'react-native';
-import { pageChanged } from '../actions';
+import { View, BackHandler } from 'react-native';
+import { pageChanged, getMatchInfo } from '../actions';
 import { Button } from './common';
 
 
 class Header extends Component {
   onPageChange(page) {
     this.props.pageChanged({ page }); // changes pageName
+    this.props.getMatchInfo({ match: null });
   }
 
   render () {
+    console.log(this.props.teams)
     return (
       <View style={styles.viewStyle}>
         <View style={styles.optionsStyle}>
-          <Button onPress={() => this.onPageChange('options_page')}>Options</Button>
+          <Button 
+            onPress={() => {this.props.teams === null ? this.onPageChange('options_page') : this.onPageChange('match_page')}}
+          >
+            {this.props.teams === null ? "Options" : "<"}
+          </Button>
         </View>
         <View style={styles.headerStyle}>
           <Button onPress={() => this.onPageChange('match_page')}>tahminio</Button>
@@ -63,7 +69,8 @@ const styles = {
 const mapStateTopProps = state => {
   return { 
     page: state.page.pageName,
-    user: state.auth.user
+    user: state.auth.user,
+    teams: state.team.currentTeams
   };
 }
-export default connect(mapStateTopProps, { pageChanged })(Header);
+export default connect(mapStateTopProps, { pageChanged, getMatchInfo })(Header);

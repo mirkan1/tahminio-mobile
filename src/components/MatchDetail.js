@@ -4,6 +4,31 @@ import { Text, View, Image } from 'react-native';
 import { Card } from 'react-native-paper';
 import { ButtonGroup, Divider } from 'react-native-elements';
 
+const MatchCard = ({ home_team, away_team, first_half_score, score }) => {
+  return (
+    <View style={styles.matchCardStyle}>
+          <View style={{ flex: 1, }}>
+            <Image
+              source={{ uri: home_team.logo }}
+              style={styles.thumbnailStyle}
+            />
+          </View>
+          <View style={{ justifyContent: 'center', alignItems: 'center', paddingTop: 25, flex:2, }}>
+            <Text style={{ fontWeight: 'bold', textAlign: 'center', }}>
+              {home_team.name} {first_half_score}|{score} {away_team.name}
+            </Text>
+          </View>
+          <View style={{ flex: 1, }}>
+            <Image
+              source={{ uri: away_team.logo }}
+              style={styles.thumbnailStyle}
+            />
+          </View>
+    </View>
+  );
+};
+
+
 class MatchDetail extends Component {
   // TODO
   // Insert style
@@ -19,37 +44,29 @@ class MatchDetail extends Component {
     const buttons = ['One', 'Two', 'Three'];
 
     return (
-      <View style={{ backgroundColor: '#FF0090' }}>
+      <View style={{ backgroundColor: '#fff'}}>
         <Text style={styles.paragraph}>
           {league.name}
         </Text>
-        <View style={{ margin: 15, padding: 10, flexDirection: 'row', backgroundColor: '#fff' }}>
-          <View style={{ flex: 1, }}>
-            <Image
-              source={{ uri: home_team.logo }}
-              style={styles.thumbnailStyle}
-            />
-          </View>
-          <View style={{ justifyContent: 'center', alignItems: 'center', paddingTop: 25, flex:2, }}>
-            <Text style={{ fontWeight: 'bold', }}>
-              {home_team.name} {first_half_score}|{score} {away_team.name}
-            </Text>
-          </View>
-          <View style={{ flex: 1, }}>
-            <Image
-              source={{ uri: away_team.logo }}
-              style={styles.thumbnailStyle}
-            />
-          </View>
-        </View>
+        
+        <Divider style={{ backgroundColor: 'black' }} />
+
+        <MatchCard 
+          home_team={home_team} 
+          away_team={away_team} 
+          first_half_score={first_half_score} 
+          score={score} 
+        />
+        <View style={{ flex: 2, backgroundColor: '#123', marginTop: 125 }}>
           <ButtonGroup
             onPress={() => console.log('pressed')}
             selectedIndex={1}
             buttons={buttons}
             containerStyle={{height: 40 }}
           />
+
           <Divider style={{ backgroundColor: 'black' }} />
-        <View style={{ flex: 2, backgroundColor: '#123' }}>
+          
           <Card>
             <Text>HANDICAP: {handicap}</Text>
             <Text>IDDAA_CODE: {iddaa_code}</Text>
@@ -73,7 +90,6 @@ const styles = {
     padding: 8,
   },
   paragraph: {
-    margin: 24,
     fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
@@ -82,6 +98,17 @@ const styles = {
     height: 80,
     width: 80,
   },
+  matchCardStyle: {
+    margin: 15, 
+    padding: 10, 
+    flexDirection: 'row', 
+    backgroundColor: '#fff', 
+    position: 'absolute', 
+    marginTop: 50, 
+    borderRadius: 4, 
+    borderWidth: 0.5, 
+    borderColor: 'black'
+  }
 };
 
 const mapStateTopProps = state => {
@@ -89,44 +116,3 @@ const mapStateTopProps = state => {
 };
 
 export default connect(mapStateTopProps, {})(MatchDetail);
-
-/*
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.paragraph}>
-          Change code in the editor and watch it change on your phone! Save to get a shareable url.
-        </Text>
-        <Card style={{ margin: 15, padding: 8 }}>
-          <Text style={{ paddingLeft: 70, fontWeight: 'bold' }}>
-            Arsenal 1-2 Kasimpasa
-          </Text>
-        </Card>
-        <View style={{ flex: 2,backgroundColor: '#123', paddingTop: 20}}>
-          <Card>
-            <Text>VIEW2</Text>
-          </Card>
-        </View>
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#ecf0f1',
-    padding: 8,
-  },
-  paragraph: {
-    margin: 24,
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-});
-
-*/
