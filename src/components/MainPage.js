@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Text, View, BackHandler } from 'react-native';
+import { Button } from 'react-native-elements';
 import { pageChanged } from '../actions';
 import LoginForm from './LoginForm';
 import Header from './Header';
@@ -8,8 +9,30 @@ import OptionsPage from './OptionsPage';
 import MatchPage from './MatchPage';
 import MatchDetail from './MatchDetail';
 
+
+const ToggleBar = ({ pressStatus }) => {
+  // TODO 
+  // adjust it; make it show when click opotions bar, should be beautiful and animated 
+  // Animated blabbla use it
+  return (
+    <View
+      style={
+        pressStatus
+        ? styles.nonMainStyle
+        : null
+      }
+    >
+      <Text>{pressStatus ? "11111111111" : null}</Text>
+      <Text>{pressStatus ? "22222222222" : null}</Text>
+      <Text>{pressStatus ? "33333333333" : null}</Text>
+      <Text>{pressStatus ? "44444444444" : null}</Text>
+      <Text>{pressStatus ? "55555555555" : null}</Text>
+    </View>
+  );
+};
+
 class MainPage extends Component {
-  state = { count: 0 };
+  state = { pressStatus: false };
 
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
@@ -50,7 +73,7 @@ class MainPage extends Component {
       case 'match_detail':
         return <MatchDetail />;
       default:
-        return <MatchPage />;
+        return <LoginForm />;
     }
   }
 
@@ -58,40 +81,25 @@ class MainPage extends Component {
     return (
       <View>
         <Header />
+        <Button onPress={() => this.setState({ pressStatus: !this.state.pressStatus })} />
         {this.renderPage()}
+        <ToggleBar pressStatus={this.state.pressStatus}/>
       </View>
     );
   }
 }
 
 const styles = {
-  viewStyle: {
-    flexDirection: 'row',
-    backgroundColor: '#F8F8F8',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 60,
-    paddingTop: 15,
-    shadowColor: 'black',
-    shadowOffset: { width: 0, height: 2 },
+  nonMainStyle: {
+    width: 225,
+    height: 600,
+    position: 'absolute',
+    shadowColor: '#000',
+    backgroundColor: 'red',
+    opacity: 0.8,
     shadowOpacity: 0.2,
-    elevation: 2,
-    position: 'relative'
-  },
-  textStyle: {
-    fontSize: 20
-  },
-  optionsStyle: {
-    flex: 1,
-    alignItems: 'center'
-  },
-  headerStyle: {
-    flex: 2,
-    alignItems: 'center'
-  },
-  loginStyle: {
-    flex: 1,
-    alignItems: 'center'
+    shadowOffset: { height: 1 },
+    transform: [{'translate': [0,0, 1]}]
   }
 };
 

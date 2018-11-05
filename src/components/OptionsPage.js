@@ -1,12 +1,12 @@
 import { Button } from 'react-native-elements';
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 import { Card, CardSection } from './common';
 
 const OptionsPage = () => {
   return (
     <Card>
-      <Text style={{ fontSize: 18 }}>OPTIONS</Text>
+      <Text style={{ fontSize: 18}}>OPTIONS</Text>
       <CardSection>
         <Text>option1</Text>
       </CardSection>
@@ -26,5 +26,6 @@ const OptionsPage = () => {
     </Card>
   );
 };
+
 
 export default OptionsPage;
