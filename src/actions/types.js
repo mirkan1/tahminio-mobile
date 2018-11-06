@@ -10,3 +10,7 @@ export const MATCH_FETCH = 'match_fetch';
 export const MATCH_CLICKED = 'match_clicked';
 export const MATCH_RENDER = 'match_render';
 export const MATCH_INFO = 'match_info';
+
+export const SEARCH_USER = 'search_user';
+export const SEARCH_WORD_CHANGED = 'search_word_changed';
+export const SEARCH_SUCCESS = 'search_success';

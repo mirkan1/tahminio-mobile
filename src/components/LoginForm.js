@@ -1,8 +1,16 @@
-import { View, Text } from 'react-native';
+import { View, Text, FlatList } from 'react-native';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { emailChanged, passwordChanged, loginUser, logoutUser } from '../actions';
+import { 
+  emailChanged,
+  passwordChanged,
+  loginUser,
+  logoutUser,
+  searchWordChanged,
+  searchUser
+} from '../actions';
 import { Card, CardSection, Input, Button, Spinner } from './common';
+import ListItem from './ListItem';
 
 class LoginForm extends Component {
   onEmailChange(text) {
@@ -24,6 +32,16 @@ class LoginForm extends Component {
     this.props.logoutUser({ token });
   }
 
+  onSearchWordChange(text) {
+    this.props.searchWordChanged(text);
+  }
+
+  onSearchButtonPress() {
+    const { searchWord } = this.props;
+    const { token } = this.props.user.data;
+    this.props.searchUser(token, searchWord);
+  }
+
   userLoggedIn() {
     const { user } = this.props;
       return (
@@ -36,8 +54,62 @@ class LoginForm extends Component {
           <CardSection>
             <Button onPress={this.onLogoutUser.bind(this)}>Logout</Button>
           </CardSection>
+
+          <CardSection>
+            <Input 
+              label="Search"
+              placeholder="search"
+              onChangeText={this.onSearchWordChange.bind(this)}
+              value={this.props.search}
+            />
+          </CardSection>
+          <CardSection>
+            <Button onPress={this.onSearchButtonPress.bind(this)}>
+              Search
+            </Button>  
+          </CardSection>   
         </View>
       );
+  }
+
+  searchDataFetched() {
+    const { searchedData } = this.props;
+
+    if (searchedData) {
+      return (
+        <View>
+          <FlatList
+            data={searchedData}
+            renderItem={({ item }) => this.renderRow(item)}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        </View>
+      );
+    }
+    return <Spinner size="large" />;
+  }
+
+  renderRow(user) {
+    // TODO
+    // make it beautiful
+    // maybe carry it to another spesific file named Search Results
+    return (
+      <CardSection>
+        <Card>
+          <Text>{user.id}</Text>
+        </Card>
+        <Card>
+          <Text>{user.username}</Text>
+        </Card>
+        <Card>
+          <Text>{user.profile_photo}</Text>
+        </Card>
+        <Card>
+          <Text>{user.skill_point}</Text>
+        </Card>
+      </
+      CardSection>
+    );
   }
 
   renderError() {
@@ -64,6 +136,7 @@ class LoginForm extends Component {
   }
 
   render() {
+    //console.log(this.props.searchedData)
     if (this.props.user === null) {
       return (
         <Card>
@@ -96,9 +169,15 @@ class LoginForm extends Component {
   }
 
     return (
-      <CardSection>
-        {this.userLoggedIn()}
-      </CardSection>
+      <View>
+        <CardSection>
+          {this.userLoggedIn()}
+        </CardSection>
+
+        <CardSection>
+          {this.searchDataFetched()}
+        </CardSection>
+      </View>
     );
   }
 }
@@ -117,9 +196,12 @@ const mapStateTopProps = state => {
     error: state.auth.error,
     loading: state.auth.loading,
     user: state.auth.user,
+    // import here onchange on click and stuff for search
+    searchWord: state.search.searchWord,
+    searchedData: state.search.searchedData,
   };
 };
 
 export default connect(mapStateTopProps, { 
-  emailChanged, passwordChanged, loginUser, logoutUser
+  emailChanged, passwordChanged, loginUser, logoutUser, searchUser, searchWordChanged
 })(LoginForm);

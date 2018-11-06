@@ -47,9 +47,12 @@ class MainPage extends Component {
     const { previousPage, pageName } = this.props.pages;
 
     if (previousPage !== '') {
+      // if clicked back button first time and already rendered on a page before
       this.onPageChange(previousPage);
       return true;
     } else if (this.state.count === 0 && pageName !== 'match_page') {
+        // If clicked back once and the page that user tries to go back is not MatchPage
+        // gives count to +1 and go to previous page. Most probably to MainPage
         this.onPageChange(previousPage);
         this.setState({ count: 1 });
         return true;
@@ -104,7 +107,9 @@ const styles = {
 };
 
 const mapStateTopProps = state => {
-  return { pages: state.page };
+  return { 
+    pages: state.page,
+  };
 };
 
 export default connect(mapStateTopProps, { pageChanged })(MainPage);
