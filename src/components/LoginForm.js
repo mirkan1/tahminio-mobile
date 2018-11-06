@@ -33,10 +33,12 @@ class LoginForm extends Component {
   }
 
   onSearchWordChange(text) {
+    //
     this.props.searchWordChanged(text);
   }
 
   onSearchButtonPress() {
+    //
     const { searchWord } = this.props;
     const { token } = this.props.user.data;
     this.props.searchUser(token, searchWord);
@@ -73,6 +75,7 @@ class LoginForm extends Component {
   }
 
   searchDataFetched() {
+    //
     const { searchedData } = this.props;
 
     if (searchedData) {
@@ -90,6 +93,7 @@ class LoginForm extends Component {
   }
 
   renderRow(user) {
+    //
     // TODO
     // make it beautiful
     // maybe carry it to another spesific file named Search Results
@@ -107,8 +111,7 @@ class LoginForm extends Component {
         <Card>
           <Text>{user.skill_point}</Text>
         </Card>
-      </
-      CardSection>
+      </CardSection>
     );
   }
 
