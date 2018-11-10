@@ -20,7 +20,7 @@
 
 ## Redux
 - npm install --save redux react-redux
-```
+```js
 const reducer = (state = [], action) => {
 if (action.type === "split_string") {
   return action.payload.split('');
@@ -47,7 +47,7 @@ store.getState();
 -	npm install --save redux-thunk
 
 On front-end
-```
+```js
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import reducers from './reducers';
@@ -64,7 +64,7 @@ render() {
 ```
 
 On back-end
-```
+```js
 export const loginUser = ({ email, password }) => {
   return (dispatch) => {
     dispatch({ type: LOGIN_USER });
@@ -92,7 +92,7 @@ export const loginUser = ({ email, password }) => {
 ## react-native-router-flux
 - A beautiful and easy header component that a good guy named Aksonov made to make our life easies. God bless him
 - https://github.com/aksonov/react-native-router-flux
-```
+```js
 <Router sceneStyle={{ paddingTop: 65 }}>
   <Scene key="root">
     <Scene key="login" component={LoginForm} title="Please Login" />
