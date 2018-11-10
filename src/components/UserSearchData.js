@@ -54,20 +54,23 @@ class UserSearchData extends Component {
     // make it beautiful
     // maybe carry it to another spesific file named Search Results
     return (
-      <CardSection>
-        <Card>
+      <Card>
+        <CardSection>
           <Text>{user.id}</Text>
-        </Card>
-        <Card>
+        </CardSection>
+
+        <CardSection>
           <Text>{user.username}</Text>
-        </Card>
-        <Card>
+        </CardSection>
+        
+        <CardSection>
           <Text>{user.profile_photo}</Text>
-        </Card>
-        <Card>
+        </CardSection>
+        
+        <CardSection>
           <Text>{user.skill_point}</Text>
-        </Card>
-      </CardSection>
+        </CardSection>
+      </Card>
     );
   };
 

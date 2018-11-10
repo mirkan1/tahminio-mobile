@@ -13,15 +13,6 @@ import {
 } from '../actions';
 import { Card, CardSection, Input, Button, Spinner } from './common';
 
-// TODO
-// onUsernameChange
-// onEmailChange
-// onFirstnameChange
-// onLastnameChange
-// oneBioChange
-// userSignedIn
-// userSignUp
-
 class SignUp extends Component {
   onUsernameChange(text) {
     this.props.usernameChanged(text);

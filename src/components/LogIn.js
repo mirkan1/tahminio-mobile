@@ -48,7 +48,6 @@ class LoginForm extends Component {
           <CardSection>
             <Button onPress={this.onLogoutUser.bind(this)}>Logout</Button>
           </CardSection>
-
         </View>
       );
   }
@@ -76,23 +75,9 @@ class LoginForm extends Component {
     );
   }
 
-  signUpButton() {
-    if (this.state.formStatus === 'signUp') {
-      return <SignUp />;
-    }
-    return (
-      <CardSection>
-        <Button onPress={() => this.setState({ formStatus: 'signUp' })}>
-          Sign Up
-        </Button>
-      </CardSection>
-    );
-  }
-
   render() {
     if (this.props.user === null) {
       return (
-        <View>
         <Card>
           <CardSection>
             <Input 
@@ -119,11 +104,6 @@ class LoginForm extends Component {
             {this.renderButton()}
           </CardSection>
         </Card>
-          <Text>or</Text>
-
-          {this.signUpButton()}
-
-        </View>
       );
   }
 
