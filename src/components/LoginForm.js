@@ -12,9 +12,12 @@ import ListItem from './ListItem';
 import UserSearchData from './UserSearchData';
 import SignUp from './SignUp';
 
-
+// TODO
+// make separate files; Login.js and SingUp.js
 
 class LoginForm extends Component {
+  state = { status: 'login' };
+
   onUsernameChange(text) {
     this.props.usernameChanged(text);
   }
@@ -102,9 +105,11 @@ class LoginForm extends Component {
           <CardSection>
             {this.renderButton()}
           </CardSection>
-
         </Card>
-        <SignUp />
+          <Text>or</Text>
+        <CardSection>
+          <SignUp />
+        </CardSection>
         </View>
       );
   }

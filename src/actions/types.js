@@ -7,7 +7,6 @@ export const BIO_CHANGED = 'bio_changed';
 
 export const LOGIN_USER_SUCCESS = 'login_user_success';
 export const LOGIN_USER_FAIL = 'login_user_fail';
-export const USER_LOGIN = 'user_login';
 export const PAGE_CHANGED = 'page_changed';
 export const LOGOUT_USER = 'logout_user';
 
@@ -21,6 +20,8 @@ export const SEARCH_WORD_CHANGED = 'search_word_changed';
 export const SEARCH_SUCCESS = 'search_success';
 
 // UserActions
+export const USER_LOGIN = 'user_login';	// DONE
+export const USER_SIGN_UP = 'user_sign_up';	// DONE
 export const USER_GET_ME = 'user_get_me';
 export const USER_DELETE_ME = 'user_delete_me';
 export const USER_UPDATE_ME = 'user_update_me';
@@ -39,7 +40,6 @@ export const GET_USER_TROPHY_PROGRESS = 'get_user_trophy_progress';
 export const GET_USER_FEED = 'get_user_feed';
 
 // ForumActions
-export const USER_SIGN_UP = 'user_sign_up';
 //export const MATCH_FETCH = 'match_fetch';
 export const MAKE_PREDICTION = 'make_prediction';
 export const GET_PREDICTION_LIST = 'get_prediction_list';
