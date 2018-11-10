@@ -45,7 +45,7 @@ export const getListPrediction = ({ match_id }) => {
 	// `NOTE: If you want to get list of matches of another day, send a request like this: /v1/users/matches/?date=20-04-2018`
 
 	return (dispatch) => {
-    dispatch({ type: PREDICTION_LIST });
+    dispatch({ type: GET_PREDICTION_LIST });
 
     axios.get(`http://api.tahmin.io/v1/matches/${match_id}/predictions/`)
 			.then(() => {

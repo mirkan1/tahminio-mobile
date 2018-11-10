@@ -1,37 +1,126 @@
 import axios from 'axios';
-import _ from 'lodash';
 import { 
+  USERNAME_CHANGED,
+  EMAIL_CHANGED,
+  PASSWORD_CHANGED, 
+  FIRST_NAME_CHANGED,
+  LAST_NAME_CHANGED,
+  BIO_CHANGED,
+  LOGIN_USER_SUCCESS, 
+  LOGIN_USER_FAIL,
+  USER_LOGIN,
+  LOGOUT_USER,
+  USER_SIGN_UP
 } from './types';
 
-export const userSignUp = ({ username, passpord, email, first_name=null, last_name=null, bio=null }) => {
+export const usernameChanged = (text) => {
+  return {
+    type: USERNAME_CHANGED,
+    payload: text
+  };
+};
+
+export const emailChanged = (text) => {
+  return {
+    type: EMAIL_CHANGED,
+    payload: text
+  };
+};
+
+export const passwordChanged = (text) => {
+  return {
+    type: PASSWORD_CHANGED,
+    payload: text
+  };
+};
+
+export const firstnameChanged = (text) => {
+  return {
+    type: FIRST_NAME_CHANGED,
+    payload: text
+  };
+};
+
+export const lastnameChanged = (text) => {
+  return {
+    type: LAST_NAME_CHANGED,
+    payload: text
+  };
+};
+
+export const bioChanged = (text) => {
+  return {
+    type: BIO_CHANGED,
+    payload: text
+  };
+};
+
+export const logoutUser = ({ token }) => {
+  console.log('TOKEN:', token);
+  return (dispatch) => {
+    dispatch({ type: LOGOUT_USER });
+    axios.get('http://api.tahmin.io/v1/users/logout/',
+      { headers: { Authorization: `Token ${token}` } })
+      .then(response => console.log('tokenla logged in', response))
+      .catch(error => console.log(error.response));
+      // GIVES ERROR
+      // Error: Request failed with status code 500
+      /* {
+        LoginUserSuccess(dispatch, user)
+      })
+      .catch(() => LoginUserFail(dispatch)); */
+  };
+};
+
+
+export const userSignUp = ({ username, password, email, first_name, last_name, bio }) => {
   // Description: Creates a new user with given data
   // Endpoint `POST /v1/users/signup/`
   return (dispatch) => {
     dispatch({ type: USER_SIGN_UP });
 
-    axios.post(`http://api.tahmin.io/v1/users/signup/`, { 
-      headers: 
-      { 
-        "username": username,
-        "password": password,
-        "email": email,
-        "first_name": first_name,
-        "last_name": last_name,
-        "bio": bio
-      }
+    axios.post(`http://api.tahmin.io/v1/users/signup/`, {
+        username: username,
+        password: password,
+        email: email,
+        first_name: first_name,
+        last_name: last_name,
+        bio: bio
     })
       .then(user => {
-        console.log(user)
-        // render to the user profile page
+        LoginUserSuccess(dispatch, user);
       })
-      .catch(
-        // return to the same page with and error
-        error => console.log(error));
+      .catch(() => LoginUserFail(dispatch));
   };
 };
 
-export const userLogin = () => {
-  // Already done in .AuthActions.js
+export const userLogin = ({ username, password }) => {
+  console.log(username, password);
+  return (dispatch) => {
+    dispatch({ type: USER_LOGIN });
+
+    axios.post('http://api.tahmin.io/v1/users/login/', {
+      username: username,
+      password: password
+    })
+      .then(user => {
+        LoginUserSuccess(dispatch, user);
+      })
+      .catch(() => LoginUserFail(dispatch));
+  };
+};
+
+const LoginUserFail = (dispatch) => {
+  dispatch({ type: LOGIN_USER_FAIL });
+};
+
+const LoginUserSuccess = (dispatch, user) => {
+  // TODO sometimes gives unexpected login error
+  dispatch({
+    type: LOGIN_USER_SUCCESS,
+    payload: user
+  });
+  //Actions.main();   // MAGIC AQU
 };
 
 export const userGetMe = ({ token }) => {
@@ -79,12 +168,12 @@ export const userUpdateMe = ({ username, passport, email, first_name=null, last_
   // Endpoint `PATCH /v1/users/me/`
   // Response: 200 and UserMe object
   return (dispatch) => {
-    dispatch({ type: USER_SIGN_UP });
+    dispatch({ type: USER_UPDATE_ME });
 
     axios.patch(`http://api.tahmin.io/v1/users/me/`, { 
       headers: 
       { 
-        Authorization: `Token ${token}`
+        Authorization: `Token ${token}`,
         "username": username,
         "password": password,
         "email": email,
@@ -203,7 +292,7 @@ export const userVerify = ({ verification_key }) => {
   return (dispatch) => {
     dispatch({ type: USER_VERIFY });
 
-    axios.get(`http://api.tahmin.io/v1/users/activate/?key=:${verification_key}`
+    axios.get(`http://api.tahmin.io/v1/users/activate/?key=:${verification_key}`)
       .then(() => {
         // render to the user profile
       })

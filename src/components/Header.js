@@ -68,7 +68,7 @@ const styles = {
 const mapStateTopProps = state => {
   return { 
     page: state.page.pageName,
-    user: state.auth.user,
+    user: state.user.user,
     teams: state.team.currentTeams
   };
 }

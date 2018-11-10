@@ -94,9 +94,9 @@ class UserSearchData extends Component {
 
 const mapStateTopProps = state => {
   return {
-    error: state.auth.error,
-    loading: state.auth.loading,
-    user: state.auth.user,
+    error: state.user.error,
+    loading: state.user.loading,
+    user: state.user.user,
     // import here onchange on click and stuff for search
     searchWord: state.search.searchWord,
     searchedData: state.search.searchedData,
