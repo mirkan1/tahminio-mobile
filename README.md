@@ -42,7 +42,7 @@ store.dispatch(action);
 store.getState();
 ```
 
-## react-thunk:
+## redux-thunk:
 -	asyncranic function programming for help
 -	npm install --save redux-thunk
 
