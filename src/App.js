@@ -2,7 +2,7 @@ import { createStore, applyMiddleware } from 'redux';
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
-import { Text, View } from 'react-native';
+import {  View } from 'react-native';
 import reducers from './reducers';
 import MainPage from './components/MainPage';
 import Router from './Router';
@@ -29,13 +29,11 @@ const ToggleBar = ({ pressStatus }) => {
 };
 
 class App extends Component {
-  state = { pressStatus: false };
-
   render () {
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
     return (
-  		<Provider store={store} pressStatus={() => this.setState({ pressStatus: !this.state.pressStatus })}>
-        <Router />
+  		<Provider store={store}>
+  			<MainPage />
       </Provider>
     );
   }

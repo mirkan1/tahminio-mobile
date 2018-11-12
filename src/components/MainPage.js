@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Text, View, BackHandler } from 'react-native';
-import { Button } from 'react-native-elements';
+import { View, BackHandler } from 'react-native';
+//import { Button } from 'react-native-elements';
+import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
 import { pageChanged } from '../actions';
 import LoginForm from './LoginForm';
-import Header from './Header';
+//import Header from './Header';
 import OptionsPage from './OptionsPage';
 import MatchPage from './MatchPage';
 import MatchDetail from './MatchDetail';
@@ -76,18 +77,52 @@ class MainPage extends Component {
       case 'match_detail':
         return <MatchDetail />;
       default:
-        return <LoginForm />;
+        return <MatchPage />;
     }
   }
 
   render() {
     return (
-      <View>
-        <Header />
-        <Button onPress={() => this.setState({ pressStatus: !this.state.pressStatus })} />
-        {this.renderPage()}
-        <ToggleBar pressStatus={this.state.pressStatus}/>
-      </View>
+        <Container>
+        <Header>
+          <Left>
+            <Button 
+              transparent
+              onPress={() => this.onPageChange("options_page")}
+            >
+              <Icon name='menu' />
+            </Button>
+          </Left>
+
+          <Body>
+            <Button 
+              transparent
+              onPress={() => this.onPageChange("match_page")}
+            >
+              <Title>Tahmin-io</Title>
+            </Button>
+          </Body>
+          
+          <Right>
+            <Button 
+              transparent
+              onPress={() => this.onPageChange("login_page")}
+            >
+              <Icon name='person' />
+            </Button>
+          </Right>
+        </Header>
+        <Content>
+          {this.renderPage()}
+        </Content>
+        <Footer>
+          <FooterTab>
+            <Button full>
+              <Text>Footer</Text>
+            </Button>
+          </FooterTab>
+        </Footer>
+      </Container>
     );
   }
 }
