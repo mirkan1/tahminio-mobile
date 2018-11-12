@@ -20,12 +20,12 @@
 
 ## Redux
 - npm install --save redux react-redux
-```
+```js
 const reducer = (state = [], action) => {
-	if (action.type === "split_string") {
-		return action.payload.split('');
-	}
-		return state;
+if (action.type === "split_string") {
+  return action.payload.split('');
+}
+  return state;
 };
 
 const store = Redux.createStore(reducer);
@@ -33,8 +33,8 @@ const store = Redux.createStore(reducer);
 store.getState(); // output = []
 
 const action = {
-	type: "split_string"
-	payload: 'something'	// payload is object that we want it to be actioned
+  type: "split_string"
+  payload: 'something'	// payload is object that we want it to be actioned
 }
 
 store.dispatch(action);
@@ -42,12 +42,12 @@ store.dispatch(action);
 store.getState();
 ```
 
-## react-thunk:
+## redux-thunk:
 -	asyncranic function programming for help
 -	npm install --save redux-thunk
 
 On front-end
-```
+```js
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import reducers from './reducers';
@@ -64,7 +64,7 @@ render() {
 ```
 
 On back-end
-```
+```js
 export const loginUser = ({ email, password }) => {
   return (dispatch) => {
     dispatch({ type: LOGIN_USER });
@@ -85,6 +85,30 @@ export const loginUser = ({ email, password }) => {
 ## How to save globally on npm
 - npm install -g eslint
 
-##  react-native-elements
+## react-native-elements
 - Quality elements for react-native projects
 - https://react-native-training.github.io/react-native-elements/docs/0.19.1/getting_started.html
+
+## react-native-router-flux
+- A beautiful and easy header component that a good guy named Aksonov made to make our life easies. God bless him
+- https://github.com/aksonov/react-native-router-flux
+```js
+<Router sceneStyle={{ paddingTop: 65 }}>
+  <Scene key="root">
+    <Scene key="login" component={LoginForm} title="Please Login" />
+  </Scene>
+
+  <Scene key="main">
+    <Scene
+      onRight={() => Actions.employeeCreate()}
+      rightTitle="Add"
+      key="employeeList"
+      component={EmployeeList}
+      title="Employees"
+      initial
+    />
+    <Scene key="employeeCreate" component={EmployeeCreate} title="Create Employee" />
+    <Scene key="employeeEdit" component={EmployeeEdit} title="Edit Employee" />
+  </Scene>
+</Router>
+```
