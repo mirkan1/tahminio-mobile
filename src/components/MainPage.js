@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 import { View, BackHandler } from 'react-native';
 //import { Button } from 'react-native-elements';
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
@@ -83,12 +84,12 @@ class MainPage extends Component {
 
   render() {
     return (
-        <Container>
+      <Container>
         <Header>
           <Left>
             <Button 
               transparent
-              onPress={() => this.onPageChange("options_page")}
+              onPress={() => Actions.OptionsPage()}
             >
               <Icon name='menu' />
             </Button>
@@ -97,7 +98,7 @@ class MainPage extends Component {
           <Body>
             <Button 
               transparent
-              onPress={() => this.onPageChange("match_page")}
+              onPress={() => this.onPageChange('match_page')}
             >
               <Title>Tahmin-io</Title>
             </Button>
@@ -106,7 +107,7 @@ class MainPage extends Component {
           <Right>
             <Button 
               transparent
-              onPress={() => this.onPageChange("login_page")}
+              onPress={() => Actions.LoginForm()}
             >
               <Icon name='person' />
             </Button>

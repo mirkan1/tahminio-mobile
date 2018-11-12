@@ -11,37 +11,26 @@ import { Card, CardSection, Input, Button, Spinner } from './common';
 import ListItem from './ListItem';
 import UserSearchData from './UserSearchData';
 import SignUp from './SignUp';
+import Login from './Login';
 
 // TODO
 // make separate files; Login.js and SingUp.js
 
 class LoginForm extends Component {
-  state = { formStatus: 'login' };
-
-  onUsernameChange(text) {
-    this.props.usernameChanged(text);
-  }
-  
-  onPasswordChange(text) {
-    this.props.passwordChanged(text);
-  }
-
-  onButtonPress() {
-    const { username, password } = this.props;
-    this.props.userLogin({ username, password });
-  }
+  state = { formStatus: 'default' };
 
   onLogoutUser() {
     const { token } = this.props.user.data;
 
     this.props.logoutUser({ token });
   }
+
   userLoggedIn() {
     const { user } = this.props;
       return (
         <View>
-          <Text>{user.data.email}</Text>
           <Text>{user.data.first_name}</Text>
+          <Text>{user.data.email}</Text>
           <Text>{user.data.last_name}</Text>
           <Text>{user.data.username}</Text>
           <Text>{user.data.bio}</Text>
@@ -53,76 +42,38 @@ class LoginForm extends Component {
       );
   }
 
-  renderError() {
-    if (this.props.error) {
-      return (
-        <View style={{ backgroundColor: 'white' }}>
-          <Text style={styles.errorTextStyle}>
-            {this.props.error}
-          </Text>
+  formStatus() {
+    switch (this.state.formStatus) {
+      case 'login':
+        return <Login />;
+      case 'signUp':
+        return <SignUp />;
+      default:
+        return(
+          <View>
+            <CardSection>
+              <Button onPress={() => this.setState({ formStatus: 'login' })}>
+                Login
+              </Button>
+            </CardSection>
+
+              <Text>OR</Text>
+            
+            <CardSection>
+              <Button onPress={() => this.setState({ formStatus: 'signUp' })}>
+                Sign Up
+              </Button>
+            </CardSection>
         </View>
-      );
+        );
     }
-  }
-
-  renderButton() {
-    if (this.props.loading) {
-      return <Spinner size="large" />;
-    }
-    return (
-      <Button onPress={this.onButtonPress.bind(this)}>
-        Login
-      </Button>
-    );
-  }
-
-  signUpButton() {
-    if (this.state.formStatus === 'signUp') {
-      return <SignUp />;
-    }
-    return (
-      <CardSection>
-        <Button onPress={() => this.setState({ formStatus: 'signUp' })}>
-          Sign Up
-        </Button>
-      </CardSection>
-    );
   }
 
   render() {
     if (this.props.user === null) {
       return (
         <View>
-        <Card>
-          <CardSection>
-            <Input 
-              label="Username"
-              placeholder="username123"
-              onChangeText={this.onUsernameChange.bind(this)}
-              value={this.props.username}
-            />
-          </CardSection>
-
-          <CardSection>
-            <Input
-              secureTextEntry
-              label="Password"
-              placeholder="password"
-              onChangeText={this.onPasswordChange.bind(this)}
-              value={this.props.password}
-            />
-          </CardSection>
-
-          {this.renderError()}
-          
-          <CardSection>
-            {this.renderButton()}
-          </CardSection>
-        </Card>
-          <Text>or</Text>
-
-          {this.signUpButton()}
-
+          {this.formStatus()}
         </View>
       );
   }

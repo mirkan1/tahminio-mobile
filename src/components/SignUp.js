@@ -38,11 +38,6 @@ class SignUp extends Component {
     this.props.bioChanged(text);
   }
 
-  onLogoutUser() {
-    const { token } = this.props.user.data;
-    this.props.logoutUser({ token });
-  }
-
   onButtonPress() {
     const { 
       username, 
@@ -52,29 +47,7 @@ class SignUp extends Component {
       last_name,
       bio 
     } = this.props;
-    console.log(username, 
-      email, 
-      password,
-      first_name,
-      last_name,
-      bio )
     this.props.userSignUp({ username, email, password, first_name, last_name, bio });
-  }
-
-  userSignedIn() {
-    const { user } = this.props;
-      return (
-        <View>
-          <Text>{user.data.email}</Text>
-          <Text>{user.data.first_name}</Text>
-          <Text>{user.data.last_name}</Text>
-          <Text>{user.data.username}</Text>
-          <Text>{user.data.bio}</Text>
-          <CardSection>
-            <Button onPress={this.onLogoutUser.bind(this)}>Logout</Button>
-          </CardSection>
-        </View>
-      );
   }
 
   renderError() {
@@ -101,7 +74,6 @@ class SignUp extends Component {
   }
 
   render() {
-    console.log(this.props.user);
     if (this.props.user === null) {
       return (
         <Card>

@@ -10,12 +10,11 @@ import {
 import { Card, CardSection, Input, Button, Spinner } from './common';
 import ListItem from './ListItem';
 import UserSearchData from './UserSearchData';
-import SignUp from './SignUp';
 
 // TODO
 // make separate files; Login.js and SingUp.js
 
-class LoginForm extends Component {
+class Login extends Component {
   state = { formStatus: 'login' };
 
   onUsernameChange(text) {
@@ -36,6 +35,7 @@ class LoginForm extends Component {
 
     this.props.logoutUser({ token });
   }
+
   userLoggedIn() {
     const { user } = this.props;
       return (
@@ -137,4 +137,4 @@ const mapStateTopProps = state => {
 
 export default connect(mapStateTopProps, { 
   usernameChanged, passwordChanged, userLogin, logoutUser, 
-})(LoginForm);
+})(Login);

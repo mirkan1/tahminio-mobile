@@ -2,7 +2,6 @@ import { createStore, applyMiddleware } from 'redux';
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
-import {  View } from 'react-native';
 import reducers from './reducers';
 import MainPage from './components/MainPage';
 import Router from './Router';
@@ -33,7 +32,7 @@ class App extends Component {
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
     return (
   		<Provider store={store}>
-  			<MainPage />
+  			<Router />
       </Provider>
     );
   }
