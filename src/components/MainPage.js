@@ -49,8 +49,12 @@ class MainPage extends Component {
     const { previousPage, pageName } = this.props.pages;
 
     if (previousPage !== '') {
+      // DOESNT WORK FOR SOME REASON
       // if clicked back button first time and already rendered on a page before
       this.onPageChange(previousPage);
+      return true;
+    } else if (pageName === 'match_detail') {
+      this.onPageChange('match_page');
       return true;
     } else if (this.state.count === 0 && pageName !== 'match_page') {
         // If clicked back once and the page that user tries to go back is not MatchPage

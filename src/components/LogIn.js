@@ -36,22 +36,6 @@ class Login extends Component {
     this.props.logoutUser({ token });
   }
 
-  userLoggedIn() {
-    const { user } = this.props;
-      return (
-        <View>
-          <Text>{user.data.email}</Text>
-          <Text>{user.data.first_name}</Text>
-          <Text>{user.data.last_name}</Text>
-          <Text>{user.data.username}</Text>
-          <Text>{user.data.bio}</Text>
-          <CardSection>
-            <Button onPress={this.onLogoutUser.bind(this)}>Logout</Button>
-          </CardSection>
-        </View>
-      );
-  }
-
   renderError() {
     if (this.props.error) {
       return (
@@ -76,47 +60,36 @@ class Login extends Component {
   }
 
   render() {
-    if (this.props.user === null) {
-      return (
-        <Card>
-          <CardSection>
-            <Input 
-              label="Username"
-              placeholder="username123"
-              onChangeText={this.onUsernameChange.bind(this)}
-              value={this.props.username}
-            />
-          </CardSection>
-
-          <CardSection>
-            <Input
-              secureTextEntry
-              label="Password"
-              placeholder="password"
-              onChangeText={this.onPasswordChange.bind(this)}
-              value={this.props.password}
-            />
-          </CardSection>
-
-          {this.renderError()}
-          
-          <CardSection>
-            {this.renderButton()}
-          </CardSection>
-        </Card>
-      );
-  }
-
     return (
-      <View>
+      <Card>
         <CardSection>
-          {this.userLoggedIn()}
+          <Input 
+            label="Username"
+            placeholder="username123"
+            onChangeText={this.onUsernameChange.bind(this)}
+            value={this.props.username}
+          />
         </CardSection>
-        <UserSearchData />
-      </View>
+
+        <CardSection>
+          <Input
+            secureTextEntry
+            label="Password"
+            placeholder="password"
+            onChangeText={this.onPasswordChange.bind(this)}
+            value={this.props.password}
+          />
+        </CardSection>
+
+        {this.renderError()}
+        
+        <CardSection>
+          {this.renderButton()}
+        </CardSection>
+      </Card>
     );
   }
-}
+};
 
 const styles = {
   errorTextStyle: {

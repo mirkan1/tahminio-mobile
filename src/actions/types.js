@@ -4,6 +4,7 @@ export const PASSWORD_CHANGED = 'password_changed';
 export const FIRST_NAME_CHANGED = 'first_name_changed';
 export const LAST_NAME_CHANGED = 'last_name_changed';
 export const BIO_CHANGED = 'bio_changed';
+export const PROFILE_PHOTO_CHANGED = 'profile_photo_changed';
 
 export const LOGIN_USER_SUCCESS = 'login_user_success';
 export const LOGIN_USER_FAIL = 'login_user_fail';

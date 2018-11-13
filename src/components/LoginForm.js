@@ -12,16 +12,17 @@ import ListItem from './ListItem';
 import UserSearchData from './UserSearchData';
 import SignUp from './SignUp';
 import Login from './Login';
+import UpdateMe from './UpdateMe';
 
 // TODO
-// make separate files; Login.js and SingUp.js
+// onLogoutUser doesnt work
+// UpdateMe.js could not be rendered for some reason
 
 class LoginForm extends Component {
   state = { formStatus: 'default' };
 
   onLogoutUser() {
     const { token } = this.props.user.data;
-
     this.props.logoutUser({ token });
   }
 
@@ -34,6 +35,9 @@ class LoginForm extends Component {
           <Text>{user.data.last_name}</Text>
           <Text>{user.data.username}</Text>
           <Text>{user.data.bio}</Text>
+          <CardSection>
+            <Button onPress={() => this.setState({ formStatus: 'update' })}>Update Me</Button>
+          </CardSection>
           <CardSection>
             <Button onPress={this.onLogoutUser.bind(this)}>Logout</Button>
           </CardSection>
@@ -48,6 +52,8 @@ class LoginForm extends Component {
         return <Login />;
       case 'signUp':
         return <SignUp />;
+      case 'update':
+        return <UpdateMe />;
       default:
         return(
           <View>

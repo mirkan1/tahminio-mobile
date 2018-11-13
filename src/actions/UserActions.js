@@ -163,7 +163,7 @@ export const userDeleteMe = ({ token }) => {
   };
 };
 
-export const userUpdateMe = ({ username, passport, email, first_name=null, last_name=null, bio=null , profile_photo=null, token }) => {
+export const userUpdateMe = ({ token, username, password, email, first_name=null, last_name=null, bio=null , profile_photo=null }) => {
   // Note: You don't need to send every field. Sending the changing fields is enough.
   // Endpoint `PATCH /v1/users/me/`
   // Response: 200 and UserMe object
