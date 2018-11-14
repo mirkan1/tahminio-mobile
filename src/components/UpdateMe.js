@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { 
@@ -12,8 +12,8 @@ import {
   profilePhotoChanged,
   userUpdateMe,
 } from '../actions';
-import { Container, Header, Title, Content, Footer, FooterTab, Button, Text } from 'native-base';
-import { Card, CardSection, Input, Spinner } from './common';
+//import { Container, Header, Title, Content, Footer, FooterTab, Button, Text } from 'native-base';
+import { Card, CardSection, Input, Spinner, Button } from './common';
 
 class UpdateMe extends Component {
   onUsernameChange(text) {
@@ -41,11 +41,13 @@ class UpdateMe extends Component {
   }
 
   onPhotoAdd() {
-  	console.log('updated your PP')
+  	// TODO
+  	// Make some kind of upload thingy
+  	console.log('updated your PP');
   }
 
   onButtonPress() {
-    const { 
+    const {
     	token,
       username, 
       email, 
@@ -62,9 +64,7 @@ class UpdateMe extends Component {
     if (this.props.error) {
       return (
         <View style={{ backgroundColor: 'white' }}>
-          <Text style={styles.errorTextStyle}>
-            {this.props.error}
-          </Text>
+          <Text style={styles.errorTextStyle}>{this.props.error}</Text>
         </View>
       );
     }
@@ -76,7 +76,7 @@ class UpdateMe extends Component {
     }
     return (
       <Button onPress={this.onButtonPress.bind(this)}>
-        Sign Up
+        Update
       </Button>
     );
   }
@@ -163,7 +163,7 @@ const styles = {
 };
 const mapStateTopProps = state => {
   return {
-  	token: state.user.data.token,
+  	token: state.user.token,
     username: state.user.username,
     email: state.user.email,
     password: state.user.password,

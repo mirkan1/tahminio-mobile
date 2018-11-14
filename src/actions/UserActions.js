@@ -10,7 +10,8 @@ import {
   LOGIN_USER_FAIL,
   USER_LOGIN,
   LOGOUT_USER,
-  USER_SIGN_UP
+  USER_SIGN_UP,
+  USER_UPDATE_ME,
 } from './types';
 
 export const usernameChanged = (text) => {
@@ -56,7 +57,6 @@ export const bioChanged = (text) => {
 };
 
 export const logoutUser = ({ token }) => {
-  console.log('TOKEN:', token);
   return (dispatch) => {
     dispatch({ type: LOGOUT_USER });
     axios.get('http://api.tahmin.io/v1/users/logout/',
@@ -167,13 +167,17 @@ export const userUpdateMe = ({ token, username, password, email, first_name=null
   // Note: You don't need to send every field. Sending the changing fields is enough.
   // Endpoint `PATCH /v1/users/me/`
   // Response: 200 and UserMe object
+
+  // TODO
+  // FIXIT DOESNT WORK AT ALL
+  // Find a way to send request with header and data
+  // something like new FormData() I saw online
   return (dispatch) => {
     dispatch({ type: USER_UPDATE_ME });
 
-    axios.patch(`http://api.tahmin.io/v1/users/me/`, { 
-      headers: 
-      { 
-        Authorization: `Token ${token}`,
+    axios.patch(`http://api.tahmin.io/v1/users/me/`, {
+      headers: { Authorization: `Token ${token}` },
+      formData: {
         "username": username,
         "password": password,
         "email": email,
@@ -181,15 +185,16 @@ export const userUpdateMe = ({ token, username, password, email, first_name=null
         "last_name": last_name,
         "bio": bio,
         "profile_photo": profile_photo
-      }
-    })
+      }})
       .then(user => {
-        console.log(user)
+        console.log("updateMe", user)
+        // LoginUserSuccess(dispatch, user);
         // render to the user profile page
       })
       .catch(
         // return to the same page with and error
-        error => console.log(error));
+        error => console.log("updateMe", error.response));
+        // LoginUserFail(dispatch));
   };
 };
 

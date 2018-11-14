@@ -22,28 +22,33 @@ class LoginForm extends Component {
   state = { formStatus: 'default' };
 
   onLogoutUser() {
-    const { token } = this.props.user.data;
+    const { token } = this.props;
     this.props.logoutUser({ token });
+  }
+
+  onUpdateMePress() {
+    const { token } = this.props;
+    this.onLogoutUser();
+    this.setState({ formStatus: 'update' });
   }
 
   userLoggedIn() {
     const { user } = this.props;
-      return (
-        <View>
-          <Text>{user.data.first_name}</Text>
-          <Text>{user.data.email}</Text>
-          <Text>{user.data.last_name}</Text>
-          <Text>{user.data.username}</Text>
-          <Text>{user.data.bio}</Text>
-          <CardSection>
-            <Button onPress={() => this.setState({ formStatus: 'update' })}>Update Me</Button>
-          </CardSection>
-          <CardSection>
-            <Button onPress={this.onLogoutUser.bind(this)}>Logout</Button>
-          </CardSection>
-
-        </View>
-      );
+    return (
+      <View>
+        <Text>{user.data.first_name}</Text>
+        <Text>{user.data.email}</Text>
+        <Text>{user.data.last_name}</Text>
+        <Text>{user.data.username}</Text>
+        <Text>{user.data.bio}</Text>
+        <CardSection>
+          <Button onPress={() => this.onUpdateMePress()}>Update Me</Button>
+        </CardSection>
+        <CardSection>
+          <Button onPress={this.onLogoutUser.bind(this)}>Logout</Button>
+        </CardSection>
+      </View>
+    );
   }
 
   formStatus() {
@@ -104,6 +109,7 @@ const styles = {
 };
 const mapStateTopProps = state => {
   return {
+    token: state.user.token,
     username: state.user.username,
     password: state.user.password,
     error: state.user.error,
