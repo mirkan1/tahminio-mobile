@@ -95,7 +95,6 @@ export const userSignUp = ({ username, password, email, first_name, last_name, b
 };
 
 export const userLogin = ({ username, password }) => {
-  console.log(username, password);
   return (dispatch) => {
     dispatch({ type: USER_LOGIN });
 
@@ -104,6 +103,8 @@ export const userLogin = ({ username, password }) => {
       password: password
     })
       .then(user => {
+        console.log("updateMe", user),
+
         LoginUserSuccess(dispatch, user);
       })
       .catch(() => LoginUserFail(dispatch));
@@ -163,7 +164,7 @@ export const userDeleteMe = ({ token }) => {
   };
 };
 
-export const userUpdateMe = ({ token, username, password, email, first_name=null, last_name=null, bio=null , profile_photo=null }) => {
+export const userUpdateMe = ({ token, username, password, email, first_name, last_name, bio , profile_photo }) => {
   // Note: You don't need to send every field. Sending the changing fields is enough.
   // Endpoint `PATCH /v1/users/me/`
   // Response: 200 and UserMe object
@@ -172,29 +173,36 @@ export const userUpdateMe = ({ token, username, password, email, first_name=null
   // FIXIT DOESNT WORK AT ALL
   // Find a way to send request with header and data
   // something like new FormData() I saw online
+  console.log(token)
   return (dispatch) => {
     dispatch({ type: USER_UPDATE_ME });
 
     axios.patch(`http://api.tahmin.io/v1/users/me/`, {
-      headers: { Authorization: `Token ${token}` },
-      formData: {
-        "username": username,
-        "password": password,
-        "email": email,
-        "first_name": first_name,
-        "last_name": last_name,
-        "bio": bio,
-        "profile_photo": profile_photo
-      }})
+      headers: { 
+        Authorization: `Token ${token}` 
+      },
+      data: {
+       // "username": username,//{ username === '' ? null : {
+       // "password": password,//{ password === '' ? null : {
+       // "email": email,//{ email === '' ? null : {
+        "first_name": first_name,//{ first_name === '' ? null : {
+        //"last_name": last_name,//{ last_name === '' ? null : {
+        //"bio": bio,//{ bio === '' ? null : {
+        //"profile_photo": profile_photo//{ profile_photo === '' ? null : {      }
+      }
+    })
       .then(user => {
         console.log("updateMe", user)
-        // LoginUserSuccess(dispatch, user);
+        LoginUserSuccess(dispatch, user);
         // render to the user profile page
       })
       .catch(
         // return to the same page with and error
-        error => console.log("updateMe", error.response));
-        // LoginUserFail(dispatch));
+        error => {
+        console.log("updateMeError", error.response),
+        LoginUserFail(dispatch);
+        }
+      );
   };
 };
 

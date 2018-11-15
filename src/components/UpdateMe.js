@@ -15,6 +15,8 @@ import {
 //import { Container, Header, Title, Content, Footer, FooterTab, Button, Text } from 'native-base';
 import { Card, CardSection, Input, Spinner, Button } from './common';
 
+// TODO
+// make a reducer that should render to this page without fuckiong up all the data
 class UpdateMe extends Component {
   onUsernameChange(text) {
     this.props.usernameChanged(text);
@@ -82,6 +84,7 @@ class UpdateMe extends Component {
   }
 
   render() {
+    console.log(this.props.token)
     return (
       <Card>
         <CardSection>

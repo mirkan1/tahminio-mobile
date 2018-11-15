@@ -27,8 +27,8 @@ class LoginForm extends Component {
   }
 
   onUpdateMePress() {
-    const { token } = this.props;
-    this.onLogoutUser();
+    // const { token } = this.props;
+    // this.onLogoutUser();
     this.setState({ formStatus: 'update' });
   }
 
