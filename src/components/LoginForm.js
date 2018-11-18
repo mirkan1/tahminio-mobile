@@ -10,6 +10,7 @@ import {
 import { Card, CardSection, Input, Button, Spinner } from './common';
 import ListItem from './ListItem';
 import UserSearchData from './UserSearchData';
+import { Actions } from 'react-native-router-flux';
 import SignUp from './SignUp';
 import Login from './Login';
 import UpdateMe from './UpdateMe';
@@ -42,7 +43,7 @@ class LoginForm extends Component {
         <Text>{user.data.username}</Text>
         <Text>{user.data.bio}</Text>
         <CardSection>
-          <Button onPress={() => this.onUpdateMePress()}>Update Me</Button>
+          <Button onPress={() => Actions.UpdateMe()}>Update Me</Button>
         </CardSection>
         <CardSection>
           <Button onPress={this.onLogoutUser.bind(this)}>Logout</Button>

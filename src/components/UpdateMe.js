@@ -12,12 +12,23 @@ import {
   profilePhotoChanged,
   userUpdateMe,
 } from '../actions';
+import { Actions } from 'react-native-router-flux';
 //import { Container, Header, Title, Content, Footer, FooterTab, Button, Text } from 'native-base';
 import { Card, CardSection, Input, Spinner, Button } from './common';
 
 // TODO
 // make a reducer that should render to this page without fuckiong up all the data
 class UpdateMe extends Component {
+  componentDidMount() {
+    const { data } = this.props.user;
+    this.props.usernameChanged(data.username);
+    this.props.emailChanged(data.email);
+    //this.props.passwordChanged(data.password);
+    this.props.firstnameChanged(data.first_name);
+    this.props.lastnameChanged(data.last_name);
+    this.props.bioChanged(data.bio);
+    
+  }
   onUsernameChange(text) {
     this.props.usernameChanged(text);
   }
@@ -59,7 +70,17 @@ class UpdateMe extends Component {
       bio,
       profile_photo
     } = this.props;
-    this.props.userUpdateMe({ token, username, password, email, first_name, last_name, bio, profile_photo });
+
+    this.props.userUpdateMe({ 
+      token, 
+      username,
+      password,
+      email,
+      first_name,
+      last_name,
+      bio,
+      //profile_photo
+    });
   }
 
   renderError() {
@@ -84,7 +105,8 @@ class UpdateMe extends Component {
   }
 
   render() {
-    console.log(this.props.token)
+    const { data } = this.props.user
+    //console.log(this.props.email === '' ? data.email : this.props.email)
     return (
       <Card>
         <CardSection>
@@ -115,7 +137,6 @@ class UpdateMe extends Component {
           />
         </CardSection>
 
-
         <CardSection>
           <Input
             label="first_name"
@@ -143,7 +164,7 @@ class UpdateMe extends Component {
           />
         </CardSection>
 
-         <CardSection>
+        <CardSection>
           <Button onPress={() => this.onPhotoAdd()}> Add Photo </Button>
         </CardSection>
 
@@ -166,6 +187,7 @@ const styles = {
 };
 const mapStateTopProps = state => {
   return {
+    user: state.user.user,
   	token: state.user.token,
     username: state.user.username,
     email: state.user.email,

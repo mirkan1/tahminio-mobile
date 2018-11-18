@@ -44,7 +44,7 @@ class MainPage extends Component {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
   }
 
-  handleBackPress = () => {
+/*  handleBackPress = () => {
     // TODO a lil bug in here fix it later
     const { previousPage, pageName } = this.props.pages;
 
@@ -65,7 +65,7 @@ class MainPage extends Component {
     } else {
         this.setState({ count: 0 });
     }
-  }
+  }*/
 
   onPageChange(page) {
     this.props.pageChanged({ page });

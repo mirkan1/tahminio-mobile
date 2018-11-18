@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Actions } from 'react-native-router-flux';
 import { 
   USERNAME_CHANGED,
   EMAIL_CHANGED,
@@ -164,7 +165,7 @@ export const userDeleteMe = ({ token }) => {
   };
 };
 
-export const userUpdateMe = ({ token, username, password, email, first_name, last_name, bio , profile_photo }) => {
+export const userUpdateMe = ({ token, username=null, password=null, email=null, first_name=null, last_name=null, bio=null , profile_photo=null }) => {
   // Note: You don't need to send every field. Sending the changing fields is enough.
   // Endpoint `PATCH /v1/users/me/`
   // Response: 200 and UserMe object
@@ -173,33 +174,32 @@ export const userUpdateMe = ({ token, username, password, email, first_name, las
   // FIXIT DOESNT WORK AT ALL
   // Find a way to send request with header and data
   // something like new FormData() I saw online
-  console.log(token)
   return (dispatch) => {
     dispatch({ type: USER_UPDATE_ME });
 
-    axios.patch(`http://api.tahmin.io/v1/users/me/`, {
+    axios.patch(`http://api.tahmin.io/v1/users/me/`,
+      {
+      "username": username,
+      "password": password,
+      "email": email,
+      "first_name": first_name,
+      "last_name": last_name,
+      "bio": bio,
+      //"profile_photo": profile_photo
+      }, 
+      {
       headers: { 
         Authorization: `Token ${token}` 
       },
-      data: {
-       // "username": username,//{ username === '' ? null : {
-       // "password": password,//{ password === '' ? null : {
-       // "email": email,//{ email === '' ? null : {
-        "first_name": first_name,//{ first_name === '' ? null : {
-        //"last_name": last_name,//{ last_name === '' ? null : {
-        //"bio": bio,//{ bio === '' ? null : {
-        //"profile_photo": profile_photo//{ profile_photo === '' ? null : {      }
-      }
     })
       .then(user => {
-        console.log("updateMe", user)
-        LoginUserSuccess(dispatch, user);
+        LoginUserSuccess(dispatch, user),
+        Actions.LoginForm();
         // render to the user profile page
       })
       .catch(
         // return to the same page with and error
         error => {
-        console.log("updateMeError", error.response),
         LoginUserFail(dispatch);
         }
       );

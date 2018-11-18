@@ -49,11 +49,11 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, loading: true, error: '' };
     case LOGIN_USER_SUCCESS:
       // After logged in with the help of second argument clears INITIAL_STATE
-      return { ...state, ...INITIAL_STATE, user: action.payload, token: action.payload.data.token };  
+      return { ...state, loading: false, user: action.payload, token: action.payload.data.token };  
     case LOGIN_USER_FAIL:
       return { ...state, error: 'Authentication Failed.', password: '', loading: false }; 
     case LOGOUT_USER:
-      return { ...state, user: null };
+      return { ...state, ...INITIAL_STATE };
     case USER_SIGN_UP:
       return { ...state, loading: true, error: '' };
     case USER_UPDATE_ME:
