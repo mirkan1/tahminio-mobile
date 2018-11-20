@@ -12,6 +12,7 @@ import {
   LOGOUT_USER,
   USER_SIGN_UP,
   USER_UPDATE_ME,
+  USER_GET_ME,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -49,9 +50,9 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, loading: true, error: '' };
     case LOGIN_USER_SUCCESS:
       // After logged in with the help of second argument clears INITIAL_STATE
-      return { ...state, loading: false, user: action.payload, token: action.payload.data.token };  
+      return { ...state, ...INITIAL_STATE, user: action.payload, token: action.payload.data.token };  
     case LOGIN_USER_FAIL:
-      return { ...state, error: 'Authentication Failed.', password: '', loading: false }; 
+      return { ...state, ...INITIAL_STATE, error: 'Authentication Failed.' }; 
     case LOGOUT_USER:
       return { ...state, ...INITIAL_STATE };
     case USER_SIGN_UP:
@@ -59,6 +60,8 @@ export default (state = INITIAL_STATE, action) => {
     case USER_UPDATE_ME:
     //
       return { ...state, loading: true, error: '' };
+    case USER_GET_ME:
+      return { ...state, loading: false, error: '' }
     default:
       return state;
   }

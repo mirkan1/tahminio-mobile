@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
 import reducers from './reducers';
-import MainPage from './components/MainPage';
 import Router from './Router';
 
 const ToggleBar = ({ pressStatus }) => {

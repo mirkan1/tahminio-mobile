@@ -74,81 +74,71 @@ class SignUp extends Component {
   }
 
   render() {
-    if (this.props.user === null) {
-      return (
-        <Card>
-          <CardSection>
-            <Input 
-              label="Username"
-              placeholder="username123"
-              onChangeText={this.onUsernameChange.bind(this)}
-              value={this.props.username}
-            />
-          </CardSection>
-
-          <CardSection>
-            <Input
-              label="Email"
-              placeholder="email"
-              onChangeText={this.onEmailChange.bind(this)}
-              value={this.props.email}
-            />
-          </CardSection>
-
-          <CardSection>
-            <Input
-              secureTextEntry
-              label="Password"
-              placeholder="password"
-              onChangeText={this.onPasswordChange.bind(this)}
-              value={this.props.password}
-            />
-          </CardSection>
-
-
-          <CardSection>
-            <Input
-              label="first_name"
-              placeholder="David"
-              onChangeText={this.onFirstnameChange.bind(this)}
-              value={this.props.first_name}
-            />
-          </CardSection>
-
-          <CardSection>
-            <Input
-              label="last_name"
-              placeholder="LAST"
-              onChangeText={this.onLastnameChange.bind(this)}
-              value={this.props.last_name}
-            />
-          </CardSection>
-
-          <CardSection>
-            <Input
-              label="Biography"
-              placeholder="tell me about yourself"
-              onChangeText={this.onBioChange.bind(this)}
-              value={this.props.bio}
-            />
-          </CardSection>
-
-
-          {this.renderError()}
-          
-          <CardSection>
-            {this.renderButton()}
-          </CardSection>
-        </Card>
-      );
-  }
-
     return (
-      <View>
+      <Card>
         <CardSection>
-          {this.userSignedIn()}
+          <Input 
+            label="Username"
+            placeholder="username123"
+            onChangeText={this.onUsernameChange.bind(this)}
+            value={this.props.username}
+          />
         </CardSection>
-      </View>
+
+        <CardSection>
+          <Input
+            label="Email"
+            placeholder="email"
+            onChangeText={this.onEmailChange.bind(this)}
+            value={this.props.email}
+          />
+        </CardSection>
+
+        <CardSection>
+          <Input
+            secureTextEntry
+            label="Password"
+            placeholder="password"
+            onChangeText={this.onPasswordChange.bind(this)}
+            value={this.props.password}
+          />
+        </CardSection>
+
+
+        <CardSection>
+          <Input
+            label="first_name"
+            placeholder="David"
+            onChangeText={this.onFirstnameChange.bind(this)}
+            value={this.props.first_name}
+          />
+        </CardSection>
+
+        <CardSection>
+          <Input
+            label="last_name"
+            placeholder="LAST"
+            onChangeText={this.onLastnameChange.bind(this)}
+            value={this.props.last_name}
+          />
+        </CardSection>
+
+        <CardSection>
+          <Input
+            label="Biography"
+            placeholder="tell me about yourself"
+            onChangeText={this.onBioChange.bind(this)}
+            value={this.props.bio}
+          />
+        </CardSection>
+
+
+        {this.renderError()}
+        
+        <CardSection>
+          {this.renderButton()}
+        </CardSection>
+      </Card>
     );
   }
 }

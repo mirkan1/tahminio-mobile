@@ -23,7 +23,9 @@ class UpdateMe extends Component {
     const { data } = this.props.user;
     this.props.usernameChanged(data.username);
     this.props.emailChanged(data.email);
-    //this.props.passwordChanged(data.password);
+    // chech pass later
+    // and sign up doest work well
+    this.props.passwordChanged(this.props.password);
     this.props.firstnameChanged(data.first_name);
     this.props.lastnameChanged(data.last_name);
     this.props.bioChanged(data.bio);
@@ -74,7 +76,7 @@ class UpdateMe extends Component {
     this.props.userUpdateMe({ 
       token, 
       username,
-      password,
+      //password,
       email,
       first_name,
       last_name,

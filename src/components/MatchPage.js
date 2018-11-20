@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Text, View, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import { matchFetch, pageChanged, getMatchInfo } from '../actions';
-import { Spinner } from './common';
+import { Spinner, Base } from './common';
+import { Actions } from 'react-native-router-flux';
 import ListItem from './ListItem';
 
 
@@ -11,10 +12,9 @@ class MatchPage extends Component {
     this.props.matchFetch();
   }
 
-  onPageChange(page, match) {
-    // Changes page to MatchDetail and takes argument of the clicked match
-    this.props.pageChanged({ page });
+  onPageChange(match) {
     this.props.getMatchInfo({ match });
+    Actions.MatchDetail();
   }
 
   showData() {
@@ -47,16 +47,16 @@ class MatchPage extends Component {
     return (
       <ListItem 
         match={match}
-        onPress={() => this.onPageChange('match_detail', match)}
+        onPress={() => this.onPageChange(match)}
       />
     );
   }
 
   render() {
     return (
-      <View>
+      <Base>
         {this.showData()}
-      </View>
+      </Base>
     );
   }
 }

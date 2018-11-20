@@ -13,7 +13,9 @@ import {
   LOGOUT_USER,
   USER_SIGN_UP,
   USER_UPDATE_ME,
+  USER_GET_ME,
 } from './types';
+import { pageChanged } from './index';
 
 export const usernameChanged = (text) => {
   return {
@@ -62,8 +64,8 @@ export const logoutUser = ({ token }) => {
     dispatch({ type: LOGOUT_USER });
     axios.get('http://api.tahmin.io/v1/users/logout/',
       { headers: { Authorization: `Token ${token}` } })
-      .then(response => console.log('tokenla logged in', response))
-      .catch(error => console.log(error.response));
+      .then(() => Actions.UserPage())
+      .catch(() => Actions.UserPage());
       // GIVES ERROR
       // Error: Request failed with status code 500
       /* {
@@ -72,7 +74,6 @@ export const logoutUser = ({ token }) => {
       .catch(() => LoginUserFail(dispatch)); */
   };
 };
-
 
 export const userSignUp = ({ username, password, email, first_name, last_name, bio }) => {
   // Description: Creates a new user with given data
@@ -104,8 +105,6 @@ export const userLogin = ({ username, password }) => {
       password: password
     })
       .then(user => {
-        console.log("updateMe", user),
-
         LoginUserSuccess(dispatch, user);
       })
       .catch(() => LoginUserFail(dispatch));
@@ -122,7 +121,9 @@ const LoginUserSuccess = (dispatch, user) => {
     type: LOGIN_USER_SUCCESS,
     payload: user
   });
-  //Actions.main();   // MAGIC AQU
+
+  Actions.UserPage();
+  //pageChanged('login_page');
 };
 
 export const userGetMe = ({ token }) => {
@@ -139,9 +140,9 @@ export const userGetMe = ({ token }) => {
       }
     })
       .then(user => {
-        console.log(user);
+        LoginUserSuccess(dispatch, user);
       })
-      .catch((err) => console.log(err));
+      //.catch(() => Actions.UserPage());//LoginUserFail(dispatch));
   };
 };
 
@@ -169,18 +170,14 @@ export const userUpdateMe = ({ token, username=null, password=null, email=null, 
   // Note: You don't need to send every field. Sending the changing fields is enough.
   // Endpoint `PATCH /v1/users/me/`
   // Response: 200 and UserMe object
-
-  // TODO
-  // FIXIT DOESNT WORK AT ALL
-  // Find a way to send request with header and data
-  // something like new FormData() I saw online
+  console.log(password)
   return (dispatch) => {
     dispatch({ type: USER_UPDATE_ME });
 
     axios.patch(`http://api.tahmin.io/v1/users/me/`,
       {
       "username": username,
-      "password": password,
+      //"password": password,
       "email": email,
       "first_name": first_name,
       "last_name": last_name,
@@ -193,16 +190,9 @@ export const userUpdateMe = ({ token, username=null, password=null, email=null, 
       },
     })
       .then(user => {
-        LoginUserSuccess(dispatch, user),
-        Actions.LoginForm();
-        // render to the user profile page
+        LoginUserSuccess(dispatch, user);
       })
-      .catch(
-        // return to the same page with and error
-        error => {
-        LoginUserFail(dispatch);
-        }
-      );
+      .catch(() => LoginUserFail(dispatch));
   };
 };
 
