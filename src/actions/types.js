@@ -21,11 +21,11 @@ export const SEARCH_WORD_CHANGED = 'search_word_changed';
 export const SEARCH_SUCCESS = 'search_success';
 
 // UserActions
-export const USER_LOGIN = 'user_login';	// DONE
-export const USER_SIGN_UP = 'user_sign_up';	// DONE
-export const USER_GET_ME = 'user_get_me';
+export const USER_LOGIN = 'user_login';									// DONE
+export const USER_SIGN_UP = 'user_sign_up';								// DONE
+export const USER_GET_ME = 'user_get_me';								// DONE
 export const USER_DELETE_ME = 'user_delete_me';
-export const USER_UPDATE_ME = 'user_update_me';
+export const USER_UPDATE_ME = 'user_update_me';							// DONE
 export const GET_ANOTHER_USER = 'get_another_user';
 export const USER_CHANGE_PASSWORD = 'user_change_password';
 export const FOLLOW_USER = 'follow_user';

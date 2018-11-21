@@ -13,6 +13,7 @@ import {
   USER_SIGN_UP,
   USER_UPDATE_ME,
   USER_GET_ME,
+  USER_DELETE_ME,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -58,10 +59,11 @@ export default (state = INITIAL_STATE, action) => {
     case USER_SIGN_UP:
       return { ...state, loading: true, error: '' };
     case USER_UPDATE_ME:
-    //
       return { ...state, loading: true, error: '' };
     case USER_GET_ME:
-      return { ...state, loading: false, error: '' }
+      return { ...state, loading: false, error: '' };
+    case USER_DELETE_ME: // the same with the LOGOUT_USER
+      return { ...state, ...INITIAL_STATE };
     default:
       return state;
   }

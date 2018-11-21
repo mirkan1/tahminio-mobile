@@ -32,7 +32,6 @@ const MatchCard = ({ home_team, away_team, first_half_score, score }) => {
 class MatchDetail extends Component {
   // TODO
   // Insert style
-  componentDidMount() {}
 
   render() {
     const { 
@@ -73,7 +72,7 @@ class MatchDetail extends Component {
             <Text>MESSAGE_COUNT: {message_count}</Text>
             <Text>MINUTE: {minute}</Text>
             <Text>PREDICTION_COUNT: {prediction_count}</Text>
-            <Text>DATETIME: {Date(datetime)}</Text>
+            <Text>DATETIME: {datetime}</Text>
             <Text>KEY: {key}</Text>
           </Card>
         </View>

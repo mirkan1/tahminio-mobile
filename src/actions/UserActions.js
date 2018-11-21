@@ -14,6 +14,7 @@ import {
   USER_SIGN_UP,
   USER_UPDATE_ME,
   USER_GET_ME,
+  USER_DELETE_ME,
 } from './types';
 import { pageChanged } from './index';
 
@@ -159,10 +160,11 @@ export const userDeleteMe = ({ token }) => {
         Authorization: `Token ${token}`
       }
     })
-      .then(user => {
-        LoginUserSuccess(dispatch, user);
+      .then(() => {
+        Actions.MatchPage();
+        //LoginUserSuccess(dispatch, user);
       })
-      .catch(() => LoginUserFail(dispatch));
+      .catch((err) => console.log(err))
   };
 };
 

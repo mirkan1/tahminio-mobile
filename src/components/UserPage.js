@@ -1,16 +1,13 @@
 import { View, Text, FlatList } from 'react-native';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { 
-  userGetMe,
-  logoutUser,
-} from '../actions';
+import { userGetMe, logoutUser, userDeleteMe } from '../actions';
 import { Card, CardSection, Input, Button, Spinner, Base } from './common';
 import UserSearchData from './UserSearchData';
 import { Actions } from 'react-native-router-flux';
 
 class UserPage extends Component {
-	state = { count: 0}
+	state = { count: 0 }
 	
 /*	componentDidMount() {
 		if (this.state.count === 0) {
@@ -21,15 +18,20 @@ class UserPage extends Component {
 		}
 	}*/
 
-	renderButton() {
+/*	renderButton() {
     if (this.props.loading) {
       return <Spinner size="large" />;
     }
-  }
+  }*/
 
 	onLogoutUser() {
 	  const { token } = this.props;
 		this.props.logoutUser({ token });
+  }
+
+  onUserDeleteMe() {
+  	const { token } = this.props;
+		this.props.userDeleteMe({ token });
   }
 
 	renderPage() {
@@ -53,7 +55,7 @@ class UserPage extends Component {
 		  	</View>
 		  );
 	  }
-	  //console.log(user.data)
+
 	  return (
       <View>
         <Text>{user.data.first_name}</Text>
@@ -67,6 +69,9 @@ class UserPage extends Component {
         <CardSection>
           <Button onPress={this.onLogoutUser.bind(this)}>Logout</Button>
         </CardSection>
+        <CardSection>
+          <Button onPress={this.onUserDeleteMe.bind(this)}>Delete yourself</Button>
+        </CardSection>
         <UserSearchData />
       </View>
     );
@@ -77,7 +82,7 @@ class UserPage extends Component {
 			<Base>
 				{this.renderPage()}
 			</Base>
-		) 
+		);
 	}
 };
 
@@ -98,6 +103,6 @@ const mapStateTopProps = state => {
 };
 
 export default connect(mapStateTopProps, { 
-  userGetMe, logoutUser
+  userGetMe, logoutUser, userDeleteMe
 })(UserPage);
 

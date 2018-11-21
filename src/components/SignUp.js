@@ -9,7 +9,7 @@ import {
   lastnameChanged,
   bioChanged,
   logoutUser,
-  userSignUp
+  userSignUp,
 } from '../actions';
 import { Card, CardSection, Input, Button, Spinner } from './common';
 
