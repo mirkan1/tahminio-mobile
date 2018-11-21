@@ -20,15 +20,15 @@ import { Card, CardSection, Input, Spinner, Button } from './common';
 // make a reducer that should render to this page without fuckiong up all the data
 class UpdateMe extends Component {
   componentDidMount() {
-    const { data } = this.props.user;
-    this.props.usernameChanged(data.username);
-    this.props.emailChanged(data.email);
+    const { user } = this.props;
+    this.props.usernameChanged(user.username);
+    this.props.emailChanged(user.email);
     // chech pass later
     // and sign up doest work well
     this.props.passwordChanged(this.props.password);
-    this.props.firstnameChanged(data.first_name);
-    this.props.lastnameChanged(data.last_name);
-    this.props.bioChanged(data.bio);
+    this.props.firstnameChanged(user.first_name);
+    this.props.lastnameChanged(user.last_name);
+    this.props.bioChanged(user.bio);
     
   }
   onUsernameChange(text) {
@@ -107,8 +107,6 @@ class UpdateMe extends Component {
   }
 
   render() {
-    const { data } = this.props.user
-    //console.log(this.props.email === '' ? data.email : this.props.email)
     return (
       <Card>
         <CardSection>

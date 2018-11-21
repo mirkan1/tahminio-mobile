@@ -15,6 +15,10 @@ import {
   USER_UPDATE_ME,
   USER_GET_ME,
   USER_DELETE_ME,
+  GET_ANOTHER_USER,
+  FOLLOW_USER,
+  UNFOLLOW_USER,
+  USER_VERIFY,
 } from './types';
 import { pageChanged } from './index';
 
@@ -124,7 +128,6 @@ const LoginUserSuccess = (dispatch, user) => {
   });
 
   Actions.UserPage();
-  //pageChanged('login_page');
 };
 
 export const userGetMe = ({ token }) => {
@@ -143,7 +146,7 @@ export const userGetMe = ({ token }) => {
       .then(user => {
         LoginUserSuccess(dispatch, user);
       })
-      //.catch(() => Actions.UserPage());//LoginUserFail(dispatch));
+      .catch((err) => console.log(err))
   };
 };
 
@@ -161,7 +164,7 @@ export const userDeleteMe = ({ token }) => {
       }
     })
       .then(() => {
-        Actions.MatchPage();
+        Actions.UserPage();
         //LoginUserSuccess(dispatch, user);
       })
       .catch((err) => console.log(err))
@@ -198,13 +201,11 @@ export const userUpdateMe = ({ token, username=null, password=null, email=null, 
   };
 };
 
-export const getAnotherUser = ({ user_id, token }) => {
+export const getAnotherUser = ( user_id, { token } ) => {
   // Description: Returns the information about requested user
   // Endpoint `GET /v1/users/:user_id/`
   // Return: 200 and UserDetail object
   return (dispatch) => {
-    dispatch({ type: GET_ANOTHER_USER });
-
     axios.get(`http://api.tahmin.io/v1/users/${user_id}/`, { 
       headers: 
       { 
@@ -212,8 +213,11 @@ export const getAnotherUser = ({ user_id, token }) => {
       }
     })
       .then(user_detail => {
-        console.log(user_detail)
-        // render to the user profile page
+        dispatch({ 
+          type: GET_ANOTHER_USER,
+          payload: user_detail
+        }),
+        Actions.WantedUser();
       })
       .catch(
         // return to the same page with and error
@@ -251,8 +255,6 @@ export const followUser = ({ user_id, token }) => {
   // Endpoint `POST /v1/users/:user_id/follow/`
   // Return: 200
   return (dispatch) => {
-    dispatch({ type: FOLLOW_USER });
-
     axios.post(`http://api.tahmin.io/v1/users/${user_id}/follow/`, { 
       headers: 
       { 
@@ -260,11 +262,12 @@ export const followUser = ({ user_id, token }) => {
       }
     })
       .then(() => {
-        // render to the user profile
+        dispatch({ 
+          type: FOLLOW_USER
+        }),
+        Actions.WantedUser();
       })
-      .catch(
-        // return to the same page with and error
-        error => console.log(error));
+      .catch((err) => console.log(error));
   };
 };
 
@@ -282,11 +285,12 @@ export const unfollowUser = ({ user_id, token }) => {
       }
     })
       .then(() => {
-        // render to the user profile
+        dispatch({ 
+          type: UNFOLLOW_USER
+        }),
+        Actions.WantedUser();
       })
-      .catch(
-        // return to the same page with and error
-        error => console.log(error));
+      .catch((err) => console.log(error));
   };
 };
 
@@ -294,6 +298,9 @@ export const userVerify = ({ verification_key }) => {
   // Description: Verifies the user associated with the given code
   // Endpoint `GET /v1/users/activate/?key=:verification_key`
   // Return: 200
+
+  // - Not verified in time -> User failed to activate his account within 12 hours.
+  // - Verification not found -> Verification key is not found in the database.
   return (dispatch) => {
     dispatch({ type: USER_VERIFY });
 

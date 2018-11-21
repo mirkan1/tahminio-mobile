@@ -7,12 +7,13 @@ import UserPage from './components/UserPage';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
 import MatchDetail from './components/MatchDetail';
+import WantedUser from './components/WantedUser';
 
 const RouterComponent = ({ pressStatus }) => {
   return (
     <Router>
       <Scene key="root">
-        <Scene hideNavBar={true} key="MatchPage" component={MatchPage} title="Tahmin-io" initial/>
+        <Scene hideNavBar={true} key="MatchPage" component={MatchPage} title="Tahmin-io" initial />
           <Scene key="MatchDetail" component={MatchDetail} title="Match Detail" />
 
         <Scene hideNavBar={true} key="OptionsPage" component={OptionsPage} title="Options" />
@@ -21,6 +22,9 @@ const RouterComponent = ({ pressStatus }) => {
           <Scene key="UpdateMe" component={UpdateMe} title="Update" />
           <Scene key="SignUp" component={SignUp} title="Sign Up" />
           <Scene key="Login" component={Login} title="Login" />
+
+          <Scene key="WantedUser" component={WantedUser} title="WantedUser" />
+
       </Scene>
     </Router>
   );

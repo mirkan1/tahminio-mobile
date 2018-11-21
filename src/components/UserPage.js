@@ -1,7 +1,13 @@
 import { View, Text, FlatList } from 'react-native';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { userGetMe, logoutUser, userDeleteMe } from '../actions';
+import { 
+	userGetMe,
+	logoutUser,
+	userDeleteMe,
+	getAnotherUser,
+	userVerify
+} from '../actions';
 import { Card, CardSection, Input, Button, Spinner, Base } from './common';
 import UserSearchData from './UserSearchData';
 import { Actions } from 'react-native-router-flux';
@@ -34,6 +40,19 @@ class UserPage extends Component {
 		this.props.userDeleteMe({ token });
   }
 
+  ongetAnotherUser() {
+  	const { token } = this.props;
+  	const user_id = 582;
+		this.props.getAnotherUser( user_id, { token } );
+  }
+
+  onUserVerify() {
+  	// TODO
+  	// find out where to tkae verify key
+  	const { verification_key } = 1234
+  	this.props.userVerify({ verification_key })
+  }
+
 	renderPage() {
 	  const { user } = this.props;
 	  if (user === null) {
@@ -58,11 +77,11 @@ class UserPage extends Component {
 
 	  return (
       <View>
-        <Text>{user.data.first_name}</Text>
-        <Text>{user.data.email}</Text>
-        <Text>{user.data.last_name}</Text>
-        <Text>{user.data.username}</Text>
-        <Text>{user.data.bio}</Text>
+        <Text>{user.first_name}</Text>
+        <Text>{user.email}</Text>
+        <Text>{user.last_name}</Text>
+        <Text>{user.username}</Text>
+        <Text>{user.bio}</Text>
         <CardSection>
           <Button onPress={() => Actions.UpdateMe()}>Update Me</Button>
         </CardSection>
@@ -72,6 +91,17 @@ class UserPage extends Component {
         <CardSection>
           <Button onPress={this.onUserDeleteMe.bind(this)}>Delete yourself</Button>
         </CardSection>
+        <CardSection>
+          <Button onPress={this.ongetAnotherUser.bind(this)}>getAnotherUser</Button>
+        </CardSection>
+        	{ !user.is_verified
+            ? {
+            		<CardSection>
+            			<Button onPress={this.onUserVerify.bind(this)}>Verify your account</Button>
+            		</CardSection>
+            	}
+        		: null
+        	}
         <UserSearchData />
       </View>
     );
@@ -103,6 +133,7 @@ const mapStateTopProps = state => {
 };
 
 export default connect(mapStateTopProps, { 
-  userGetMe, logoutUser, userDeleteMe
+  userGetMe, logoutUser, userDeleteMe, getAnotherUser
+  userVerify,
 })(UserPage);
 

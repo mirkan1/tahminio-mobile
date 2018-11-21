@@ -14,6 +14,10 @@ import {
   USER_UPDATE_ME,
   USER_GET_ME,
   USER_DELETE_ME,
+  GET_ANOTHER_USER,
+  FOLLOW_USER,
+  UNFOLLOW_USER,
+  USER_VERIFY,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -28,6 +32,7 @@ const INITIAL_STATE = {
   user: null,
   error: '',
   loading: false,
+  wantedUser: '',
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -51,7 +56,7 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, loading: true, error: '' };
     case LOGIN_USER_SUCCESS:
       // After logged in with the help of second argument clears INITIAL_STATE
-      return { ...state, ...INITIAL_STATE, user: action.payload, token: action.payload.data.token };  
+      return { ...state, ...INITIAL_STATE, user: action.payload.data , token: action.payload.data.token };  
     case LOGIN_USER_FAIL:
       return { ...state, ...INITIAL_STATE, error: 'Authentication Failed.' }; 
     case LOGOUT_USER:
@@ -64,6 +69,14 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, loading: false, error: '' };
     case USER_DELETE_ME: // the same with the LOGOUT_USER
       return { ...state, ...INITIAL_STATE };
+    case GET_ANOTHER_USER:
+      return { ...state, wantedUser: action.payload.data };
+    case FOLLOW_USER:
+      return { ...state, }; 
+    case UNFOLLOW_USER:
+      return { ...state, };
+    case USER_VERIFY:
+      return { ..state, };
     default:
       return state;
   }
