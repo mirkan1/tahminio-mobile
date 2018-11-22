@@ -30,6 +30,7 @@ export const GET_ANOTHER_USER = 'get_another_user';						// DONE
 export const USER_CHANGE_PASSWORD = 'user_change_password';
 export const FOLLOW_USER = 'follow_user';
 export const UNFOLLOW_USER = 'unfollow_user';
+export const FOLLOW_PROCESS = 'follow_process';
 export const USER_VERIFY = 'user_vetify';
 export const USER_SEARCH = 'user_search'; 								// DONE
 export const REQUEST_PASSWORD_RESET = 'user_password_reset';

@@ -6,7 +6,7 @@ import {
 	logoutUser,
 	userDeleteMe,
 	getAnotherUser,
-	userVerify
+	userVerify,
 } from '../actions';
 import { Card, CardSection, Input, Button, Spinner, Base } from './common';
 import UserSearchData from './UserSearchData';
@@ -36,6 +36,9 @@ class UserPage extends Component {
   }
 
   onUserDeleteMe() {
+  	// TODO
+  	// make an alert function that ask if you want to delete your account
+  	// demand the owner's password
   	const { token } = this.props;
 		this.props.userDeleteMe({ token });
   }
@@ -48,7 +51,7 @@ class UserPage extends Component {
 
   onUserVerify() {
   	// TODO
-  	// find out where to tkae verify key
+  	// find out where to take verify key
   	const { verification_key } = 1234
   	this.props.userVerify({ verification_key })
   }
@@ -94,14 +97,14 @@ class UserPage extends Component {
         <CardSection>
           <Button onPress={this.ongetAnotherUser.bind(this)}>getAnotherUser</Button>
         </CardSection>
+
+        <CardSection>
         	{ !user.is_verified
-            ? {
-            		<CardSection>
-            			<Button onPress={this.onUserVerify.bind(this)}>Verify your account</Button>
-            		</CardSection>
-            	}
+            ? <Button onPress={this.onUserVerify.bind(this)}>Verify your account</Button>
         		: null
         	}
+        </CardSection>
+
         <UserSearchData />
       </View>
     );
@@ -133,7 +136,6 @@ const mapStateTopProps = state => {
 };
 
 export default connect(mapStateTopProps, { 
-  userGetMe, logoutUser, userDeleteMe, getAnotherUser
-  userVerify,
+  userGetMe, logoutUser, userDeleteMe, getAnotherUser, userVerify,
 })(UserPage);
 

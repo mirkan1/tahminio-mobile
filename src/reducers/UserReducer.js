@@ -15,6 +15,7 @@ import {
   USER_GET_ME,
   USER_DELETE_ME,
   GET_ANOTHER_USER,
+  FOLLOW_PROCESS,
   FOLLOW_USER,
   UNFOLLOW_USER,
   USER_VERIFY,
@@ -70,13 +71,15 @@ export default (state = INITIAL_STATE, action) => {
     case USER_DELETE_ME: // the same with the LOGOUT_USER
       return { ...state, ...INITIAL_STATE };
     case GET_ANOTHER_USER:
-      return { ...state, wantedUser: action.payload.data };
+      return { ...state, wantedUser: action.payload.data, followStatus: action.payload.data.is_following };
+    case FOLLOW_PROCESS:
+      return { ...state, loading: true };
     case FOLLOW_USER:
-      return { ...state, }; 
+      return { ...state, loading: false }; 
     case UNFOLLOW_USER:
-      return { ...state, };
+      return { ...state, loading: false, };
     case USER_VERIFY:
-      return { ..state, };
+      return { ...state, };
     default:
       return state;
   }

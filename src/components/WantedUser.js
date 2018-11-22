@@ -1,25 +1,57 @@
 import { View, Text } from 'react-native';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Card, CardSection, Input, Button, Spinner } from './common';
+import { Card, CardSection, Input, Spinner } from './common';
 import { Icon, Button } from 'native-base';
 import { followUser, unfollowUser } from '../actions';
 
 
 class WantedUser extends Component {
+  state = { followStatus: null }
+
+  componentDidMount() {
+    this.setState({ followStatus: this.props.wantedUser.is_following })
+  }
+
   onFollowUser() {
     const { wantedUser, token } = this.props;
-    this.props.followUser({wantedUser.id, token});
+    this.props.followUser(wantedUser.id, { token });
+    this.setState({ followStatus: !this.state.followStatus })
   }
 
   onUnfollowUser() {
     const { wantedUser, token } = this.props;
-    this.props.followUser({wantedUser.id, token});
+    this.props.unfollowUser(wantedUser.id, { token });
+    this.setState({ followStatus: !this.state.followStatus })
+  }
+
+  renderFollowButton() {
+    const { loading, wantedUser } = this.props;
+    if (loading) {
+      return <Spinner size="large" />;
+    }
+    if (!this.state.followStatus) {
+      return (
+        <Button 
+          transparent
+          onPress={this.onFollowUser.bind(this)}
+        >
+          <Icon name='add' />
+        </Button>
+      );
+    }
+    return (
+      <Button 
+        transparent
+        onPress={this.onUnfollowUser.bind(this)}
+      >
+        <Icon name='remove' />
+      </Button>
+    );
   }
 
   render() {
     const { wantedUser } = this.props;
-    console.log(wantedUser)
     return (
       <View>
         <Text>{wantedUser.username}</Text>
@@ -28,20 +60,7 @@ class WantedUser extends Component {
         <Text>{wantedUser.bio}</Text>
         {/*<Text>{wantedUser.profile_photo}</Text>*/}
         {/*<Text>{wantedUser.trophies}</Text>*/}
-        {!wantedUser.is_following
-          ? {<Button 
-              transparent
-              onPress={this.onFollowUser.bind(this)}
-            >
-              <Icon name='menu' />
-            </Button>}
-          : {<Button 
-              transparent
-              onPress={this.onUnfollowUser.bind(this)}
-            >
-              <Icon name='person' />
-            </Button>} 
-        }
+        {this.renderFollowButton()}
       </View>
     );
   }
@@ -51,6 +70,7 @@ const mapStateTopProps = state => {
   return {
     wantedUser: state.user.wantedUser,
     token: state.user.token,
+    loading: state.user.loading,
   };
 };
 

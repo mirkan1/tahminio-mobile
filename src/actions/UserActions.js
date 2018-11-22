@@ -17,6 +17,7 @@ import {
   USER_DELETE_ME,
   GET_ANOTHER_USER,
   FOLLOW_USER,
+  FOLLOW_PROCESS,
   UNFOLLOW_USER,
   USER_VERIFY,
 } from './types';
@@ -205,6 +206,7 @@ export const getAnotherUser = ( user_id, { token } ) => {
   // Description: Returns the information about requested user
   // Endpoint `GET /v1/users/:user_id/`
   // Return: 200 and UserDetail object
+  console.log('getting user')
   return (dispatch) => {
     axios.get(`http://api.tahmin.io/v1/users/${user_id}/`, { 
       headers: 
@@ -250,47 +252,49 @@ export const userChangePassword = ({ old_password, new_password, token }) => {
   };
 };
 
-export const followUser = ({ user_id, token }) => {
+export const followUser = (user_id, { token }) => {
   // Description: Follows the given user
   // Endpoint `POST /v1/users/:user_id/follow/`
   // Return: 200
+  console.log('follow')
   return (dispatch) => {
-    axios.post(`http://api.tahmin.io/v1/users/${user_id}/follow/`, { 
+    dispatch({ type: FOLLOW_PROCESS })
+
+    axios.post(`http://api.tahmin.io/v1/users/${user_id}/follow/`, {}, { 
       headers: 
       { 
         Authorization: `Token ${token}`
       }
     })
-      .then(() => {
+      .then((response) => {
         dispatch({ 
           type: FOLLOW_USER
         }),
-        Actions.WantedUser();
       })
-      .catch((err) => console.log(error));
+      .catch((err) => console.log(err));
   };
 };
 
-export const unfollowUser = ({ user_id, token }) => {
+export const unfollowUser = (user_id, { token }) => {
   // Description: Unfollows the given user
   // Endpoint `POST /v1/users/:user_id/unfollow/`
   // Return: 200
+  console.log('unFollow')
   return (dispatch) => {
-    dispatch({ type: UNFOLLOW_USER });
+    dispatch({ type: FOLLOW_PROCESS })
 
-    axios.post(`http://api.tahmin.io/v1/users/${user_id}/unfollow/`, { 
+    axios.post(`http://api.tahmin.io/v1/users/${user_id}/unfollow/`, {}, { 
       headers: 
       { 
         Authorization: `Token ${token}`
       }
     })
-      .then(() => {
+      .then((response) => {
         dispatch({ 
           type: UNFOLLOW_USER
         }),
-        Actions.WantedUser();
       })
-      .catch((err) => console.log(error));
+      .catch((err) => console.log(err));
   };
 };
 
