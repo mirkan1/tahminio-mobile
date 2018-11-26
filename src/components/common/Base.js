@@ -1,15 +1,53 @@
 import React, { Component } from 'react';
+import { View, Animated } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
 
+state = { status: null}
+
+const OptionsBar = () => {
+  // TODO
+  // learn Animated.View from medium page that I bookmarked
+  return (
+    <Animated.View style={styles.OptionsBardStyle}>
+      <Button 
+        transparent
+        onPress={() => toggleBar()}
+      >
+        <Icon name='menu' />
+      </Button>
+      <Text style={{ marginLeft: 15, color: '#fff' }}>Option1</Text>
+      <Text style={{ marginLeft: 15, color: '#fff' }}>Option2</Text>
+      <Text style={{ marginLeft: 15, color: '#fff' }}>Option3</Text>
+      <Text style={{ marginLeft: 15, color: '#fff' }}>Option4</Text>
+    </Animated.View>
+  );
+};
+
+const toggleBar = () => {
+  if (state.status === null) {
+    state.status = 'optionsBar';
+    return Actions.MatchPage();
+  } else {
+    state.status = null;
+    return Actions.MatchPage();
+  }
+  
+};
+
 const Base = ({ children }) => {
+  if (state.status === 'optionsBar') {
+    return (
+      <OptionsBar />
+    );
+  }
   return (
     <Container>
       <Header>
         <Left>
           <Button 
             transparent
-            onPress={() => Actions.OptionsPage()}
+            onPress={() => toggleBar()}
           >
             <Icon name='menu' />
           </Button>
@@ -48,23 +86,23 @@ const Base = ({ children }) => {
 };
 
 const styles = {
-  textStyle : {
-    alignSelf: 'center',
-    color: '#007aff',
-    fontSize: 16,
-    fontWeight: '600',
-    paddingTop: 10,
-    paddingBottom: 10,
-  },
-  buttonStyle: {
-    flex: 1, 
+  OptionsBardStyle: {
+    visibility: 'hidden', 
+    position: 'relative',
+    flex: 1,
+    height: 120,
+    width: 240,
     alignSelf: 'stretch', 
-    backgroundColor: '#fff', 
-    borderRadius: 5,
+    backgroundColor: '#000', 
+    //borderRadius: 5,
     borderWidth: 1,
     borderColor: '#007aff', 
-    marginLeft: 5,
-    marginRight: 5,
+    // marginLeft: 5,
+    // marginRight: 5,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
   }
 };
 

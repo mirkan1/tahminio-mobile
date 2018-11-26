@@ -269,7 +269,7 @@ export const followUser = (user_id, { token }) => {
       .then((response) => {
         dispatch({ 
           type: FOLLOW_USER
-        }),
+        });
       })
       .catch((err) => console.log(err));
   };
@@ -292,7 +292,7 @@ export const unfollowUser = (user_id, { token }) => {
       .then((response) => {
         dispatch({ 
           type: UNFOLLOW_USER
-        }),
+        });
       })
       .catch((err) => console.log(err));
   };
