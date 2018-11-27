@@ -8,23 +8,29 @@ import SignUp from './components/SignUp';
 import Login from './components/Login';
 import MatchDetail from './components/MatchDetail';
 import WantedUser from './components/WantedUser';
+import UserSearch from './components/UserSearch';
+
 
 const RouterComponent = ({ pressStatus }) => {
   return (
     <Router>
       <Scene key="root">
-        <Scene hideNavBar key="MatchPage" component={MatchPage} title="Tahmin-io" initial />
+        <Scene hideNavBar 
+          key="MatchPage" component={MatchPage} title="Tahmin-io" initial />
           <Scene key="MatchDetail" component={MatchDetail} title={"Match Detail"} onBack={() => Actions.MatchPage()}/>
 
-        <Scene hideNavBar key="OptionsPage" component={OptionsPage} title="Options" />
+        <Scene hideNavBar 
+          key="OptionsPage" component={OptionsPage} title="Options" />
 
-        <Scene hideNavBar key="UserPage" component={UserPage} title="User" />
+        <Scene hideNavBar 
+          key="UserPage" component={UserPage} title="User" />
           <Scene key="UpdateMe" component={UpdateMe} title="Update" />
           <Scene key="SignUp" component={SignUp} title="Sign Up" />
           <Scene key="Login" component={Login} title="Login" />
 
           <Scene key="WantedUser" component={WantedUser} title="WantedUser" />
-
+          <Scene hideNavBar
+            key="UserSearch" component={UserSearch} title="UserSearch" />
       </Scene>
     </Router>
   );

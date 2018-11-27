@@ -13,21 +13,15 @@ export const searchWordChanged = (text) => {
 };
 
 export const searchUser = (token, queryWord) => {
-  console.log('TOKEN:', token);
   return (dispatch) => {
     dispatch({ type: SEARCH_USER });
+    
     axios.get(`http://api.tahmin.io/v1/search/users/?query=${queryWord}`,
       { headers: { Authorization: `Token ${token}` } })
       .then(response => {
         SearchSuccess(dispatch, response.data);
       })
       .catch(error => console.log("Search error", error));
-      // GIVES ERROR
-      // Error: Request failed with status code 500
-      /* {
-        LoginUserSuccess(dispatch, user)
-      })
-			.catch(() => LoginUserFail(dispatch)); */
   };
 };
 

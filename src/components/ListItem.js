@@ -9,7 +9,11 @@ const ListItem = ({ match, onPress }) => {
       <View>
         <CardSection>
           <Image
-            source={{ uri: home_team.logo }}
+            source={{ uri: 
+                home_team.logo !== null
+                ? home_team.logo
+                : 'https://www.designevo.com/res/templates/thumb_small/blue-star-and-gray-soccer.png'
+              }}
             style={styles.thumbnailStyle}
           />
           <Text style={styles.titleStyle}>
@@ -19,7 +23,11 @@ const ListItem = ({ match, onPress }) => {
             {away_team.name}
           </Text>
           <Image
-            source={{ uri: away_team.logo }}
+            source={{ uri: 
+                away_team.logo !== null
+                ? away_team.logo
+                : 'https://www.designevo.com/res/templates/thumb_small/blue-star-and-gray-soccer.png'
+              }}
             style={styles.thumbnailStyle}
           />
         </CardSection>

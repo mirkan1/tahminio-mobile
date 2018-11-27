@@ -9,7 +9,6 @@ import {
 	userVerify,
 } from '../actions';
 import { Card, CardSection, Input, Button, Spinner, Base } from './common';
-import UserSearchData from './UserSearchData';
 import { Actions } from 'react-native-router-flux';
 
 class UserPage extends Component {
@@ -105,7 +104,6 @@ class UserPage extends Component {
         	}
         </CardSection>
 
-        <UserSearchData />
       </View>
     );
 	}

@@ -1,4 +1,4 @@
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { 
@@ -9,7 +9,6 @@ import {
 } from '../actions';
 import { Card, CardSection, Input, Button, Spinner } from './common';
 import ListItem from './ListItem';
-import UserSearchData from './UserSearchData';
 
 // TODO
 // make separate files; Login.js and SingUp.js
@@ -61,23 +60,32 @@ class Login extends Component {
 
   render() {
     return (
+      <KeyboardAvoidingView behavior="padding">
       <Card>
         <CardSection>
           <Input 
+            style={styles.inputStyle}
             label="Username"
             placeholder="username123"
             onChangeText={this.onUsernameChange.bind(this)}
             value={this.props.username}
+            returnKeyType="next"
+            autoCorrect={false}
+            autoCapitalize="none"
           />
         </CardSection>
 
         <CardSection>
           <Input
+            style={styles.inputStyle}
             secureTextEntry
             label="Password"
             placeholder="password"
             onChangeText={this.onPasswordChange.bind(this)}
             value={this.props.password}
+            returnKeyType="go"
+            autoCorrect={false}
+            autoCapitalize="none"
           />
         </CardSection>
 
@@ -87,6 +95,7 @@ class Login extends Component {
           {this.renderButton()}
         </CardSection>
       </Card>
+      </KeyboardAvoidingView>
     );
   }
 };
@@ -96,6 +105,10 @@ const styles = {
     fontSize: 20,
     alignSelf: 'center',
     color: 'red'
+  },
+  inputStyle: {
+    height: 40,
+
   }
 };
 const mapStateTopProps = state => {

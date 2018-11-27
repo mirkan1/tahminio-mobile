@@ -5,17 +5,17 @@ import {
   searchWordChanged,
   searchUser
 } from '../actions';
-import { Card, CardSection, Input, Button, Spinner } from './common';
+import { Card, CardSection, Input, Button, Spinner, Base } from './common';
 
   
-class UserSearchData extends Component {
+class UserSearch extends Component {
   onSearchWordChange(text) {
     this.props.searchWordChanged(text);
   }
   onSearchButtonPress() {
 
     const { searchWord } = this.props;
-    const { token } = this.props.user.data;
+    const { token } = this.props;
     this.props.searchUser(token, searchWord);
   }
 
@@ -76,7 +76,7 @@ class UserSearchData extends Component {
 
   render() {
     return (
-      <View>
+      <Base>
         <CardSection>
            <Input 
              label="Search"
@@ -90,16 +90,17 @@ class UserSearchData extends Component {
            {this.renderButton()}
          </CardSection>
          {this.searchDataFetched()}
-       </View>
-    )
+       </Base>
+    ); 
   }
 };
 
 const mapStateTopProps = state => {
   return {
     error: state.user.error,
-    loading: state.user.loading,
+    loading: state.search.loading,
     user: state.user.user,
+    token: state.user.token,
     // import here onchange on click and stuff for search
     searchWord: state.search.searchWord,
     searchedData: state.search.searchedData,
@@ -108,4 +109,4 @@ const mapStateTopProps = state => {
 
 export default connect(mapStateTopProps, { 
   searchUser, searchWordChanged
-})(UserSearchData);
+})(UserSearch);

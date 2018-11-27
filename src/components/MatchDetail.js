@@ -8,7 +8,11 @@ const MatchCard = ({ home_team, away_team, first_half_score, score }) => {
     <View style={styles.matchCardStyle}>
           <View style={{ flex: 1, }}>
             <Image
-              source={{ uri: home_team.logo }}
+              source={{ uri: 
+                home_team.logo !== null
+                ? home_team.logo
+                : 'https://www.designevo.com/res/templates/thumb_small/blue-star-and-gray-soccer.png'
+              }}
               style={styles.thumbnailStyle}
             />
           </View>
@@ -19,7 +23,11 @@ const MatchCard = ({ home_team, away_team, first_half_score, score }) => {
           </View>
           <View style={{ flex: 1, }}>
             <Image
-              source={{ uri: away_team.logo }}
+              source={{ uri: 
+                away_team.logo !== null
+                ? away_team.logo
+                : 'https://www.designevo.com/res/templates/thumb_small/blue-star-and-gray-soccer.png'
+              }}
               style={styles.thumbnailStyle}
             />
           </View>
@@ -40,7 +48,7 @@ class MatchDetail extends Component {
       datetime, score, key, } = this.props.teams;
 
     const buttons = ['One', 'Two', 'Three'];
-
+    console.log(home_team.logo, away_team.logo)
     return (
       <View style={{ backgroundColor: '#fff'}}>
         <Text style={styles.paragraph}>
