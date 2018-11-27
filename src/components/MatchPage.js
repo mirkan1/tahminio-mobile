@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, FlatList } from 'react-native';
+import { Text, View, FlatList, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { matchFetch, pageChanged, getMatchInfo } from '../actions';
 import { Spinner, Base } from './common';
@@ -31,7 +31,7 @@ class MatchPage extends Component {
 
     if (render) {
       return (
-        <View>
+        <View style={{ width: Dimensions.get('window').width }}>
           <FlatList
             data={match}
             renderItem={({ item }) => this.renderRow(item)}

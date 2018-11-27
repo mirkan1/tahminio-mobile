@@ -60,7 +60,7 @@ class MatchDetail extends Component {
             onPress={() => console.log('pressed')}
             selectedIndex={1}
             buttons={buttons}
-            containerStyle={{height: 40 }}
+            containerStyle={{ height: 40 }}
           />
 
           <Divider style={{ backgroundColor: 'black' }} />

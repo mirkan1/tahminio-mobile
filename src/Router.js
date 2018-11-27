@@ -13,12 +13,12 @@ const RouterComponent = ({ pressStatus }) => {
   return (
     <Router>
       <Scene key="root">
-        <Scene hideNavBar={true} key="MatchPage" component={MatchPage} title="Tahmin-io" initial />
-          <Scene key="MatchDetail" component={MatchDetail} title="Match Detail" />
+        <Scene hideNavBar key="MatchPage" component={MatchPage} title="Tahmin-io" initial />
+          <Scene key="MatchDetail" component={MatchDetail} title={"Match Detail"} onBack={() => Actions.MatchPage()}/>
 
-        <Scene hideNavBar={true} key="OptionsPage" component={OptionsPage} title="Options" />
+        <Scene hideNavBar key="OptionsPage" component={OptionsPage} title="Options" />
 
-        <Scene hideNavBar={true} key="UserPage" component={UserPage} title="User" />
+        <Scene hideNavBar key="UserPage" component={UserPage} title="User" />
           <Scene key="UpdateMe" component={UpdateMe} title="Update" />
           <Scene key="SignUp" component={SignUp} title="Sign Up" />
           <Scene key="Login" component={Login} title="Login" />
