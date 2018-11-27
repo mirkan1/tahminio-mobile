@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Text, View, Image } from 'react-native';
 import { Card } from 'react-native-paper';
 import { ButtonGroup, Divider } from 'react-native-elements';
-
 const MatchCard = ({ home_team, away_team, first_half_score, score }) => {
   return (
     <View style={styles.matchCardStyle}>
