@@ -2,7 +2,8 @@ import axios from 'axios';
 import { 
 	SEARCH_USER,
 	SEARCH_WORD_CHANGED,
-	SEARCH_SUCCESS 
+	SEARCH_SUCCESS,
+  SEARCH_FAIL,
 } from './types';
 
 export const searchWordChanged = (text) => {
@@ -21,15 +22,19 @@ export const searchUser = (token, queryWord) => {
       .then(response => {
         SearchSuccess(dispatch, response.data);
       })
-      .catch(error => console.log("Search error", error));
+      .catch(() => SearchFail(dispatch));
   };
 };
 
 const SearchSuccess = (dispatch, queryWord) => {
-  // TODO sometimes gives unexpected login error
   dispatch({
     type: SEARCH_SUCCESS,
     payload: queryWord
   });
-  //Actions.main();   // MAGIC AQU
+};
+
+const SearchFail = (dispatch) => {
+  dispatch({
+    type: SEARCH_FAIL
+  });
 };

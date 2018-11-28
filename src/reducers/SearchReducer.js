@@ -2,6 +2,7 @@ import {
   SEARCH_USER,
   SEARCH_WORD_CHANGED,
   SEARCH_SUCCESS,
+  SEARCH_FAIL,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -10,6 +11,7 @@ const INITIAL_STATE = {
   searchEnd: null,
   searchedData: null,
   loading: false,
+  error: false,
 }
 
 
@@ -20,7 +22,9 @@ export default (state = INITIAL_STATE, action) => {
     case SEARCH_WORD_CHANGED:
       return { ...state, searchWord: action.payload };
     case SEARCH_SUCCESS:
-      return { ...state, searchedData: action.payload, loading: false };
+      return { ...state, searchedData: action.payload, loading: false, error: false };
+    case SEARCH_FAIL:
+      return { ...state, error: true}
     default:
       return state;
   }

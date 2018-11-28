@@ -19,6 +19,7 @@ export const MATCH_INFO = 'match_info';
 export const SEARCH_USER = 'search_user';
 export const SEARCH_WORD_CHANGED = 'search_word_changed';
 export const SEARCH_SUCCESS = 'search_success';
+export const SEARCH_FAIL = 'search_fail';
 
 // UserActions
 export const USER_LOGIN = 'user_login';									// DONE

@@ -206,7 +206,6 @@ export const getAnotherUser = ( user_id, { token } ) => {
   // Description: Returns the information about requested user
   // Endpoint `GET /v1/users/:user_id/`
   // Return: 200 and UserDetail object
-  console.log('getting user')
   return (dispatch) => {
     axios.get(`http://api.tahmin.io/v1/users/${user_id}/`, { 
       headers: 
