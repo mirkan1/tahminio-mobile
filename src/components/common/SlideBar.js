@@ -35,6 +35,11 @@ const SlideBar = () => {
             onPress={() => {Actions.UserSearch();}}>
             <Text>User Search</Text>
           </ListItem>
+          <ListItem
+            button
+            onPress={() => {Actions.LeaderBoard();}}>
+            <Text>LeaderBoard</Text>
+          </ListItem>
       </Content>
     </Container>
   );

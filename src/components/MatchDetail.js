@@ -48,7 +48,6 @@ class MatchDetail extends Component {
       datetime, score, key, } = this.props.teams;
 
     const buttons = ['One', 'Two', 'Three'];
-    console.log(home_team.logo, away_team.logo)
     return (
       <View style={{ backgroundColor: '#fff'}}>
         <Text style={styles.paragraph}>

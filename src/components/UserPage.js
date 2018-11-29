@@ -7,6 +7,7 @@ import {
 	userDeleteMe,
 	getAnotherUser,
 	userVerify,
+  getUserTrophies,
 } from '../actions';
 import { Card, CardSection, Input, Button, Spinner, Base } from './common';
 import { Actions } from 'react-native-router-flux';
@@ -42,7 +43,7 @@ class UserPage extends Component {
 		this.props.userDeleteMe({ token });
   }
 
-  ongetAnotherUser() {
+  onGetAnotherUser() {
   	const { token } = this.props;
   	const user_id = 582;
 		this.props.getAnotherUser( user_id, { token } );
@@ -53,6 +54,10 @@ class UserPage extends Component {
   	// find out where to take verify key
   	const { verification_key } = 1234
   	this.props.userVerify({ verification_key })
+  }
+
+  onGetUserTrophies() {
+    this.props.getUserTrophies();
   }
 
 	renderPage() {
@@ -94,7 +99,10 @@ class UserPage extends Component {
           <Button onPress={this.onUserDeleteMe.bind(this)}>Delete yourself</Button>
         </CardSection>
         <CardSection>
-          <Button onPress={this.ongetAnotherUser.bind(this)}>getAnotherUser</Button>
+          <Button onPress={this.onGetAnotherUser.bind(this)}>getAnotherUser</Button>
+        </CardSection>
+        <CardSection>
+          <Button onPress={this.onGetUserTrophies.bind(this)}>GetUserTrophies</Button>
         </CardSection>
 
         <CardSection>
@@ -134,6 +142,7 @@ const mapStateTopProps = state => {
 };
 
 export default connect(mapStateTopProps, { 
-  userGetMe, logoutUser, userDeleteMe, getAnotherUser, userVerify,
+  userGetMe, logoutUser, userDeleteMe,
+  getAnotherUser, userVerify, getUserTrophies,
 })(UserPage);
 

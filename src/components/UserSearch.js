@@ -69,27 +69,28 @@ class UserSearch extends Component {
     // maybe carry it to another spesific file named Search Results
     return (
       <View>
-      <TouchableOpacity
-        onPress={() => this.onAnotherUserClick(user)}
-        style={styles.resultStyle}
-      > 
-        <View style={{ flex: 2, flexDirection: 'column' }}>
-          <Text>{user.id}</Text>
-          <Text>{user.username}</Text>
-          <Text>{user.skill_point}</Text>
-        </View>
+        <TouchableOpacity
+          onPress={() => this.onAnotherUserClick(user)}
+          style={styles.resultStyle}
+        > 
+          <View style={{ flex: 2, flexDirection: 'column' }}>
+            <Text>{user.id}</Text>
+            <Text>{user.username}</Text>
+            <Text>{user.skill_point}</Text>
+          </View>
 
-        <View style={{ flex: 1, flexDirection: 'row-reverse' }}>
-          <Image
-            source={{ uri: 
-              user.profile_photo !== null
-              ? user.profile_photo
-              : 'https://www.designevo.com/res/templates/thumb_small/blue-star-and-gray-soccer.png'
-            }}
-            style={styles.thumbnailStyle}
-          />
-        </View>
-      </TouchableOpacity>
+          <View style={{ flex: 1, flexDirection: 'row-reverse' }}>
+            <Image
+              source={{ uri: 
+                user.profile_photo !== null
+                ? user.profile_photo
+                : 'https://www.designevo.com/res/templates/thumb_small/blue-star-and-gray-soccer.png'
+              }}
+              style={styles.thumbnailStyle}
+            />
+          </View>
+        </TouchableOpacity>
+        
         <Divider style={{ backgroundColor: 'black' }} />
       </View>
     );

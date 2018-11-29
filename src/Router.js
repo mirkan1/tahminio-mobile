@@ -9,6 +9,8 @@ import Login from './components/Login';
 import MatchDetail from './components/MatchDetail';
 import WantedUser from './components/WantedUser';
 import UserSearch from './components/UserSearch';
+import TrophyPage from './components/TrophyPage';
+import LeaderBoard from './components/LeaderBoard';
 
 
 const RouterComponent = ({ pressStatus }) => {
@@ -16,8 +18,13 @@ const RouterComponent = ({ pressStatus }) => {
     <Router>
       <Scene key="root">
         <Scene hideNavBar 
-          key="MatchPage" component={MatchPage} title="Tahmin-io" initial />
+          key="MatchPage" component={MatchPage} title="Tahmin-io" />
+        <Scene hideNavBar 
+          key="LeaderBoard" component={LeaderBoard} title="LeaderBoard" initial />
+
           <Scene key="MatchDetail" component={MatchDetail} title={"Match Detail"} onBack={() => Actions.MatchPage()}/>
+        
+        <Scene key="TrophyPage" component={TrophyPage} title="TrophyPage" />
 
         <Scene hideNavBar 
           key="OptionsPage" component={OptionsPage} title="Options" />
@@ -31,6 +38,7 @@ const RouterComponent = ({ pressStatus }) => {
           <Scene key="WantedUser" component={WantedUser} title="WantedUser" />
           <Scene hideNavBar
             key="UserSearch" component={UserSearch} title="UserSearch" />
+
       </Scene>
     </Router>
   );

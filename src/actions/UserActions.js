@@ -20,6 +20,7 @@ import {
   FOLLOW_PROCESS,
   UNFOLLOW_USER,
   USER_VERIFY,
+  GET_USER_TROPHIES,
 } from './types';
 import { pageChanged } from './index';
 
@@ -255,7 +256,6 @@ export const followUser = (user_id, { token }) => {
   // Description: Follows the given user
   // Endpoint `POST /v1/users/:user_id/follow/`
   // Return: 200
-  console.log('follow')
   return (dispatch) => {
     dispatch({ type: FOLLOW_PROCESS })
 
@@ -265,7 +265,7 @@ export const followUser = (user_id, { token }) => {
         Authorization: `Token ${token}`
       }
     })
-      .then((response) => {
+      .then(() => {
         dispatch({ 
           type: FOLLOW_USER
         });
@@ -278,7 +278,6 @@ export const unfollowUser = (user_id, { token }) => {
   // Description: Unfollows the given user
   // Endpoint `POST /v1/users/:user_id/unfollow/`
   // Return: 200
-  console.log('unFollow')
   return (dispatch) => {
     dispatch({ type: FOLLOW_PROCESS })
 
@@ -288,7 +287,7 @@ export const unfollowUser = (user_id, { token }) => {
         Authorization: `Token ${token}`
       }
     })
-      .then((response) => {
+      .then(() => {
         dispatch({ 
           type: UNFOLLOW_USER
         });
@@ -316,14 +315,6 @@ export const userVerify = ({ verification_key }) => {
         error => console.log(error));
   };
 };
-
-export const userSearch = ({ your_query }) => {
-  // DONE ON AuthActions.js
-  // Description: Searchs the user by username
-  // Endpoint `GET /v1/search/users/?query=:your_query`
-  // Return 200 and list of SimpleUser objects
-};
-
 
 // Forgot password routine
 
@@ -379,15 +370,18 @@ export const changePasswordWithKey = ({ key, password }) => {
 };
 
 export const getUserTrophies = () => {
+  // DOES NOT WORK AT ALL
   // Endpoint `GET /v1/users/me/trophies/`
   // Response: 200 and list of Trophy objects
   return (dispatch) => {
-    dispatch({ type: GET_USER_TROPHIES });
-
     axios.get(`http://api.tahmin.io/v1/users/me/trophies`)
-      .then((trophies) => {
-        console.log(trophies)
-        // render to the user profile
+      .then(response => {
+        console.log(response.data),
+        dispatch({
+          type: GET_USER_TROPHIES,
+          payload: response.data
+        }),
+        Actions.TrophyPage();
       })
       .catch(
         // return to the same page with and error
@@ -395,34 +389,17 @@ export const getUserTrophies = () => {
   };
 };
 
-export const getAnotherUserTrophies = ({ user_id }) => {
+export const getAnotherUserTrophies = (user_id) => {
   // Endpoint `GET /v1/users/:user_id/trophies/`
   // Response: 200 and list of Trophy objects
   return (dispatch) => {
-    dispatch({ type: GET_ANOTHER_USER_TROPHIES });
-
     axios.get(`http://api.tahmin.io/v1/users/${user_id}/trophies`)
-      .then((trophies) => {
-        console.log(trophies)
-        // render to the user profile
-      })
-      .catch(
-        // return to the same page with and error
-        error => console.log(error));
-  };
-};
-
-export const getAllTimeLeaderboard = ({ page_number="total_pages" }) => {
-  // Endpoint `GET /v1/leaders/:page_number/`
-  // `For total page number send a request to /v1/leaders/total_pages/`
-  // Response 200 and list of SimpleUser objects
-  return (dispatch) => {
-    dispatch({ type: GET_ALL_TIME_LEADERBOARD });
-
-    axios.get(`http://api.tahmin.io/v1/leaders/${page_number}/`)
-      .then((SimpleUser) => {
-        console.log(SimpleUser)
-        // render to the user profile
+      .then(response => {
+        dispatch({
+          type: GET_ANOTHER_USER_TROPHIES,
+          payload: response.data
+        }),
+        Actions.TrophyPage();
       })
       .catch(
         // return to the same page with and error

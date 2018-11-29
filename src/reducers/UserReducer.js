@@ -19,6 +19,7 @@ import {
   FOLLOW_USER,
   UNFOLLOW_USER,
   USER_VERIFY,
+  GET_USER_TROPHIES,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -34,6 +35,7 @@ const INITIAL_STATE = {
   error: '',
   loading: false,
   wantedUser: '',
+  trophies: null,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -80,6 +82,10 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, loading: false, };
     case USER_VERIFY:
       return { ...state, };
+    case USER_VERIFY:
+      return { ...state, trophies: action.payload };
+    case GET_USER_TROPHIES:
+      return { ...state, trophies: action.payload };
     default:
       return state;
   }

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Card, CardSection, Input, Spinner } from './common';
 import { Icon, Button } from 'native-base';
-import { followUser, unfollowUser } from '../actions';
+import { followUser, unfollowUser, getAnotherUserTrophies } from '../actions';
 
 
 class WantedUser extends Component {
@@ -25,8 +25,13 @@ class WantedUser extends Component {
     this.setState({ followStatus: !this.state.followStatus })
   }
 
+  onGetAnotherUserTrophies() {
+    const { id } = this.props.wantedUser;
+    this.props.getAnotherUserTrophies(id);
+  }
+
   renderFollowButton() {
-    const { loading, wantedUser } = this.props;
+    const { loading } = this.props;
     if (loading) {
       return <Spinner size="large" />;
     }
@@ -61,6 +66,9 @@ class WantedUser extends Component {
         {/*<Text>{wantedUser.profile_photo}</Text>*/}
         {/*<Text>{wantedUser.trophies}</Text>*/}
         {this.renderFollowButton()}
+        <Button onPress={this.onGetAnotherUserTrophies.bind(this)}>
+        <Icon name='trophy' />
+        </Button>
       </View>
     );
   }
@@ -75,5 +83,5 @@ const mapStateTopProps = state => {
 };
 
 export default connect(mapStateTopProps, {
-  followUser, unfollowUser,
+  followUser, unfollowUser, getAnotherUserTrophies
 })(WantedUser);
