@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import { View, Text, KeyboardAvoidingView } from 'react-native';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { 
@@ -8,10 +8,6 @@ import {
   logoutUser,
 } from '../actions';
 import { Card, CardSection, Input, Button, Spinner } from './common';
-import ListItem from './ListItem';
-
-// TODO
-// make separate files; Login.js and SingUp.js
 
 class Login extends Component {
   state = { formStatus: 'login' };

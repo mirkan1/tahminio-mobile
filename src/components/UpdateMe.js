@@ -12,7 +12,6 @@ import {
   profilePhotoChanged,
   userUpdateMe,
 } from '../actions';
-import { Actions } from 'react-native-router-flux';
 //import { Container, Header, Title, Content, Footer, FooterTab, Button, Text } from 'native-base';
 import { Card, CardSection, Input, Spinner, Button } from './common';
 

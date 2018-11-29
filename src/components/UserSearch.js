@@ -1,5 +1,4 @@
 import { View, Text, FlatList, TouchableOpacity, Image } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
@@ -7,7 +6,7 @@ import {
   searchUser,
   getAnotherUser,
 } from '../actions';
-import { Card, CardSection, Input, Button, Spinner, Base } from './common';
+import { CardSection, Input, Button, Spinner, Base } from './common';
 import { Divider } from 'react-native-elements';
   
 class UserSearch extends Component {

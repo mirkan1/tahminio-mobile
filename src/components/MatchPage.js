@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, FlatList, Dimensions } from 'react-native';
+import { View, FlatList, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { matchFetch, pageChanged, getMatchInfo } from '../actions';
 import { Spinner, Base } from './common';

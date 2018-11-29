@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text } from 'react-native';
 import { Card, CardSection, Button, Base } from './common';
 
 class OptionsPage extends Component {

@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Card, CardSection, Input, Spinner } from './common';
+import { Spinner } from './common';
 import { Icon, Button } from 'native-base';
 import { followUser, unfollowUser, getAnotherUserTrophies } from '../actions';
 
