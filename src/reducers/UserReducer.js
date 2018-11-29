@@ -20,6 +20,7 @@ import {
   UNFOLLOW_USER,
   USER_VERIFY,
   GET_USER_TROPHIES,
+  GET_USER_FEED,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -36,6 +37,7 @@ const INITIAL_STATE = {
   loading: false,
   wantedUser: '',
   trophies: null,
+  feed: null,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -86,6 +88,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, trophies: action.payload };
     case GET_USER_TROPHIES:
       return { ...state, trophies: action.payload };
+    case GET_USER_FEED:
+      return { ...state, feed: action.payload };
     default:
       return state;
   }

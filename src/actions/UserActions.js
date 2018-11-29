@@ -430,26 +430,26 @@ export const getUserTrophyProgress = () => {
   };
 };
 
-export const getUserFeed = () => {
+export const getUserFeed = ({ token }) => {
   // AUTH_REQ
   // Endpoint `GET /v1/users/feed/`
   // Response: 200 and list of Prediction objects
   return (dispatch) => {
-    dispatch({ type: GET_USER_FEED });
+    dispatch({ type: USER_UPDATE_ME });
 
-    axios.get(`http://api.tahmin.io/v1/uesrs/feed/`, { 
+    axios.get(`http://api.tahmin.io/v1/users/feed/`, { 
       headers: 
       { 
         Authorization: `Token ${token}`
       }
     })
       .then((predictions) => {
-        console.log(predictions)
-        // render to the user profile
+        dispatch({ 
+          type: GET_USER_FEED,
+          payload: action.payload
+        })
       })
-      .catch(
-        // return to the same page with and error
-        error => console.log(error));
+      .catch(error => console.log(error));
   };
 };
 

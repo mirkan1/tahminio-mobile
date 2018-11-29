@@ -62,7 +62,10 @@ class MatchPage extends Component {
 }
 
 const mapStateTopProps = state => {
-  return { render: state.team.render, match: state.team.match };
+  return { 
+    render: state.team.render,
+    match: state.team.match
+  };
 };
 
 export default connect(mapStateTopProps, { 

@@ -11,7 +11,6 @@ import { Actions } from 'react-native-router-flux';
 
 class TrophyPage extends Component {
   render() {
-    console.log(this.props.trophies)
     return(
       <View style={{ alignItems: 'center', marginTop: 10 }}>
           <Text style={{ fontSize: 30 }}>TROPHY</Text>
