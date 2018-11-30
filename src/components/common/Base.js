@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Animated, Easing, Dimensions, ScrollView, Image, ImageBackground, StatusBar } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
-import Drawer from 'react-native-drawer'
+import Drawer from 'react-native-drawer';
 import SlideBar from './SlideBar';
 
 /*const {width, height } = Dimensions.get('window');
@@ -48,7 +48,7 @@ class Base extends Content {
         tweenHandler={(ratio) => ({
           main: { opacity:(2-ratio)/2 }
         })}
-        >
+      >
         <Container>
           <Header>
             <Left>
