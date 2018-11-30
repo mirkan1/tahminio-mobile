@@ -115,6 +115,7 @@ export const loginUser = ({ email, password }) => {
 
 ## react-native-drawer
 - easy to use drawer to use click to open side-bars
+- https://github.com/root-two/react-native-drawer
 ```js
 import Drawer from 'react-native-drawer';
 
