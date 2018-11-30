@@ -18,8 +18,10 @@
 - node --experimental-modules ["INSERT YOUR JS FILE NAME HERE"].mjs
 - or use var [fs = require('fs')] instead
 
-## Redux
+## redux
+- make simplicity if the project if big, makes it easier to code. Sometimes not even necessary to use
 - npm install --save redux react-redux
+- https://github.com/reduxjs/redux
 ```js
 const reducer = (state = [], action) => {
 if (action.type === "split_string") {
@@ -45,6 +47,7 @@ store.getState();
 ## redux-thunk:
 -	asyncranic function programming for help
 -	npm install --save redux-thunk
+- https://github.com/reduxjs/redux-thunk
 
 On front-end
 ```js
@@ -79,18 +82,17 @@ export const loginUser = ({ email, password }) => {
 - dispatch is async way of redux-thunk
 - After action creator called and returned a function, Redux-thunk sees that we return a function, calls it with 'dispatch', and waits until request is complete then runs it then Dispatch the action
   
-## react-native-router-flux
-- npm install --save react-native-router-flux
-
 ## How to save globally on npm
 - npm install -g eslint
 
 ## react-native-elements
 - Quality elements for react-native projects
 - https://react-native-training.github.io/react-native-elements/docs/0.19.1/getting_started.html
+- https://github.com/react-native-training/react-native-elements
 
 ## react-native-router-flux
 - A beautiful and easy header component that a good guy named Aksonov made to make our life easies. God bless him
+- npm install --save react-native-router-flux
 - https://github.com/aksonov/react-native-router-flux
 ```js
 <Router sceneStyle={{ paddingTop: 65 }}>
@@ -115,6 +117,7 @@ export const loginUser = ({ email, password }) => {
 
 ## react-native-drawer
 - easy to use drawer to use click to open side-bars
+- npm install --save react-native-drawer
 - https://github.com/root-two/react-native-drawer
 ```js
 import Drawer from 'react-native-drawer';
