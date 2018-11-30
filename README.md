@@ -112,3 +112,24 @@ export const loginUser = ({ email, password }) => {
   </Scene>
 </Router>
 ```
+
+## react-native-drawer
+- easy to use drawer to use click to open side-bars
+```js
+import Drawer from 'react-native-drawer';
+
+<Drawer
+  ref={(ref) => this._drawer = ref}
+  content={<SlideBar />}
+  type="static"
+  tapToClose={true}
+  openDrawerOffset={0.2} // 20% gap on the right side of drawer
+  panCloseMask={0.2}
+  closedDrawerOffset={-3}
+  tweenHandler={(ratio) => ({
+    main: { opacity:(2-ratio)/2 }
+  })}
+>
+  {content}
+</Drawer>
+```
