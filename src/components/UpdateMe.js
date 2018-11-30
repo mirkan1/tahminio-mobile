@@ -12,7 +12,6 @@ import {
   profilePhotoChanged,
   userUpdateMe,
 } from '../actions';
-//import { Container, Header, Title, Content, Footer, FooterTab, Button, Text } from 'native-base';
 import { Card, CardSection, Input, Spinner, Button } from './common';
 
 // TODO

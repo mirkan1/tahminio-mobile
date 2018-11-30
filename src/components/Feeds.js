@@ -12,6 +12,11 @@ class Feeds extends Component {
     this.props.getUserFeed({ token })
   }
 
+  onPageChange(fe) {
+ /*   this.props.getMatchInfo({ fe });
+    Actions.MatchDetail();*/
+  }
+
   renderButton() {
     if (this.props.loading) {
       return <Spinner size="large" />;
@@ -26,7 +31,6 @@ class Feeds extends Component {
   showData() {
     const { feed, loading } = this.props;
     if (loading === false) {
-      /*for (const fe of feed) {*/
         return (
           <View style={{ width: Dimensions.get('window').width }}>
             <FlatList
@@ -36,17 +40,14 @@ class Feeds extends Component {
             />
           </View>
         );
-    /*}*/
-
     }
-}
+  }
 
   renderRow(fe) {
-    console.log(fe)
     return (
       <FeedList 
         post={fe}
- 
+        onPress={() => this.onPageChange(fe)}
       />
     );
   }

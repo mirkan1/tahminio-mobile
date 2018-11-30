@@ -442,6 +442,7 @@ export const getUserFeed = ({ token }) => {
     axios.get(`http://api.tahmin.io/v1/users/feed/`, { 
       headers: 
       { 
+        // Authorization: `Token ${token}`
         Authorization: `Token d2fd1d30641a7a0b839ea4565f06f654456236fe`
       }
     })
