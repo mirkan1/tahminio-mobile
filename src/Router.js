@@ -11,16 +11,20 @@ import WantedUser from './components/WantedUser';
 import UserSearch from './components/UserSearch';
 import TrophyPage from './components/TrophyPage';
 import LeaderBoard from './components/LeaderBoard';
+import Feeds from './components/Feeds'
 
 
 const RouterComponent = ({ pressStatus }) => {
   return (
     <Router>
       <Scene key="root">
-        <Scene hideNavBar initial
+        <Scene hideNavBar
           key="MatchPage" component={MatchPage} title="Tahmin-io" />
         <Scene hideNavBar 
           key="LeaderBoard" component={LeaderBoard} title="LeaderBoard" />
+
+        <Scene hideNavBar initial
+          key="Feeds" component={Feeds} title="Feeds" />
 
           <Scene key="MatchDetail" component={MatchDetail} title={"Match Detail"} onBack={() => Actions.MatchPage()}/>
         

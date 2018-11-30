@@ -89,7 +89,7 @@ export default (state = INITIAL_STATE, action) => {
     case GET_USER_TROPHIES:
       return { ...state, trophies: action.payload };
     case GET_USER_FEED:
-      return { ...state, feed: action.payload };
+      return { ...state, feed: action.payload, loading: false };
     default:
       return state;
   }

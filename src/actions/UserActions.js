@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
 import { 
@@ -21,6 +22,7 @@ import {
   UNFOLLOW_USER,
   USER_VERIFY,
   GET_USER_TROPHIES,
+  GET_USER_FEED,
 } from './types';
 import { pageChanged } from './index';
 
@@ -435,18 +437,20 @@ export const getUserFeed = ({ token }) => {
   // Endpoint `GET /v1/users/feed/`
   // Response: 200 and list of Prediction objects
   return (dispatch) => {
-    dispatch({ type: USER_UPDATE_ME });
+    dispatch({ type: USER_UPDATE_ME }); // Render button
 
     axios.get(`http://api.tahmin.io/v1/users/feed/`, { 
       headers: 
       { 
-        Authorization: `Token ${token}`
+        Authorization: `Token d2fd1d30641a7a0b839ea4565f06f654456236fe`
       }
     })
-      .then((predictions) => {
+      .then((response) => {
         dispatch({ 
           type: GET_USER_FEED,
-          payload: action.payload
+          payload: _.map(response.data, (item, key) => { 
+            return { ...item, key }; 
+          })
         })
       })
       .catch(error => console.log(error));

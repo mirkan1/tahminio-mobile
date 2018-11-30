@@ -40,6 +40,11 @@ const SlideBar = () => {
             onPress={() => {Actions.LeaderBoard();}}>
             <Text>LeaderBoard</Text>
           </ListItem>
+          <ListItem
+            button
+            onPress={() => {Actions.Feeds();}}>
+            <Text>Feeds</Text>
+          </ListItem>
       </Content>
     </Container>
   );
