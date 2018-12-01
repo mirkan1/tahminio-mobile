@@ -6,10 +6,14 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import FeedList from './FeedList';
 
+// TODO
+// WHEN YOU SLIDE TOP TO BOTTOM FROM TOP IT SHOULD REFRESH THE PAGE
 class Feeds extends Component {
-	onFetchFeeds() {
+	componentWillMount() {
     const { token } = this.props;
-    this.props.getUserFeed({ token })
+    if (token !== null) {
+      this.props.getUserFeed({ token });
+    }
   }
 
   onPageChange(fe) {
@@ -19,13 +23,13 @@ class Feeds extends Component {
 
   renderButton() {
     if (this.props.loading) {
-      return <Spinner size="large" />;
+      return <Spinner size="large"/>;
     }
-    return (
+/*    return (
       <Button onPress={this.onFetchFeeds.bind(this)}>
         Fetch Feeds
       </Button>
-    );
+    );*/
   }
 
   showData() {
@@ -53,15 +57,24 @@ class Feeds extends Component {
   }
 
   render() {
+    const { token } = this.props;
+    if (token === null) {
       return (
         <Base>
           <View style={{ alignItems: 'center', marginTop: 10 }}>
-            <Text style={{ fontSize: 30 }}>FEEDS</Text>
+            <Text style={{ fontSize: 30 }}>You need to Login to see feeds</Text>
           </View>
-          {this.renderButton()}
-          {this.showData()}
         </Base>
       );
+    }
+    return (
+      <Base>
+        {this.showData()}
+        <View style={{ marginTop: Dimensions.get("window").height / 1.75 }}>
+          {this.renderButton()}
+        </View>
+      </Base>
+    );
   }
 }
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, FlatList, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
-import { matchFetch, pageChanged, getMatchInfo } from '../actions';
+import { matchFetch, getMatchInfo } from '../actions';
 import { Spinner, Base } from './common';
 import { Actions } from 'react-native-router-flux';
 import ListItem from './ListItem';
@@ -70,5 +70,4 @@ const mapStateTopProps = state => {
 
 export default connect(mapStateTopProps, { 
   matchFetch,
-  pageChanged,
   getMatchInfo })(MatchPage);

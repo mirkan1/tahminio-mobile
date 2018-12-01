@@ -56,9 +56,9 @@ class UserSearch extends Component {
   }
 
   onAnotherUserClick(user) {
-    const { token } = this.props
-    const user_id = user.id
-    this.props.getAnotherUser(user_id, { token })
+    const { token } = this.props;
+    const user_id = user.id;
+    this.props.getAnotherUser(user_id, { token });
   }
 
   renderRow(user) {
@@ -128,7 +128,7 @@ const styles = {
     marginTop: 10,
   }
 }
-const mapStateTopProps = state => {
+const mapStateToProps = state => {
   return {
     error: state.user.error,
     loading: state.search.loading,
@@ -142,6 +142,6 @@ const mapStateTopProps = state => {
   };
 };
 
-export default connect(mapStateTopProps, { 
+export default connect(mapStateToProps, { 
   searchUser, searchWordChanged, getAnotherUser
 })(UserSearch);

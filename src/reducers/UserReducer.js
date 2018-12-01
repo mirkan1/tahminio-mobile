@@ -24,7 +24,7 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
-  token: '',
+  token: null,
   username: '',
   email: '', 
   password: '',
