@@ -23,6 +23,7 @@ import {
   USER_VERIFY,
   GET_USER_TROPHIES,
   GET_USER_FEED,
+  REQUEST_PASSWORD_RESET,
 } from './types';
 import { pageChanged } from './index';
 
@@ -179,7 +180,6 @@ export const userUpdateMe = ({ token, username=null, password=null, email=null, 
   // Note: You don't need to send every field. Sending the changing fields is enough.
   // Endpoint `PATCH /v1/users/me/`
   // Response: 200 and UserMe object
-  console.log(password)
   return (dispatch) => {
     dispatch({ type: USER_UPDATE_ME });
 
@@ -192,9 +192,9 @@ export const userUpdateMe = ({ token, username=null, password=null, email=null, 
       "last_name": last_name,
       "bio": bio,
       //"profile_photo": profile_photo
-      }, 
+      },
       {
-      headers: { 
+      headers: {
         Authorization: `Token ${token}` 
       },
     })
@@ -238,7 +238,7 @@ export const userChangePassword = ({ old_password, new_password, token }) => {
 
     axios.patch(`http://api.tahmin.io/v1/users/me/password/`, { 
       headers: 
-      { 
+      {
         Authorization: `Token ${token}`,
         "old_password": old_password,
         "new_password": new_password
@@ -261,7 +261,7 @@ export const followUser = (user_id, { token }) => {
   return (dispatch) => {
     dispatch({ type: FOLLOW_PROCESS })
 
-    axios.post(`http://api.tahmin.io/v1/users/${user_id}/follow/`, {}, { 
+    axios.post(`http://api.tahmin.io/v1/users/${user_id}/follow/`, { 
       headers: 
       { 
         Authorization: `Token ${token}`
@@ -283,7 +283,7 @@ export const unfollowUser = (user_id, { token }) => {
   return (dispatch) => {
     dispatch({ type: FOLLOW_PROCESS })
 
-    axios.post(`http://api.tahmin.io/v1/users/${user_id}/unfollow/`, {}, { 
+    axios.post(`http://api.tahmin.io/v1/users/${user_id}/unfollow/`, { 
       headers: 
       { 
         Authorization: `Token ${token}`
@@ -320,7 +320,7 @@ export const userVerify = ({ verification_key }) => {
 
 // Forgot password routine
 
-export const requestPasswordReset = ({ user_identifier }) => {
+export const requestPasswordReset = (user_identifier) => {
   // Endpoint `POST /v1/users/forgot_password/`
   // `user_identifier` can be username or email
   // Response is 200 no matter what, for protecting user's privacy
@@ -328,20 +328,13 @@ export const requestPasswordReset = ({ user_identifier }) => {
   // `tahmin.io/change-password/?key=ABCDE1234567`
   // You will use the key in the url to change the user's password
   return (dispatch) => {
-    dispatch({ type: REQUEST_PASSWORD_RESET });
-
     axios.post(`http://api.tahmin.io/v1/users/forgot_password/`, { 
-      headers: 
-      { 
-        user_identifier: user_identifier
-      }
+      user_identifier: user_identifier
     })
-      .then(() => {
-        // render to the user profile
+      .then(response => {
+        console.log(response.data),
+        dispatch({ type: REQUEST_PASSWORD_RESET });
       })
-      .catch(
-        // return to the same page with and error
-        error => console.log(error));
   };
 };
 
@@ -356,7 +349,7 @@ export const changePasswordWithKey = ({ key, password }) => {
     dispatch({ type: CHANGE_PASSWORD_WITH_KEY });
 
     axios.post(`http://api.tahmin.io/v1/users/change_password/`, { 
-      headers: 
+      headers:
       { 
         key: key,
         password: password
@@ -409,7 +402,7 @@ export const getAnotherUserTrophies = (user_id) => {
   };
 };
 
-export const getUserTrophyProgress = () => {
+export const getUserTrophyProgress = ({ token }) => {
   // AUTH_REQ
   // Endpoint `GET /v1/users/me/progression/`
   // Response: 200 and list of TrophyProgression objects

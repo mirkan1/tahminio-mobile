@@ -40,7 +40,7 @@ export const GET_USER_TROPHIES = 'get_user_trophies';					// DONE BUT NOT WORK
 export const GET_ANOTHER_USER_TROPHIES = 'get_another_trophies';		// DONE
 export const GET_ALL_TIME_LEADERBOARD = 'get_all_time_leaderboard';		// DONE
 export const GET_ALL_TIME_LEADERBOARD_TOTAL_PAGE_NUM = 'get_all_time_leaderboard_total_page_num';	// DONE
-export const GET_USER_TROPHY_PROGRESS = 'get_user_trophy_progress';
+export const GET_USER_TROPHY_PROGRESS = 'get_user_trophy_progress';		// DONE
 export const GET_USER_FEED = 'get_user_feed';							// DONE
 
 // ForumActions

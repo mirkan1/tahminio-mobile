@@ -8,6 +8,7 @@ import FeedList from './FeedList';
 
 // TODO
 // WHEN YOU SLIDE TOP TO BOTTOM FROM TOP IT SHOULD REFRESH THE PAGE
+
 class Feeds extends Component {
 	componentWillMount() {
     const { token } = this.props;
@@ -16,12 +17,7 @@ class Feeds extends Component {
     }
   }
 
-  onPageChange(fe) {
- /*   this.props.getMatchInfo({ fe });
-    Actions.MatchDetail();*/
-  }
-
-  renderButton() {
+  renderData() {
     if (this.props.loading) {
       return <Spinner size="large"/>;
     }
@@ -47,11 +43,10 @@ class Feeds extends Component {
     }
   }
 
-  renderRow(fe) {
+  renderRow(feed) {
     return (
       <FeedList 
-        post={fe}
-        onPress={() => this.onPageChange(fe)}
+        post={feed}
       />
     );
   }
@@ -71,7 +66,7 @@ class Feeds extends Component {
       <Base>
         {this.showData()}
         <View style={{ marginTop: Dimensions.get("window").height / 1.75 }}>
-          {this.renderButton()}
+          {this.renderData()}
         </View>
       </Base>
     );

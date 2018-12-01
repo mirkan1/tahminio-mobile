@@ -16,12 +16,27 @@ const MatchCard = ({ home_team, away_team, first_half_score, score }) => {
               style={styles.thumbnailStyle}
             />
           </View>
+
           <View style={{ justifyContent: 'center', alignItems: 'center', paddingTop: 25, flex:2, }}>
             <Text style={{ fontWeight: 'bold', textAlign: 'center', }}>
-              {home_team.name} {first_half_score}|{score} {away_team.name}
+              {home_team.name} {first_half_score}|{score}
             </Text>
           </View>
-          <View style={{ flex: 1, }}>
+
+          <View style={{ justifyContent: 'center', alignItems: 'center', paddingTop: 25, flex:1, }}>
+            <Text style={{ fontWeight: 'bold', textAlign: 'center' }}>
+              First Half Score: {first_half_score} Score: {score}
+            </Text>
+          </View>
+
+
+          <View style={{ flexDirection: 'row-reverse', justifyContent: 'center', alignItems: 'center', paddingTop: 25, flex:2, }}>
+            <Text style={{ fontWeight: 'bold', textAlign: 'center', }}>
+              {away_team.name}
+            </Text>
+          </View>
+
+          <View style={{ flex: 1, flexDirection: 'row-reverse' }}>
             <Image
               source={{ uri: 
                 away_team.logo !== null

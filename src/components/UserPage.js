@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { 
@@ -11,6 +11,7 @@ import {
 } from '../actions';
 import { CardSection, Button, Base } from './common';
 import { Actions } from 'react-native-router-flux';
+import Login from './Login';
 
 class UserPage extends Component {
 	state = { count: 0 }
@@ -57,7 +58,8 @@ class UserPage extends Component {
   }
 
   onGetUserTrophies() {
-    this.props.getUserTrophies();
+    const { token } = this.props;
+    this.props.getUserTrophies({ token });
   }
 
 	renderPage() {
@@ -65,15 +67,18 @@ class UserPage extends Component {
 	  if (user === null) {
 			return (
 		    <View>
+          <Login />
 		      <CardSection>
-		        <Button onPress={() => Actions.Login()}>
-		          Login
-		        </Button>
+		        <TouchableOpacity onPress={() => Actions.ForgotInfo()}>
+		          <Text style={{ fontSize: 10 }}>Forgot your password or username?</Text>
+		        </TouchableOpacity>
 		      </CardSection>
 
-		      <Text>OR</Text>
+          <CardSection style={{ alignItems: 'center', justifyContent: 'center', margin: 10, }}>
+		      <Text style={{ fontSize: 50 }}>OR</Text>
+          </CardSection>
 		      
-		      <CardSection>
+		      <CardSection style={{ alignItems: 'center', justifyContent: 'center' }}>
 		        <Button onPress={() => Actions.SignUp()}>
 		          Sign Up
 		        </Button>

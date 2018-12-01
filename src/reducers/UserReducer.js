@@ -21,6 +21,7 @@ import {
   USER_VERIFY,
   GET_USER_TROPHIES,
   GET_USER_FEED,
+  REQUEST_PASSWORD_RESET,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -90,6 +91,9 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, trophies: action.payload };
     case GET_USER_FEED:
       return { ...state, feed: action.payload, loading: false };
+    case REQUEST_PASSWORD_RESET:
+    // make
+      return { ...state, ...INITIAL_STATE, error: 'A mail sent to your e-mail, Please check it' }
     default:
       return state;
   }

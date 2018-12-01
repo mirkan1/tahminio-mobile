@@ -69,7 +69,7 @@ class FeedList extends Component {
         {this.renderUpvoteButton()}
         </CardSection>
 
-        <TouchableWithoutFeedback onPress={() => this.onPageChange(this.props.post.match)}>
+        <TouchableOpacity onPress={() => this.onPageChange(this.props.post.match)}>
           <View>
             <CardSection>
               <Image
@@ -96,7 +96,7 @@ class FeedList extends Component {
               />
             </CardSection>
           </View>
-        </TouchableWithoutFeedback>
+        </TouchableOpacity>
 
         <TouchableOpacity
           onPress={() => this.onAnotherUserClick(user)}

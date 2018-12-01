@@ -109,7 +109,8 @@ const styles = {
 
   }
 };
-const mapStateTopProps = state => {
+
+const mapStateToProps = state => {
   return {
     username: state.user.username,
     password: state.user.password,
@@ -119,6 +120,6 @@ const mapStateTopProps = state => {
   };
 };
 
-export default connect(mapStateTopProps, { 
+export default connect(mapStateToProps, { 
   usernameChanged, passwordChanged, userLogin, logoutUser, 
 })(Login);

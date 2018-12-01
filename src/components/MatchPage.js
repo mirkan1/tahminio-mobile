@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { matchFetch, getMatchInfo } from '../actions';
 import { Spinner, Base } from './common';
 import { Actions } from 'react-native-router-flux';
-import ListItem from './ListItem';
+import MatchCard from './MatchCard';
 
 
 class MatchPage extends Component {
@@ -45,7 +45,7 @@ class MatchPage extends Component {
 
   renderRow(match) {
     return (
-      <ListItem 
+      <MatchCard 
         match={match}
         onPress={() => this.onPageChange(match)}
       />

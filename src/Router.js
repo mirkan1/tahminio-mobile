@@ -11,8 +11,8 @@ import WantedUser from './components/WantedUser';
 import UserSearch from './components/UserSearch';
 import TrophyPage from './components/TrophyPage';
 import LeaderBoard from './components/LeaderBoard';
-import Feeds from './components/Feeds'
-
+import Feeds from './components/Feeds';
+import ForgotInfo from './components/ForgotInfo';
 
 const RouterComponent = ({ pressStatus }) => {
   return (
@@ -38,6 +38,7 @@ const RouterComponent = ({ pressStatus }) => {
           <Scene key="UpdateMe" component={UpdateMe} title="Update" />
           <Scene key="SignUp" component={SignUp} title="Sign Up" />
           <Scene key="Login" component={Login} title="Login" />
+          <Scene key="ForgotInfo" component={ForgotInfo} />
 
           <Scene key="WantedUser" component={WantedUser} title="WantedUser" />
           <Scene hideNavBar
