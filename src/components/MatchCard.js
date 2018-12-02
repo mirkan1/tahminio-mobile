@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { Text, TouchableWithoutFeedback, View, Image } from 'react-native';
+import { Text, TouchableWithoutFeedback, View, Image, Dimensions } from 'react-native';
 import { CardSection } from './common';
 
 const MatchCard = ({ match, onPress }) => {
-  const { away_team, home_team } = match;
+  const { away_team, home_team, score } = match;
   return (
     <TouchableWithoutFeedback onPress={onPress}>
-      <View>
-        <CardSection>
+      <View style={styles.containerStyle}>
+
           <Image
             source={{ uri: 
                 home_team.logo !== null
@@ -16,16 +16,23 @@ const MatchCard = ({ match, onPress }) => {
             }}
             style={styles.thumbnailStyle}
           />
-          <View style={{ alignItems: 'center', paddingTop: 25, flex:2, }}>
-            <Text style={styles.titleStyle}>
+
+          <View style={styles.textContainer}>
+            <Text style={[styles.teamName, { paddingLeft: 20, textAlign: 'left', }]}>
               {home_team.name}
             </Text>
           </View>
-          <View style={{ flexDirection: 'row-reverse', alignItems: 'center', paddingTop: 25, flex:2, }}>
-            <Text style={styles.titleStyle}>
+
+          <View style={{ flex: 1, alignSelf: 'center', }}>
+            <Text style={[styles.teamName, { textAlign: 'center', }]}>{score}</Text>
+          </View>
+
+          <View style={styles.textContainer}>
+            <Text style={[styles.teamName, { paddingRight: 20, textAlign: 'right', }]}>
               {away_team.name}
             </Text>
           </View>
+
           <Image
             source={{ uri: 
                 away_team.logo !== null
@@ -34,27 +41,38 @@ const MatchCard = ({ match, onPress }) => {
             }}
             style={styles.thumbnailStyle}
           />
-        </CardSection>
+
       </View>
     </TouchableWithoutFeedback>
   );
 };
 
 const styles = {
-  titleStyle: {
+  textContainer: {
+    flex: 2,
+    alignSelf: 'center',
+  },
+  containerStyle: {
+    flexDirection: 'row',
+    flex: 1,
+    borderColor: '#eaeaea',
+    borderRadius: 0.5,
+    borderBottomWidth: 1,
+    borderTopWidth: 1,
+    marginLeft: 15,
+    marginRight: 10,
+    paddingTop: 15,
+    paddingBottom: 15,
+  },
+  teamName: {
+    color: '#4d505b',
+    fontWeight: 'bold', 
     fontSize: 18,
   },
-  thumbnailContainerStyleLeft: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: 5,
-    marginRight: 10
-  },
   thumbnailStyle: {
-    height: 50,
-    width: 50
+    flex: 1,
+    height: 60,
+    width: 20,
   },
 };
 

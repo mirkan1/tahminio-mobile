@@ -18,12 +18,12 @@ const RouterComponent = ({ pressStatus }) => {
   return (
     <Router>
       <Scene key="root">
-        <Scene hideNavBar
+        <Scene hideNavBar initial
           key="MatchPage" component={MatchPage} title="Tahmin-io" />
         <Scene hideNavBar 
           key="LeaderBoard" component={LeaderBoard} title="LeaderBoard" />
 
-        <Scene hideNavBar initial
+        <Scene hideNavBar 
           key="Feeds" component={Feeds} title="Feeds" />
 
           <Scene key="MatchDetail" component={MatchDetail} title={"Match Detail"} onBack={() => Actions.MatchPage()}/>
