@@ -1,5 +1,5 @@
 import React from 'react';
-import { Scene, Router, Actions } from 'react-native-router-flux';
+import { Stack, Scene, Router, Actions } from 'react-native-router-flux';
 import UpdateMe from './components/UpdateMe';
 import MatchPage from './components/MatchPage';
 import OptionsPage from './components/OptionsPage';
@@ -17,20 +17,22 @@ import ForgotInfo from './components/ForgotInfo';
 const RouterComponent = ({ pressStatus }) => {
   return (
     <Router>
-      <Scene key="root">
+      <Stack key="root">
         <Scene hideNavBar initial
           key="MatchPage" component={MatchPage} title="Tahmin-io" />
         <Scene hideNavBar 
           key="LeaderBoard" component={LeaderBoard} title="LeaderBoard" />
 
-        <Scene hideNavBar 
+        <Scene hideNavBar
           key="Feeds" component={Feeds} title="Feeds" />
 
-          <Scene key="MatchDetail" component={MatchDetail} title={"Match Detail"} onBack={() => Actions.MatchPage()}/>
+          <Scene
+            navigationBarStyle={{ backgroundColor: 'transparent', marginTop: 6 }}
+            key="MatchDetail" component={MatchDetail} onBack={() => Actions.MatchPage()}/>
         
         <Scene key="TrophyPage" component={TrophyPage} title="TrophyPage" />
 
-        <Scene hideNavBar 
+        <Scene hideNavBar
           key="OptionsPage" component={OptionsPage} title="Options" />
 
         <Scene hideNavBar 
@@ -44,7 +46,7 @@ const RouterComponent = ({ pressStatus }) => {
           <Scene hideNavBar
             key="UserSearch" component={UserSearch} title="UserSearch" />
 
-      </Scene>
+      </Stack>
     </Router>
   );
 };
