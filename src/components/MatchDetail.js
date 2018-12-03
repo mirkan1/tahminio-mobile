@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Text, View, Image, Dimensions, ScrollView } from 'react-native';
-import { Card, CardSection } from './common';
+import { Text, View, Image, Dimensions, ScrollView, FlatList } from 'react-native';
+import { Card, CardSection, Spinner, } from './common';
 import { ButtonGroup, Divider } from 'react-native-elements';
 import { 
   getListPrediction,
@@ -58,21 +58,44 @@ class MatchDetail extends Component {
   }
 
   predictionsList() {
-    const { predictions } = this.props;
-    if (predictions !== [] && predictions !== null) {
+    // TODO not sure if refreshes after new prediciton come
+    const { predictions, loading } = this.props;
+    console.log(predictions === [], predictions);
+    if (predictions.length > 0) {
       return (
-        <Text>some data</Text>
+        <View style={{ width: Dimensions.get('window').width }}>
+          <FlatList
+            data={predictions}
+            renderItem={({ item }) => this.renderRow(item)}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        </View>
+      );
+    } else if (loading) {
+      return (
+        <Spinner size="large" />
+      );
+    } else {
+      return (
+        <Text>No prediction yet. Create one</Text>
       );
     }
+  }
+
+  renderRow(prediction) {
+    // TODO insert styling
     return (
-      <ScrollView>
-        <Text>No data</Text>
-      </ScrollView>
+      <View>
+        <Text>{prediction.game}</Text>
+        <Text>{prediction.text}</Text>
+        <Text>{prediction.user.username}</Text>
+        <Text>{prediction.user.skill_point}</Text>
+      </View>
+
     );
   }
 
   renderSection() {
-    //const { predictionsList } = this;
     const { 
       handicap, iddaa_code, message_count, 
       prediction_count, key, id } = this.props.teams;
@@ -101,7 +124,11 @@ class MatchDetail extends Component {
           </Card>
         );
       case 1:
-        return <Text>2</Text>;
+        return (
+          <View>
+          {this.predictionsList()}
+          </View>
+        );
       case 2:
         return (
           <Text>3</Text>
@@ -110,16 +137,20 @@ class MatchDetail extends Component {
   }
 
   updateIndex(selectedIndex) {
-    this.setState({ selectedIndex: selectedIndex })
+    if (selectedIndex===1) {
+    /*  const { token, match_id } = this.props;
+      this.props.getListPrediction(match_id);*/
+      this.componentWillMount();
+    };
+    this.setState({ selectedIndex: selectedIndex });
   }
 
   render() {
-    console.log(this.props.predictions)
     const { 
       away_team, home_team, league, first_half_score,
       minute, datetime, score, } = this.props.teams;
     const { height, width } = Dimensions.get("window");
-    const buttons = ['Match Information', 'Two', 'Three'];
+    const buttons = ['Maç bilgisi', 'Predictions', 'Three'];
     return (
       <View style={{ marginTop: -62, backgroundColor: '#fff', height: height }}>
 
@@ -153,13 +184,12 @@ class MatchDetail extends Component {
             onPress={this.updateIndex.bind(this)}
             selectedIndex={this.state.selectedIndex}
             buttons={buttons}
-            containerStyle={{ height: 40 }}
+            containerStyle={{ height: 40, flex: 1 }}
           />
 
           <Divider style={{ backgroundColor: 'black' }} />
-          
+
           {this.renderSection()}
-          {this.predictionsList()}
         </View>
       </View>
     );

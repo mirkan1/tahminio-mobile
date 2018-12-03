@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Text, TouchableWithoutFeedback, View, Image, Dimensions } from 'react-native';
+import { Text, TouchableOpacity, View, Image, Dimensions } from 'react-native';
 import { CardSection } from './common';
 
 const MatchCard = ({ match, onPress }) => {
   const { away_team, home_team, score } = match;
   return (
-    <TouchableWithoutFeedback onPress={onPress}>
+    <TouchableOpacity onPress={onPress}>
       <View style={styles.containerStyle}>
 
           <Image
@@ -43,7 +43,7 @@ const MatchCard = ({ match, onPress }) => {
           />
 
       </View>
-    </TouchableWithoutFeedback>
+    </TouchableOpacity>
   );
 };
 
