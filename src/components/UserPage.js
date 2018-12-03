@@ -1,11 +1,10 @@
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Image, ScrollView, Dimensions } from 'react-native';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { 
 	userGetMe,
 	logoutUser,
 	userDeleteMe,
-	getAnotherUser,
 	userVerify,
   getUserTrophies,
 } from '../actions';
@@ -44,12 +43,6 @@ class UserPage extends Component {
 		this.props.userDeleteMe({ token });
   }
 
-  onGetAnotherUser() {
-  	const { token } = this.props;
-  	const user_id = 582;
-		this.props.getAnotherUser( user_id, { token } );
-  }
-
   onUserVerify() {
   	// TODO
   	// find out where to take verify key
@@ -70,12 +63,12 @@ class UserPage extends Component {
           <Login />
 		      <CardSection>
 		        <TouchableOpacity onPress={() => Actions.ForgotInfo()}>
-		          <Text style={{ fontSize: 10 }}>Forgot your password or username?</Text>
+		          <Text style={{ fontSize: 10, textAlign: 'center' }}>Forgot your password or username?</Text>
 		        </TouchableOpacity>
 		      </CardSection>
 
-          <CardSection style={{ alignItems: 'center', justifyContent: 'center', margin: 10, }}>
-		      <Text style={{ fontSize: 50 }}>OR</Text>
+          <CardSection style={{flex: 1, alignItems: 'center', justifyContent: 'center', margin: 10, }}>
+		      <Text style={{ fontSize: 50, textAlign: 'center' }}>OR</Text>
           </CardSection>
 		      
 		      <CardSection style={{ alignItems: 'center', justifyContent: 'center' }}>
@@ -88,12 +81,26 @@ class UserPage extends Component {
 	  }
 
 	  return (
-      <View>
-        <Text>{user.first_name}</Text>
-        <Text>{user.email}</Text>
-        <Text>{user.last_name}</Text>
-        <Text>{user.username}</Text>
-        <Text>{user.bio}</Text>
+      <ScrollView>
+
+        <View style={{ flexDirection: 'row', marginTop: 25, alignItems: 'center',}}>
+          <Image 
+            source={{ uri: 
+                user.profile_photo !== null
+                ? user.profile_photo
+                : 'https://upload.wikimedia.org/wikipedia/commons/9/97/Anonim.png'
+            }}
+            style={styles.profilPhoto}
+          />
+          <View style={{ flex: 2, }}>
+            <Text>{user.first_name}</Text>
+            <Text>{user.email}</Text>
+            <Text>{user.last_name}</Text>
+            <Text>{user.username}</Text>
+            <Text>{user.bio}</Text>
+          </View>
+        </View>
+
         <CardSection>
           <Button onPress={() => Actions.UpdateMe()}>Update Me</Button>
         </CardSection>
@@ -102,9 +109,6 @@ class UserPage extends Component {
         </CardSection>
         <CardSection>
           <Button onPress={this.onUserDeleteMe.bind(this)}>Delete yourself</Button>
-        </CardSection>
-        <CardSection>
-          <Button onPress={this.onGetAnotherUser.bind(this)}>getAnotherUser</Button>
         </CardSection>
         <CardSection>
           <Button onPress={this.onGetUserTrophies.bind(this)}>GetUserTrophies</Button>
@@ -117,7 +121,7 @@ class UserPage extends Component {
         	}
         </CardSection>
 
-      </View>
+      </ScrollView>
     );
 	}
 
@@ -130,11 +134,20 @@ class UserPage extends Component {
 	}
 };
 
+const { width, height } = Dimensions.get("window");
 const styles = {
   errorTextStyle: {
     fontSize: 20,
     alignSelf: 'center',
     color: 'red'
+  },
+  profilPhoto: {
+    flex: 1,
+    height: width/4,
+    width: width/4,
+    borderRadius: 64,
+    borderWidth: 1,
+    borderColor: 'black',
   }
 };
 
@@ -147,7 +160,6 @@ const mapStateTopProps = state => {
 };
 
 export default connect(mapStateTopProps, { 
-  userGetMe, logoutUser, userDeleteMe,
-  getAnotherUser, userVerify, getUserTrophies,
+  userGetMe, logoutUser, userDeleteMe, userVerify, getUserTrophies,
 })(UserPage);
 
