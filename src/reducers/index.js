@@ -3,7 +3,8 @@ import UserReducer from './UserReducer';
 import PageReducer from './PageReducer';
 import MatchReducer from './MatchReducer';
 import SearchReducer from './SearchReducer';
-import LeaderboardReducer from './LeaderboardReducer'
+import LeaderboardReducer from './LeaderboardReducer';
+import ForumReducer from './ForumReducer';
 
 export default combineReducers({
   user: UserReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   team: MatchReducer,
   search: SearchReducer,
   leaderboard: LeaderboardReducer,
+  forum: ForumReducer,
 });

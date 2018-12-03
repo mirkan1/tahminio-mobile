@@ -1,3 +1,4 @@
+export const IS_LOADING = 'is_loading';
 export const USERNAME_CHANGED = 'username_changed';
 export const EMAIL_CHANGED = 'email_changed';
 export const PASSWORD_CHANGED = 'password_changed';

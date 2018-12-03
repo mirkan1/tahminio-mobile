@@ -1,15 +1,11 @@
 import axios from 'axios';
 import _ from 'lodash';
 import {
-	// MAKE_PREDICTION,
-} from './types';
+	MAKE_PREDICTION,
+  IS_LOADING,
+  GET_PREDICTION_LIST,
 
-/*matchFetch
-clickedMatch
-getMatchInfo*/
-export const matchFetch = () => {
-  // Already done in .MatchActions.js
-};
+} from './types';
 
 export const makePrediction = ({ match_id, text }) => {
 	// AUTH_REQ
@@ -18,14 +14,15 @@ export const makePrediction = ({ match_id, text }) => {
 	// `NOTE*: "game" is required and it must be from available games list`
 	// Response 201 and Prediction object
 	return (dispatch) => {
-    dispatch({ type: MAKE_PREDICTION });
+    dispatch({ type: IS_LOADING });
 
-    axios.post(`http://api.tahmin.io/v1/matches/${match_id}/predictions/`, { 
-    	headers: 
+    axios.post(`http://api.tahmin.io/v1/matches/${match_id}/predictions/`,
+    {
+      text: text,
+      game: match_id
+    }, { headers: 
     	{ 
 	    	Authorization: `Token ${token}`
-				text: text,
-				game: match_id
 			}
 		})
 			.then(
@@ -37,7 +34,7 @@ export const makePrediction = ({ match_id, text }) => {
   };
 };
 
-export const getListPrediction = ({ match_id }) => {
+export const getListPrediction = (match_id) => {
   // Description: Returns a list of Prediction objects of today
 	// Endpoint `GET /v1/matches/:match_id/predictions/`
 	// Response: 200 and list of Prediction objects
@@ -45,11 +42,14 @@ export const getListPrediction = ({ match_id }) => {
 	// `NOTE: If you want to get list of matches of another day, send a request like this: /v1/users/matches/?date=20-04-2018`
 
 	return (dispatch) => {
-    dispatch({ type: GET_PREDICTION_LIST });
+    dispatch({ type: IS_LOADING });
 
     axios.get(`http://api.tahmin.io/v1/matches/${match_id}/predictions/`)
-			.then(() => {
-        // return to the desired page
+			.then(request => {
+        dispatch({ 
+          type: GET_PREDICTION_LIST, 
+          payload: request.data
+        });
       })
 			.catch(err => console.log(err));
   };

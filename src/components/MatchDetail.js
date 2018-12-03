@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Text, View, Image, Dimensions } from 'react-native';
+import { Text, View, Image, Dimensions, ScrollView } from 'react-native';
 import { Card, CardSection } from './common';
 import { ButtonGroup, Divider } from 'react-native-elements';
+import { 
+  getListPrediction,
+} from '../actions';
 
 const MatchCard = ({ home_team, away_team, first_half_score, score }) => {
   return (
@@ -49,16 +52,39 @@ const MatchCard = ({ home_team, away_team, first_half_score, score }) => {
 class MatchDetail extends Component {
   state = { selectedIndex: 0 }
 
+  componentWillMount() {
+    const { token, match_id } = this.props;
+    this.props.getListPrediction(match_id);
+  }
+
+  predictionsList() {
+    const { predictions } = this.props;
+    if (predictions !== [] && predictions !== null) {
+      return (
+        <Text>some data</Text>
+      );
+    }
+    return (
+      <ScrollView>
+        <Text>No data</Text>
+      </ScrollView>
+    );
+  }
+
   renderSection() {
+    //const { predictionsList } = this;
     const { 
       handicap, iddaa_code, message_count, 
-      prediction_count, key, } = this.props.teams;
+      prediction_count, key, id } = this.props.teams;
     switch (this.state.selectedIndex) {
       case 0:
         return (
           <Card>
             <CardSection>
               <Text>HANDICAP: {handicap}</Text>
+            </CardSection>
+            <CardSection>
+              <Text>MATCH ID: {id}</Text>
             </CardSection>
             <CardSection>
               <Text>IDDAA_CODE: {iddaa_code}</Text>
@@ -75,9 +101,7 @@ class MatchDetail extends Component {
           </Card>
         );
       case 1:
-        return (
-          <Text>2</Text>
-        );
+        return <Text>2</Text>;
       case 2:
         return (
           <Text>3</Text>
@@ -90,6 +114,7 @@ class MatchDetail extends Component {
   }
 
   render() {
+    console.log(this.props.predictions)
     const { 
       away_team, home_team, league, first_half_score,
       minute, datetime, score, } = this.props.teams;
@@ -134,6 +159,7 @@ class MatchDetail extends Component {
           <Divider style={{ backgroundColor: 'black' }} />
           
           {this.renderSection()}
+          {this.predictionsList()}
         </View>
       </View>
     );
@@ -211,7 +237,13 @@ const styles = {
 };
 
 const mapStateTopProps = state => {
-  return { teams: state.team.currentTeams };
+  return { 
+    token: state.user.token,
+    teams: state.team.currentTeams,
+    match_id: state.team.currentTeams.id,
+    loading: state.forum.loading,
+    predictions: state.forum.predictions,
+   };
 };
 
-export default connect(mapStateTopProps, {})(MatchDetail);
+export default connect(mapStateTopProps, { getListPrediction })(MatchDetail);

@@ -83,14 +83,14 @@ class UserPage extends Component {
 	  return (
       <ScrollView>
 
-        <View style={{ flexDirection: 'row', marginTop: 25, alignItems: 'center',}}>
+        <View style={{ flexDirection: 'row', margin: 25, alignItems: 'center',}}>
           <Image 
             source={{ uri: 
                 user.profile_photo !== null
                 ? user.profile_photo
                 : 'https://upload.wikimedia.org/wikipedia/commons/9/97/Anonim.png'
             }}
-            style={styles.profilPhoto}
+            style={styles.profilePhoto}
           />
           <View style={{ flex: 2, }}>
             <Text>{user.first_name}</Text>
@@ -141,10 +141,9 @@ const styles = {
     alignSelf: 'center',
     color: 'red'
   },
-  profilPhoto: {
-    flex: 1,
-    height: width/4,
-    width: width/4,
+  profilePhoto: {
+    height: width/5,
+    width: width/5,
     borderRadius: 64,
     borderWidth: 1,
     borderColor: 'black',
