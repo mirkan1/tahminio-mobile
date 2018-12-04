@@ -9,6 +9,7 @@ import {
   upvotePrediction,
   undoUpvotePrediction,
 } from '../actions';
+import PredictionCard from './PredictionCard';
 
 const MatchCard = ({ home_team, away_team, first_half_score, score }) => {
   return (
@@ -84,52 +85,10 @@ class MatchDetail extends Component {
     }
   }
 
-  onUpvotePrediction(prediction) {
-    const { token, match_id } = this.props;
-    const prediction_id = prediction.id;
-    this.props.upvotePrediction(token, match_id, prediction_id );
-  }
-
-  onUndoUpvotePrediction(prediction) {
-    const { token, match_id } = this.props;
-    const prediction_id = prediction.id;
-    this.props.undoUpvotePrediction(token, match_id, prediction_id );
-  }
-
   renderRow(prediction) {
     var prediction_upvoted = prediction.upvoted;
-    // TODO make class on diffirent page
-    // mage state that see if upvoted or not and update the icon to upvote or not
     return (
-      <View style={{ margin: 5, flexDirection: 'row' }}>
-        <View>
-          <Text>{prediction.game}</Text>
-          <Text>{prediction.text}</Text>
-          <Text>{prediction.user.username}</Text>
-          <Text>user skill points: {prediction.user.skill_point}</Text>
-          <Text>upvote count: {prediction.upvote_count}</Text>
-        </View>
-
-        <View style={{ flex: 1}}>
-          { prediction_upvoted === false
-              ? ( <Button 
-                    transparent
-                    onPress={() => this.onUpvotePrediction(prediction)}
-                  >
-                    <Icon name='add' />
-                  </Button>
-                )
-              : ( <Button 
-                    transparent
-                    onPress={() => this.onUndoUpvotePrediction(prediction)}
-                  >
-                    <Icon name='remove' />
-                  </Button>
-                )
-          }
-        </View>
-      </View>
-
+      <PredictionCard prediction={prediction} />
     );
   }
 
@@ -177,8 +136,7 @@ class MatchDetail extends Component {
   updateIndex(selectedIndex) {
     if (selectedIndex===1) {
       const { token, match_id } = this.props;
-      this.props.getListPrediction(match_id);
-     // this.componentWillMount();
+      this.props.getListPrediction(token, match_id);
     };
     this.setState({ selectedIndex: selectedIndex });
   }
@@ -268,12 +226,13 @@ const styles = {
     shadowOffset: { width: 5, height: 5 },
     shadowOpacity: 0.5,
     shadowRadius: 10,
-    elevation: 8,
+    elevation: 2,
   },
   details: { 
     width: width-30, 
-    height: height/1.8,
-    marginTop: height/3, 
+    height: height*3,//height/1.8,
+    flexWrap: 'nowrap', 
+    marginTop: height/3,
     padding: 10, 
     alignSelf: 'center',
     borderRadius: 6, 
@@ -304,7 +263,7 @@ const styles = {
   },
 };
 
-const mapStateTopProps = state => {
+const mapStateToProps = state => {
   return { 
     token: state.user.token,
     teams: state.team.currentTeams,
@@ -314,8 +273,6 @@ const mapStateTopProps = state => {
    };
 };
 
-export default connect(mapStateTopProps, { 
-  getListPrediction, 
-  upvotePrediction,
-  undoUpvotePrediction,
+export default connect(mapStateToProps, { 
+  getListPrediction,
 })(MatchDetail);
