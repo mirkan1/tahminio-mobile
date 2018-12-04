@@ -4,7 +4,8 @@ import {
 	MAKE_PREDICTION,
   IS_LOADING,
   GET_PREDICTION_LIST,
-
+  UPVOTE_PREDICTION,
+  UNDO_UPVOTE_PREDICTION,
 } from './types';
 
 export const makePrediction = ({ match_id, text }) => {
@@ -34,17 +35,22 @@ export const makePrediction = ({ match_id, text }) => {
   };
 };
 
-export const getListPrediction = (match_id) => {
+export const getListPrediction = (token, match_id) => {
   // Description: Returns a list of Prediction objects of today
 	// Endpoint `GET /v1/matches/:match_id/predictions/`
 	// Response: 200 and list of Prediction objects
 
 	// `NOTE: If you want to get list of matches of another day, send a request like this: /v1/users/matches/?date=20-04-2018`
-
+  console.log(token, match_id)
 	return (dispatch) => {
     dispatch({ type: IS_LOADING });
 
-    axios.get(`http://api.tahmin.io/v1/matches/${match_id}/predictions/`)
+    axios.get(`http://api.tahmin.io/v1/matches/${match_id}/predictions/`, {
+      headers:
+      {
+        Authorization: token !== null ? `Token ${token}` : ``
+      }
+    })
 			.then(request => {
         dispatch({ 
           type: GET_PREDICTION_LIST, 
@@ -204,30 +210,42 @@ export const getMessage = ({ match_id, message_id }) => {
   };
 };
 
-export const upvotePrediction = ({ match_id, prediction_id }) => {
+export const upvotePrediction = (token=null, match_id, prediction_id) => {
   // Description: Upvotes the given prediction
 	// Endpoint `POST /v1/matches/:match_id/predictions/:prediction_id/upvote/`
 	// Response: 200
+  console.log(token, match_id, prediction_id)
 	return (dispatch) => {
-    dispatch({ type: UPVOTE_PREDICTION });
-
-    axios.post(`http://api.tahmin.io/v1/matches/${match_id}/predictions/${prediction_id}/upvote`)
-			.then(() => {
+    axios.post(`http://api.tahmin.io/v1/matches/${match_id}/predictions/${prediction_id}/upvote/`, {}, {
+      headers: 
+      {
+        Authorization: token !== null ? `Token ${token}` : ``
+      }
+    })
+      .then(response => {
+        dispatch({ type: UPVOTE_PREDICTION }),
+        getListPrediction();
         // upvote the message and render to the same page
       })
 			.catch(err => console.log(err));
   };
 };
 
-export const undoUptovePrediction = ({ match_id, prediction_id }) => {
+export const undoUpvotePrediction = (token=null, match_id, prediction_id) => {
   // Description: Undo upvotes the given prediction
 	// Endpoint `POST /v1/matches/:match_id/predictions/:prediction_id/undoupvote/`
 	// Response: 200
+  console.log(token, match_id, prediction_id)
 	return (dispatch) => {
-    dispatch({ type: UNDO_UPVOTE_PREDICTION });
-
-    axios.post(`http://api.tahmin.io/v1/matches/${match_id}/predictions/${prediction_id}/undoupvote`)
-			.then(() => {
+    axios.post(`http://api.tahmin.io/v1/matches/${match_id}/predictions/${prediction_id}/undoupvote/`, {}, {
+      headers: 
+      {
+        Authorization: token !== null ? `Token ${token}` : ``
+      }
+    })
+      .then(response => {
+        dispatch({ type: UNDO_UPVOTE_PREDICTION }),
+        getListPrediction();
         // undo the upvote the message and render to the same page
       })
 			.catch(err => console.log(err));

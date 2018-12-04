@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Text, View, Image, Dimensions, ScrollView, FlatList } from 'react-native';
 import { Card, CardSection, Spinner, } from './common';
+import { Icon, Button } from 'native-base';
 import { ButtonGroup, Divider } from 'react-native-elements';
 import { 
   getListPrediction,
+  upvotePrediction,
+  undoUpvotePrediction,
 } from '../actions';
 
 const MatchCard = ({ home_team, away_team, first_half_score, score }) => {
@@ -54,13 +57,12 @@ class MatchDetail extends Component {
 
   componentWillMount() {
     const { token, match_id } = this.props;
-    this.props.getListPrediction(match_id);
+    this.props.getListPrediction(token, match_id);
   }
 
   predictionsList() {
     // TODO not sure if refreshes after new prediciton come
     const { predictions, loading } = this.props;
-    console.log(predictions === [], predictions);
     if (predictions.length > 0) {
       return (
         <View style={{ width: Dimensions.get('window').width }}>
@@ -82,14 +84,50 @@ class MatchDetail extends Component {
     }
   }
 
+  onUpvotePrediction(prediction) {
+    const { token, match_id } = this.props;
+    const prediction_id = prediction.id;
+    this.props.upvotePrediction(token, match_id, prediction_id );
+  }
+
+  onUndoUpvotePrediction(prediction) {
+    const { token, match_id } = this.props;
+    const prediction_id = prediction.id;
+    this.props.undoUpvotePrediction(token, match_id, prediction_id );
+  }
+
   renderRow(prediction) {
-    // TODO insert styling
+    var prediction_upvoted = prediction.upvoted;
+    // TODO make class on diffirent page
+    // mage state that see if upvoted or not and update the icon to upvote or not
     return (
-      <View>
-        <Text>{prediction.game}</Text>
-        <Text>{prediction.text}</Text>
-        <Text>{prediction.user.username}</Text>
-        <Text>{prediction.user.skill_point}</Text>
+      <View style={{ margin: 5, flexDirection: 'row' }}>
+        <View>
+          <Text>{prediction.game}</Text>
+          <Text>{prediction.text}</Text>
+          <Text>{prediction.user.username}</Text>
+          <Text>user skill points: {prediction.user.skill_point}</Text>
+          <Text>upvote count: {prediction.upvote_count}</Text>
+        </View>
+
+        <View style={{ flex: 1}}>
+          { prediction_upvoted === false
+              ? ( <Button 
+                    transparent
+                    onPress={() => this.onUpvotePrediction(prediction)}
+                  >
+                    <Icon name='add' />
+                  </Button>
+                )
+              : ( <Button 
+                    transparent
+                    onPress={() => this.onUndoUpvotePrediction(prediction)}
+                  >
+                    <Icon name='remove' />
+                  </Button>
+                )
+          }
+        </View>
       </View>
 
     );
@@ -138,9 +176,9 @@ class MatchDetail extends Component {
 
   updateIndex(selectedIndex) {
     if (selectedIndex===1) {
-    /*  const { token, match_id } = this.props;
-      this.props.getListPrediction(match_id);*/
-      this.componentWillMount();
+      const { token, match_id } = this.props;
+      this.props.getListPrediction(match_id);
+     // this.componentWillMount();
     };
     this.setState({ selectedIndex: selectedIndex });
   }
@@ -150,7 +188,7 @@ class MatchDetail extends Component {
       away_team, home_team, league, first_half_score,
       minute, datetime, score, } = this.props.teams;
     const { height, width } = Dimensions.get("window");
-    const buttons = ['Maç bilgisi', 'Predictions', 'Three'];
+    const buttons = ['Maç bilgisi', 'Tahminler', 'Three'];
     return (
       <View style={{ marginTop: -62, backgroundColor: '#fff', height: height }}>
 
@@ -184,7 +222,7 @@ class MatchDetail extends Component {
             onPress={this.updateIndex.bind(this)}
             selectedIndex={this.state.selectedIndex}
             buttons={buttons}
-            containerStyle={{ height: 40, flex: 1 }}
+            containerStyle={{ height: 40 }}
           />
 
           <Divider style={{ backgroundColor: 'black' }} />
@@ -245,7 +283,7 @@ const styles = {
     shadowColor: "grey",
     shadowOpacity: 0.5,
     shadowRadius: 5,
-    elevation: 4,
+    elevation: 8,
   },
   containerStyle: {
     flexDirection: 'row',
@@ -276,4 +314,8 @@ const mapStateTopProps = state => {
    };
 };
 
-export default connect(mapStateTopProps, { getListPrediction })(MatchDetail);
+export default connect(mapStateTopProps, { 
+  getListPrediction, 
+  upvotePrediction,
+  undoUpvotePrediction,
+})(MatchDetail);

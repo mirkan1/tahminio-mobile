@@ -18,7 +18,7 @@ const RouterComponent = ({ pressStatus }) => {
   return (
     <Router>
       <Stack key="root">
-        <Scene hideNavBar 
+        <Scene hideNavBar initial
           key="MatchPage" component={MatchPage} title="Tahmin-io" />
         <Scene hideNavBar 
           key="LeaderBoard" component={LeaderBoard} title="LeaderBoard" />
@@ -39,7 +39,7 @@ const RouterComponent = ({ pressStatus }) => {
           key="UserPage" component={UserPage} title="User" />
           <Scene key="UpdateMe" component={UpdateMe} title="Update" />
           <Scene key="SignUp" component={SignUp} title="Sign Up" />
-          <Scene key="Login" initial component={Login} title="Login" />
+          <Scene key="Login" component={Login} title="Login" />
           <Scene key="ForgotInfo" component={ForgotInfo} />
 
           <Scene key="WantedUser" component={WantedUser} title="WantedUser" />
