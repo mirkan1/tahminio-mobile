@@ -21,7 +21,9 @@ export const makePrediction = ({ match_id, text }) => {
     {
       text: text,
       game: match_id
-    }, { headers: 
+    },
+    { 
+    headers: 
     	{ 
 	    	Authorization: `Token ${token}`
 			}
@@ -80,7 +82,7 @@ export const getPrediction = ({ match_id, prediction_id, TEXT, GAME }) => {
   };
 };
 
-export const deletePrediction = ({ match_id, prediction_id }) => {
+export const deletePrediction = ({ token }, match_id, prediction_id) => {
 	// AUTH_REQ
   // Description: Deletes the requested prediction
 	// Endpoint `DELETE /v1/matches/:match_id/predictions/:prediction_id/`
@@ -88,7 +90,12 @@ export const deletePrediction = ({ match_id, prediction_id }) => {
 	return (dispatch) => {
     dispatch({ type: DELETE_PREDICTION });
 
-    axios.delete(`http://api.tahmin.io/v1/matches/${match_id}/predictions/${prediction_id}/`)
+    axios.delete(`http://api.tahmin.io/v1/matches/${match_id}/predictions/${prediction_id}/`, {}, { 
+    headers: 
+      { 
+        Authorization: `Token ${token}`
+      }
+    })
 			.then(() => {
         // Done deleting prediction and render to the same page
       })
@@ -96,7 +103,7 @@ export const deletePrediction = ({ match_id, prediction_id }) => {
   };
 };
 
-export const updatePrediction = ({ match_id, prediction_id, TEXT, GAME }) => {
+export const updatePrediction = ({ token }, match_id, prediction_id, TEXT, GAME) => {
 	// AUTH_REQ
   // Description: Updates the requested prediction
 	// Endpoint `PATCH /v1/matches/:match_id/predictions/:prediction_id/`
@@ -104,12 +111,16 @@ export const updatePrediction = ({ match_id, prediction_id, TEXT, GAME }) => {
 	return (dispatch) => {
     dispatch({ type: UPDATE_PREDICTION });
 
-    axios.patch(`http://api.tahmin.io/v1/matches/${match_id}/predictions/${prediction_id}/`, {
-    	headers: 
-    	{
-    		text: TEXT,
-    		game: GAME
-    	}
+    axios.patch(`http://api.tahmin.io/v1/matches/${match_id}/predictions/${prediction_id}/`, 
+    {
+      text: TEXT,
+      game: GAME
+    },
+    { 
+    headers: 
+      { 
+        Authorization: `Token ${token}`
+      }
     })
 			.then(() => {
         // Done updating the prediction and render to the same page
@@ -118,7 +129,7 @@ export const updatePrediction = ({ match_id, prediction_id, TEXT, GAME }) => {
   };
 };
 
-export const postMessageToMatch = ({ token }, match_id, text }) => {
+export const postMessageToMatch = ({ token }, match_id, text) => {
   // AUTH_REQ
 	// Description: Posts a message to the match's thread
 	// Endpoint `POST /v1/matches/:match_id/messages/`
@@ -142,7 +153,7 @@ export const postMessageToMatch = ({ token }, match_id, text }) => {
   };
 };
 
-export const getListOfMessages = () => {
+export const getListOfMessages = ({ token }) => {
   // AUTH_REQ
   // Description: Returns a list of Prediction objects of today
 	// Endpoint `GET /v1/matches/:match_id/messages/`
@@ -150,7 +161,12 @@ export const getListOfMessages = () => {
 	return (dispatch) => {
     dispatch({ type: GET_LIST_OF_MESSAGES });
 
-    axios.get(`http://api.tahmin.io/v1/matches/${match_id}/messages/`)
+    axios.get(`http://api.tahmin.io/v1/matches/${match_id}/messages/`, {
+    headers: 
+      {
+        Authorization: `Token ${token}`
+      }
+    })
 			.then((messages) => {
 				console.log(messages)
         // Render to message list
@@ -159,7 +175,7 @@ export const getListOfMessages = () => {
   };
 };
 
-export const updateMessage = ({ match_id, message_id, new_message }) => {
+export const updateMessage = ({ token }, match_id, message_id, new_message) => {
   // AUTH_REQ
   // Description: Updates the given message to the match's thread
 	// Endpoint `PATCH /v1/matches/:match_id/messages/:message_id/`
@@ -167,29 +183,38 @@ export const updateMessage = ({ match_id, message_id, new_message }) => {
 	return (dispatch) => {
     dispatch({ type: UPDATE_MESSAGE });
 
-    axios.patch(`http://api.tahmin.io/v1/matches/${match_id}/messages/${message_id}}`, {
-    	headers: 
-    	{
-    		text: new_message,
-    	}
+    axios.patch(`http://api.tahmin.io/v1/matches/${match_id}/messages/${message_id}}`, 
+    {
+      text: new_message
+    },
+    {
+    headers: 
+      {
+    		Authorization: `Token ${token}`
+      }
     })
-			.then(() => {
-        // Done message updating and render to the same page
+			.then(response => {
+        console.log(response.data)
       })
 			.catch(err => console.log(err));
   };
 };
 
-export const deleteMessage = ({ match_id, message_id }) => {
+export const deleteMessage = ({ token }, match_id, message_id) => {
   // Description: Deletes the given message
 	// Endpoint `DELETE /v1/matches/:match_id/messages/:message_id/`
 	// Response: 204
 	return (dispatch) => {
     dispatch({ type: DELETE_MESSAGE });
 
-    axios.delete(`http://api.tahmin.io/v1/matches/${match_id}/messages/${message_id}/`)
-			.then(() => {
-        // Render to message list
+    axios.delete(`http://api.tahmin.io/v1/matches/${match_id}/messages/${message_id}/`, {}, {
+      headers:
+      {
+        Authorization: `Token ${token}`
+      }
+    })
+			.then(response => {
+        console.log(response.data)
       })
 			.catch(err => console.log(err));
   };
@@ -203,24 +228,23 @@ export const getMessage = ({ match_id, message_id }) => {
     dispatch({ type: GET_MESSAGE });
 
     axios.get(`http://api.tahmin.io/v1/matches/${match_id}/messages/${message_id}/`)
-			.then((message) => {
-        console.log(message)
+			.then(response => {
+        console.log(response.data)
         // Render to message list
       })
 			.catch(err => console.log(err));
   };
 };
 
-export const upvotePrediction = (token=null, match_id, prediction_id) => {
+export const upvotePrediction = (token, match_id, prediction_id) => {
   // Description: Upvotes the given prediction
 	// Endpoint `POST /v1/matches/:match_id/predictions/:prediction_id/upvote/`
 	// Response: 200
-  console.log(token, match_id, prediction_id)
 	return (dispatch) => {
     axios.post(`http://api.tahmin.io/v1/matches/${match_id}/predictions/${prediction_id}/upvote/`, {}, {
       headers: 
       {
-        Authorization: token !== null ? `Token ${token}` : ``
+        Authorization: `Token ${token}`
       }
     })
       .then(response => {
@@ -234,7 +258,6 @@ export const undoUpvotePrediction = (token=null, match_id, prediction_id) => {
   // Description: Undo upvotes the given prediction
 	// Endpoint `POST /v1/matches/:match_id/predictions/:prediction_id/undoupvote/`
 	// Response: 200
-  console.log(token, match_id, prediction_id)
 	return (dispatch) => {
     axios.post(`http://api.tahmin.io/v1/matches/${match_id}/predictions/${prediction_id}/undoupvote/`, {}, {
       headers: 
@@ -257,6 +280,7 @@ export const getAvailableGames = ({ match_id }) => {
   // Description: Returns the available game types for prediction
 	// Endpoint `GET /v1/matches/:match_id/games/`
 	// Response 200 and list of Game objects
+  // bu ne aqu
 	return (dispatch) => {
     dispatch({ type: GET_AVAILABLE_GAMES });
 
@@ -276,7 +300,7 @@ export const getMatchlistMeta = () => {
 	return (dispatch) => {
     dispatch({ type: GET_MATCHLIST_META });
 
-    axios.post(`http://api.tahmin.io/v1/matches/meta`)
+    axios.post(`http://api.tahmin.io/v1/matches/meta/`)
 			.then(() => {
 				// render to the meta page
       })

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { matchFetch, getMatchInfo } from '../actions';
 import { Spinner, Base } from './common';
 import { Actions } from 'react-native-router-flux';
+import { SearchBar } from 'react-native-elements';
 import MatchCard from './MatchCard';
 
 

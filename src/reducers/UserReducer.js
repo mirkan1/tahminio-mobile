@@ -56,7 +56,7 @@ export default (state = INITIAL_STATE, action) => {
     case BIO_CHANGED:
       return { ...state, bio: action.payload };
     case PROFILE_PHOTO_CHANGED:
-    //
+    // TODO dunno how to import a photo
       return { ...state, profile_photo: action.payload };
     case USER_LOGIN:
       return { ...state, loading: true, error: '' };

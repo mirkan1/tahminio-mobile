@@ -8,6 +8,7 @@ import {
   getListPrediction,
   upvotePrediction,
   undoUpvotePrediction,
+  postMessageToMatch,
 } from '../actions';
 import PredictionCard from './PredictionCard';
 
@@ -85,10 +86,14 @@ class MatchDetail extends Component {
     }
   }
 
-  renderRow(prediction) {
-    var prediction_upvoted = prediction.upvoted;
+  messagesList() {
+    //TODO make messagelist postMessageToMatch
+    // this.props.postMessageToMatch(token, match_id, text)
+  }
+
+  renderRow(item) {
     return (
-      <PredictionCard prediction={prediction} />
+      <PredictionCard prediction={item} />
     );
   }
 
@@ -128,7 +133,9 @@ class MatchDetail extends Component {
         );
       case 2:
         return (
-          <Text>3</Text>
+          <View>
+            {this.messagesList()}
+          </View>
         );
     }
   }
@@ -146,7 +153,7 @@ class MatchDetail extends Component {
       away_team, home_team, league, first_half_score,
       minute, datetime, score, } = this.props.teams;
     const { height, width } = Dimensions.get("window");
-    const buttons = ['Maç bilgisi', 'Tahminler', 'Three'];
+    const buttons = ['Maç bilgisi', 'Tahminler', 'Mesajlar'];
     return (
       <View style={{ marginTop: -62, backgroundColor: '#fff', height: height }}>
 
