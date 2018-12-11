@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 import { Text, View, Image, Dimensions, ScrollView, FlatList } from 'react-native';
 import { Card, CardSection, Spinner, } from './common';
 import { Icon, Button } from 'native-base';
-import { ButtonGroup, Divider } from 'react-native-elements';
+import { ButtonGroup, Divider, SearchBar } from 'react-native-elements';
 import { 
   getListPrediction,
   upvotePrediction,
   undoUpvotePrediction,
   postMessageToMatch,
+  getListOfMessages,
 } from '../actions';
 import PredictionCard from './PredictionCard';
 
@@ -55,11 +56,22 @@ const MatchCard = ({ home_team, away_team, first_half_score, score }) => {
 
 
 class MatchDetail extends Component {
-  state = { selectedIndex: 0 }
+  state = { selectedIndex: 0, value: '' }
+
+  onChangeText(value) {
+    this.setState({ value })
+  }
 
   componentWillMount() {
     const { token, match_id } = this.props;
     this.props.getListPrediction(token, match_id);
+    //this.props.getListOfMessages(token, match_id);
+  }
+
+  onPostMessageToMatchPress() {
+    const { token, match_id } = this.props;
+    const { value } = this.state;
+    this.props.postMessageToMatch(token, match_id, value);
   }
 
   predictionsList() {
@@ -81,12 +93,47 @@ class MatchDetail extends Component {
       );
     } else {
       return (
-        <Text>No prediction yet. Create one</Text>
+        <View style={{ flexDirection: 'column', }}>
+          <Text>No prediction yet. Create one</Text>
+          <Button onPress={() => console.log('predicted')}>
+            <Text>Click to predict</Text>
+          </Button>
+        </View>
       );
     }
   }
 
   messagesList() {
+    const { match_messages, loading } = this.props;
+    if (match_messages !== null && match_messages.lenght > 0) {
+      return (
+        <View style={{ width: Dimensions.get('window').width }}>
+          <FlatList
+            data={match_messages}
+            renderItem={({ item }) => this.renderRow(item)}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        </View>
+      );
+    } else if (loading) {
+      return (
+        <Spinner size="large" />
+      );
+    } else {
+      return (
+        <View style={{ flexDirection: 'row', }}>
+          <SearchBar
+            style={{ flex: 5 }}
+            value={this.state.value}
+            onChangeText={this.onChangeText.bind(this)}
+            placeholder='Bir Yorum yap' 
+          />
+          <Button large style={{ flex: 1 }} onPress={() => this.onPostMessageToMatchPress()}>
+            <Text>Post</Text>
+          </Button>
+        </View>
+      );
+    }
     //TODO make messagelist postMessageToMatch
     // this.props.postMessageToMatch(token, match_id, text)
   }
@@ -277,9 +324,10 @@ const mapStateToProps = state => {
     match_id: state.team.currentTeams.id,
     loading: state.forum.loading,
     predictions: state.forum.predictions,
+    match_messages: state.forum.match_messages,
    };
 };
 
 export default connect(mapStateToProps, { 
-  getListPrediction,
+  getListPrediction, postMessageToMatch, getListOfMessages
 })(MatchDetail);
