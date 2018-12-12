@@ -1,7 +1,7 @@
 import axios from 'axios';
 import _ from 'lodash';
 import {
-	MAKE_PREDICTION,
+  MAKE_PREDICTION,
   IS_LOADING,
   GET_PREDICTION_LIST,
   UPVOTE_PREDICTION,
@@ -169,7 +169,7 @@ export const postMessageToMatch = (token, match_id, text) => {
   // Description: Posts a message to the match's thread
   // Endpoint `POST /v1/matches/:match_id/messages/`
   // Response: 201 and a message object
-  return (dispatch) => {getListOfMessages
+  return (dispatch) => {
     dispatch({ type: IS_LOADING });
     axios.post(`http://api.tahmin.io/v1/matches/${match_id}/messages/`, 
       {

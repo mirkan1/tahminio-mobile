@@ -8,9 +8,10 @@ import {
 	userVerify,
   getUserTrophies,
 } from '../actions';
-import { CardSection, Button, Base } from './common';
+import { CardSection, Base } from './common';
 import { Actions } from 'react-native-router-flux';
 import Login from './Login';
+import { Button } from 'native-base';
 
 class UserPage extends Component {
 	state = { count: 0 }
@@ -55,27 +56,43 @@ class UserPage extends Component {
     this.props.getUserTrophies({ token });
   }
 
+  renderForgot() {
+    if (this.props.error !== '') {
+      return(
+        <View>
+          <Text style={{ fontSize: 15, textAlign: 'center' }}>Forgot your password or username?</Text>
+        </View>
+      );
+    }
+  }
+
 	renderPage() {
 	  const { user } = this.props;
 	  if (user === null) {
 			return (
 		    <View>
           <Login />
-		      <CardSection>
 		        <TouchableOpacity onPress={() => Actions.ForgotInfo()}>
-		          <Text style={{ fontSize: 10, textAlign: 'center' }}>Forgot your password or username?</Text>
-		        </TouchableOpacity>
-		      </CardSection>
 
-          <CardSection style={{flex: 1, alignItems: 'center', justifyContent: 'center', margin: 10, }}>
-		      <Text style={{ fontSize: 50, textAlign: 'center' }}>OR</Text>
-          </CardSection>
-		      
-		      <CardSection style={{ alignItems: 'center', justifyContent: 'center' }}>
-		        <Button onPress={() => Actions.SignUp()}>
-		          Sign Up
-		        </Button>
-		      </CardSection>
+            {this.renderForgot()}
+		          
+		        </TouchableOpacity>
+
+          <View style={{ flexDirection: "row", flex: 1, alignItems: 'center', marginLeft: 40, marginRight: 40, marginTop: 10, }}>
+            <View style={{ flex: 2,borderBottomColor: 'black', borderBottomWidth: 1 }}>
+            </View>
+
+            <View style={{ flex: 1, }}>
+		          <Text style={{ fontSize: 30, textAlign: 'center' }}>OR</Text>
+		        </View>
+
+            <View style={{ flex: 2, borderBottomColor: 'black', borderBottomWidth: 1, }}>
+            </View>
+          </View>
+
+            <Button block style={{ marginLeft: 40, marginRight: 40, flex: 1, marginTop: 10, }}onPress={() => Actions.SignUp()}>
+              <Text style={{ textAlign: 'center', fontSize: 20, }}>Sign Up</Text>
+            </Button>
 		  	</View>
 		  );
 	  }
@@ -92,7 +109,7 @@ class UserPage extends Component {
             }}
             style={styles.profilePhoto}
           />
-          <View style={{ flex: 2, }}>
+          <View style={{ flex: 2, marginLeft: 75, }}>
             <Text>{user.first_name}</Text>
             <Text>{user.email}</Text>
             <Text>{user.last_name}</Text>
@@ -102,21 +119,31 @@ class UserPage extends Component {
         </View>
 
         <CardSection>
-          <Button onPress={() => Actions.UpdateMe()}>Update Me</Button>
+          <Button block style={{ flex: 1 }} onPress={() => Actions.UpdateMe()}>
+            <Text>Update Me</Text>
+          </Button>
         </CardSection>
         <CardSection>
-          <Button onPress={this.onLogoutUser.bind(this)}>Logout</Button>
+          <Button block style={{ flex: 1 }} onPress={this.onLogoutUser.bind(this)}>
+            <Text>Logout</Text>
+          </Button>
         </CardSection>
         <CardSection>
-          <Button onPress={this.onUserDeleteMe.bind(this)}>Delete yourself</Button>
+          <Button block style={{ flex: 1 }} onPress={this.onUserDeleteMe.bind(this)}>
+            <Text>Delete yourself</Text>
+          </Button>
         </CardSection>
         <CardSection>
-          <Button onPress={this.onGetUserTrophies.bind(this)}>GetUserTrophies</Button>
+          <Button block style={{ flex: 1 }} onPress={this.onGetUserTrophies.bind(this)}>
+            <Text>GetUserTrophies</Text>
+          </Button>
         </CardSection>
 
         <CardSection>
         	{ !user.is_verified
-            ? <Button onPress={this.onUserVerify.bind(this)}>Verify your account</Button>
+            ? <Button block style={{ flex: 1 }} onPress={this.onUserVerify.bind(this)}>
+                <Text>Verify your account</Text>
+              </Button>
         		: null
         	}
         </CardSection>
@@ -155,6 +182,7 @@ const mapStateTopProps = state => {
     user: state.user.user,
     token: state.user.token,
     loading: state.user.loading,
+    error: state.user.error,
   };
 };
 

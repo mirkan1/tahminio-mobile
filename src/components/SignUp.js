@@ -11,7 +11,8 @@ import {
   logoutUser,
   userSignUp,
 } from '../actions';
-import { Card, CardSection, Input, Button, Spinner } from './common';
+import { Card, CardSection, Input, Spinner } from './common';
+import { Button } from 'native-base';
 
 class SignUp extends Component {
   onUsernameChange(text) {
@@ -67,8 +68,8 @@ class SignUp extends Component {
       return <Spinner size="large" />;
     }
     return (
-      <Button onPress={this.onButtonPress.bind(this)}>
-        Sign Up
+      <Button block style={{ marginLeft: 40, marginRight: 40, flex: 1 }}onPress={this.onButtonPress.bind(this)}>
+        <Text style={{ textAlign: 'center', fontSize: 20, }}>Sign Up</Text>
       </Button>
     );
   }
