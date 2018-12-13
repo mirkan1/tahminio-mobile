@@ -5,40 +5,16 @@ import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Rig
 import Drawer from 'react-native-drawer';
 import SlideBar from './SlideBar';
 
-/*const {width, height } = Dimensions.get('window');
-const imageWidth = 80;
-var animatedValue = new Animated.Value();
-var animatedBarValue = new Animated.Value(0);*/
-
 class Base extends Content {
-/*  state = { animation: 'close' }*/
 
-/*  slideBar() {
-    const barWidth = width / 1.25;
 
-    if (this.state.animation === 'close') {
-      animatedBarValue.setValue(0);
-      Animated.timing(animatedBarValue, {
-        toValue: barWidth,
-        duration: 600,
-        easing: Easing.linear
-      }).start();
-      this.setState({ animation: 'open'})
-    } else {
-      animatedBarValue.setValue(barWidth);
-      Animated.timing(animatedBarValue, {
-        toValue: 0,
-        duration: 600,
-        easing: Easing.linear
-      }).start();
-      this.setState({ animation: 'close'})
-    }
-  }*/
-
+  // TODO: drawer doest work for some reason :(
+  // https://medium.freecodecamp.org/how-to-build-a-nested-drawer-menu-with-react-native-a1c2fdcab6c9
+  // Learn this one when feel like
   render() {
     return (
       <Drawer
-        ref={(ref) => this._drawer = ref}
+        ref={ref => this._drawer = ref}
         content={<SlideBar />}
         type="static"
         tapToClose={true}
@@ -54,7 +30,7 @@ class Base extends Content {
             <Left>
               <Button 
                 transparent
-                onPress={() => this._drawer.open()}
+                onPress={() => console.log(this._drawer)}
               >
                 <Icon name='menu' />
               </Button>
@@ -70,7 +46,7 @@ class Base extends Content {
             </Body>
             
             <Right>
-              <Button 
+              <Button
                 transparent
                 onPress={() => Actions.UserPage()}
               >

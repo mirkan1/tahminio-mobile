@@ -41,7 +41,7 @@ export const makePrediction = ({ match_id, text }) => {
   };
 };
 
-export const getListPrediction = (token, match_id) => {
+export const getListPrediction = ({ token }, match_id) => {
   // Description: Returns a list of Prediction objects of today
   // Endpoint `GET /v1/matches/:match_id/predictions/`
   // Response: 200 and list of Prediction objects
@@ -56,6 +56,7 @@ export const getListPrediction = (token, match_id) => {
       }
     })
       .then(request => {
+        console.log(request.data),
         dispatch({ 
           type: GET_PREDICTION_LIST, 
           payload: request.data

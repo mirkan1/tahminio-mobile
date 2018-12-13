@@ -61,3 +61,4 @@ export const UNDO_UPVOTE_PREDICTION = 'undo_upvote_prediction';			// DONE
 export const GET_A_MATCH = 'get_a_match';
 export const GET_AVAILABLE_GAMES = 'get_available_games';
 export const GET_MATCHLIST_META = 'get_matchlist_meta';
+export const ERROR_ACCURED = 'error_accured';

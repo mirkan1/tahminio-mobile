@@ -23,7 +23,7 @@ const RouterComponent = ({ pressStatus }) => {
         <Scene hideNavBar 
           key="LeaderBoard" component={LeaderBoard} title="LeaderBoard" />
 
-        <Scene hideNavBar
+        <Scene hideNavBar 
           key="Feeds" component={Feeds} title="Feeds" />
 
           <Scene

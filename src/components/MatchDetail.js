@@ -64,8 +64,7 @@ class MatchDetail extends Component {
 
   componentWillMount() {
     const { token, match_id } = this.props;
-    // TODO: getListPrediction doesnt work, was working before fix it
-    //this.props.getListPrediction({ token }, match_id);
+    this.props.getListPrediction({ token }, match_id);
     //this.props.getListOfMessages(token, match_id);
   }
 
