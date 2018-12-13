@@ -9,6 +9,7 @@ import {
   POST_MESSAGE_TO_MATCH,
   GET_LIST_OF_MESSAGES,
   ERROR_ACCURED,
+  GET_PREDICTION_OPTIONS,
 } from './types';
 
 export const makePrediction = ({ match_id, text }) => {
@@ -41,11 +42,11 @@ export const makePrediction = ({ match_id, text }) => {
   };
 };
 
-export const getListPrediction = ({ token }, match_id) => {
+export const getListPrediction = (token, match_id) => {
   // Description: Returns a list of Prediction objects of today
   // Endpoint `GET /v1/matches/:match_id/predictions/`
   // Response: 200 and list of Prediction objects
-  // `NOTE: If you want to get list of matches of another day, send a request like this: /v1/users/matches/?date=20-04-2018`
+  // `NOTE: If you want to get list of matches of , send a request like this: /v1/users/matches/?date=20-04-2018`
   return (dispatch) => {
     dispatch({ type: IS_LOADING });
 
@@ -56,16 +57,34 @@ export const getListPrediction = ({ token }, match_id) => {
       }
     })
       .then(request => {
-        console.log(request.data),
         dispatch({ 
           type: GET_PREDICTION_LIST, 
           payload: request.data
-        });
+        })
       })
       .catch(err => console.log(err),
           dispatch({ type: ERROR_ACCURED }));
   };
 };
+
+export const getListPredictionOptions = (match_id) => {
+    return (dispatch) => {
+    dispatch({ type: IS_LOADING });
+
+    axios.get(`http://api.tahmin.io/v1/matches/${match_id}/`, {})
+      .then(request => {
+        // TODO: render request.games
+        // liste olsun handicapa tiklasin, bir liste acilsin oradan secsin ikinci secenegini
+        console.log(request.data.games),
+        dispatch({ 
+          type: GET_PREDICTION_OPTIONS, 
+          payload: request.data.games
+        })
+      })
+      .catch(err => console.log(err),
+          dispatch({ type: ERROR_ACCURED }));
+  };
+}
 
 export const getListOfMessages = ({ token }, match_id) => {
   // AUTH_REQ

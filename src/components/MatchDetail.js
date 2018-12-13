@@ -10,6 +10,7 @@ import {
   undoUpvotePrediction,
   postMessageToMatch,
   getListOfMessages,
+  getListPredictionOptions,
 } from '../actions';
 import PredictionCard from './PredictionCard';
 
@@ -74,6 +75,11 @@ class MatchDetail extends Component {
     this.props.postMessageToMatch(token, match_id, value);
   }
 
+  onGetListPredictionOptions() {
+    const { match_id } = this.props;
+    this.props.getListPredictionOptions(match_id);
+  }
+
   predictionsList() {
     // TODO not sure if refreshes after new prediciton come
     const { predictions, loading } = this.props;
@@ -95,7 +101,7 @@ class MatchDetail extends Component {
       return (
         <View style={{ flexDirection: 'column', }}>
           <Text>No prediction yet. Create one</Text>
-          <Button onPress={() => console.log('predicted')}>
+          <Button onPress={() => this.onGetListPredictionOptions()}>
             <Text>Click to predict</Text>
           </Button>
         </View>
@@ -325,9 +331,10 @@ const mapStateToProps = state => {
     loading: state.forum.loading,
     predictions: state.forum.predictions,
     match_messages: state.forum.match_messages,
+    prediction_options: state.forum.prediction_options,
    };
 };
 
 export default connect(mapStateToProps, { 
-  getListPrediction, postMessageToMatch, getListOfMessages
+  getListPrediction, postMessageToMatch, getListOfMessages, getListPredictionOptions
 })(MatchDetail);

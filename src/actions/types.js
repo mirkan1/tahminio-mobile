@@ -48,6 +48,7 @@ export const GET_USER_FEED = 'get_user_feed';							// DONE
 //export const MATCH_FETCH = 'match_fetch';
 export const MAKE_PREDICTION = 'make_prediction';
 export const GET_PREDICTION_LIST = 'get_prediction_list';				// DONE
+export const GET_PREDICTION_OPTIONS = 'get_prediction_options';
 export const GET_PREDICTION = 'get_prediction';
 export const DELETE_PREDICTION = 'delete_prediction';
 export const UPDATE_PREDICTION = 'update_prediction';
