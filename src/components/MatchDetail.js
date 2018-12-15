@@ -82,7 +82,8 @@ class MatchDetail extends Component {
 
   predictionsList() {
     // TODO not sure if refreshes after new prediciton come
-    const { predictions, loading } = this.props;
+    const { predictions, loading, prediction_options } = this.props;
+    console.log(prediction_options.Handikap);
     if (predictions.length > 0) {
       return (
         <View style={{ width: Dimensions.get('window').width }}>
@@ -104,6 +105,13 @@ class MatchDetail extends Component {
           <Button onPress={() => this.onGetListPredictionOptions()}>
             <Text>Click to predict</Text>
           </Button>
+        {/* Figure out how to render those*/}
+          { prediction_options !== null
+            ? <FlatList
+            data={prediction_options}
+            renderItem={({item}) => <Text>{item.Handikap.h2}</Text>} />
+            : <Text>NOPE</Text>
+          }
         </View>
       );
     }
