@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Text, View, Image, Dimensions, ScrollView, FlatList } from 'react-native';
+import { Text, View, Image, Dimensions, ScrollView, FlatList, Picker } from 'react-native';
 import { Card, CardSection, Spinner, } from './common';
 import { Icon, Button } from 'native-base';
 import { ButtonGroup, Divider, SearchBar } from 'react-native-elements';
@@ -57,13 +57,13 @@ const MatchCard = ({ home_team, away_team, first_half_score, score }) => {
 
 
 class MatchDetail extends Component {
-  state = { selectedIndex: 0, value: '' }
+  state = { selectedIndex: 0, value: '', predictValue: "Handikap" }
 
   onChangeText(value) {
     this.setState({ value })
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { token, match_id } = this.props;
     this.props.getListPrediction({ token }, match_id);
     //this.props.getListOfMessages(token, match_id);
@@ -83,7 +83,7 @@ class MatchDetail extends Component {
   predictionsList() {
     // TODO not sure if refreshes after new prediciton come
     const { predictions, loading, prediction_options } = this.props;
-    console.log(prediction_options.Handikap);
+
     if (predictions.length > 0) {
       return (
         <View style={{ width: Dimensions.get('window').width }}>
@@ -105,11 +105,30 @@ class MatchDetail extends Component {
           <Button onPress={() => this.onGetListPredictionOptions()}>
             <Text>Click to predict</Text>
           </Button>
-        {/* Figure out how to render those*/}
+        {/* user should be able to pick one of the desired prediction
+            check mackolik.com and make like it
+        */}
           { prediction_options !== null
-            ? <FlatList
-            data={prediction_options}
-            renderItem={({item}) => <Text>{item.Handikap.h2}</Text>} />
+            ? <View>
+                <Picker
+                  selectedValue={this.state.predictValue}
+                  style={{ height: 50, width: 100 }}
+                  onValueChange={(itemValue, itemIndex) => this.setState({predictValue: itemValue})}>
+                  <Picker.Item label={Object.keys(prediction_options)[0]} value={Object.keys(prediction_options)[0]} />
+                  <Picker.Item label={Object.keys(prediction_options)[1]} value={Object.keys(prediction_options)[1]} />
+                  <Picker.Item label={Object.keys(prediction_options)[2]} value={Object.keys(prediction_options)[2]} />
+                  <Picker.Item label={Object.keys(prediction_options)[3]} value={Object.keys(prediction_options)[3]} />
+                  <Picker.Item label={Object.keys(prediction_options)[4]} value={Object.keys(prediction_options)[4]} />
+                  <Picker.Item label={Object.keys(prediction_options)[5]} value={Object.keys(prediction_options)[5]} />
+                  <Picker.Item label={Object.keys(prediction_options)[7]} value={Object.keys(prediction_options)[7]} />
+                  <Picker.Item label={Object.keys(prediction_options)[8]} value={Object.keys(prediction_options)[8]} />
+                </Picker>
+                <FlatList
+                  data={Object.keys(prediction_options[this.state.predictValue])}
+                  renderItem={({item}) => <Text>{item}</Text>}
+                  keyExtractor={(item, index) => index.toString()}
+                />
+              </View>
             : <Text>NOPE</Text>
           }
         </View>
