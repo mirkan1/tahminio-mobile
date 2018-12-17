@@ -8,6 +8,7 @@ import {
   GET_LIST_OF_MESSAGES,
   ERROR_ACCURED,
   GET_PREDICTION_OPTIONS,
+  GET_AVAILABLE_GAMES,
 } from '../actions/types';
 
 const INITIAL_STATE = { 
@@ -17,6 +18,7 @@ const INITIAL_STATE = {
   match_messages: null,
   error: null,
   prediction_options: null,
+  availableGames: null,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -37,6 +39,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, loading: false, error: "Something went wrong" };
     case GET_PREDICTION_OPTIONS:
       return { ...state, prediction_options: action.payload };
+    case GET_AVAILABLE_GAMES:
+      return { ...state, availableGames: action.payload }
     default:
       return state;
   }

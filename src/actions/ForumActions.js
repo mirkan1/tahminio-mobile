@@ -10,30 +10,32 @@ import {
   GET_LIST_OF_MESSAGES,
   ERROR_ACCURED,
   GET_PREDICTION_OPTIONS,
+  GET_AVAILABLE_GAMES,
 } from './types';
 
-export const makePrediction = ({ match_id, text }) => {
+export const makePrediction = ({ token }, match_id, text, game ) => {
+  console.log(token, match_id, text, game)
 	// AUTH_REQ
   // Description: Creates a prediction about the given match
 	// Endpoint `POST /v1/matches/:match_id/predictions/`
 	// `NOTE*: "game" is required and it must be from available games list`
 	// Response 201 and Prediction object
 	return (dispatch) => {
-    dispatch({ type: IS_LOADING });
+    //dispatch({ type: IS_LOADING });
 
     axios.post(`http://api.tahmin.io/v1/matches/${match_id}/predictions/`,
     {
       text: text,
-      game: match_id
+      game: game
     },
-    { 
+    {
     headers: 
     	{ 
 	    	Authorization: `Token ${token}`
 			}
 		})
-			.then(
-				// return to the same page
+			.then(response =>
+				console.log(response.data)
 			)
 			.catch(
 				// return to the same page with and error
@@ -316,18 +318,18 @@ export const getAMatch = ({ match_id }) => {
   // Already done in .AuthActions.js
 };
 
-export const getAvailableGames = ({ match_id }) => {
+export const getAvailableGames = ( match_id ) => {
   // Description: Returns the available game types for prediction
 	// Endpoint `GET /v1/matches/:match_id/games/`
 	// Response 200 and list of Game objects
   // bu ne aqu
 	return (dispatch) => {
-    dispatch({ type: GET_AVAILABLE_GAMES });
-
-    axios.post(`http://api.tahmin.io/v1/matches/${match_id}/games/`)
-			.then((games) => {
-				console.log(games)
-        // undo the upvote the message and render to the same page
+    axios.get(`http://api.tahmin.io/v1/matches/${match_id}/games/`)
+      .then(response => {
+        dispatch({ 
+          type: GET_AVAILABLE_GAMES,
+          payload: response.data 
+        });
       })
 			.catch(err => console.log(err));
   };

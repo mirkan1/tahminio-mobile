@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Text, View, Image, Dimensions, ScrollView, FlatList, Picker } from 'react-native';
+import { Text, View, Image, Dimensions, ScrollView, FlatList, Picker, TouchableOpacity } from 'react-native';
 import { Card, CardSection, Spinner, } from './common';
 import { Icon, Button } from 'native-base';
 import { ButtonGroup, Divider, SearchBar } from 'react-native-elements';
@@ -11,6 +11,8 @@ import {
   postMessageToMatch,
   getListOfMessages,
   getListPredictionOptions,
+  makePrediction,
+  getAvailableGames,
 } from '../actions';
 import PredictionCard from './PredictionCard';
 
@@ -66,6 +68,7 @@ class MatchDetail extends Component {
   componentDidMount() {
     const { token, match_id } = this.props;
     this.props.getListPrediction({ token }, match_id);
+    this.props.getAvailableGames( match_id );
     //this.props.getListOfMessages(token, match_id);
   }
 
@@ -80,9 +83,39 @@ class MatchDetail extends Component {
     this.props.getListPredictionOptions(match_id);
   }
 
+  onMakePrediction(game) {
+    const { token, match_id } = this.props;
+    this.props.makePrediction({ token }, match_id, text="sikti", game);
+  }
+
+  predictListItem(item) {
+    const { availableGames } = this.props;
+    let keys = Object.keys(availableGames[this.state.predictValue]);
+    let values = Object.values(availableGames[this.state.predictValue]);
+    let reversedData = {};
+    let key = 'LOL';
+
+    for (let i=0; i<keys.length; i++) {
+      reversedData[values[i]] = keys[i];
+      if (reversedData[values[i]] === item) {
+        key = values[i];
+      }
+    }
+
+    return (
+      <TouchableOpacity onPress={() => this.onMakePrediction(item)}
+        style={{ flex: 1, borderWidth: 1, borderRadius: 2, borderColor: 'black', margin: 5, padding: 20, alignItems: 'center', }}
+        keyExtractor={(item, index) => index.toString()}
+      >
+        <Text style={{ alignSelf: 'center', fontSize: 16, }}>{item}</Text>
+        <Text style={{ alignSelf: 'center', fontSize: 16, color: 'blue' }}>{key}</Text>
+      </TouchableOpacity>
+    );
+  }
+
   predictionsList() {
     // TODO not sure if refreshes after new prediciton come
-    const { predictions, loading, prediction_options } = this.props;
+    const { availableGames, predictions, loading, prediction_options } = this.props;
 
     if (predictions.length > 0) {
       return (
@@ -102,31 +135,35 @@ class MatchDetail extends Component {
       return (
         <View style={{ flexDirection: 'column', }}>
           <Text>No prediction yet. Create one</Text>
+
+        {/* RENDER TO ANOTHER PAGE TO MAKE A PREDICT IF DID NOT MAKE PREDICT YET*/}
           <Button onPress={() => this.onGetListPredictionOptions()}>
             <Text>Click to predict</Text>
           </Button>
         {/* user should be able to pick one of the desired prediction
             check mackolik.com and make like it
+            ---TRY REACT HOOKS---
         */}
-          { prediction_options !== null
+          { availableGames !== null
             ? <View>
                 <Picker
                   selectedValue={this.state.predictValue}
                   style={{ height: 50, width: 100 }}
                   onValueChange={(itemValue, itemIndex) => this.setState({predictValue: itemValue})}>
-                  <Picker.Item label={Object.keys(prediction_options)[0]} value={Object.keys(prediction_options)[0]} />
-                  <Picker.Item label={Object.keys(prediction_options)[1]} value={Object.keys(prediction_options)[1]} />
-                  <Picker.Item label={Object.keys(prediction_options)[2]} value={Object.keys(prediction_options)[2]} />
-                  <Picker.Item label={Object.keys(prediction_options)[3]} value={Object.keys(prediction_options)[3]} />
-                  <Picker.Item label={Object.keys(prediction_options)[4]} value={Object.keys(prediction_options)[4]} />
-                  <Picker.Item label={Object.keys(prediction_options)[5]} value={Object.keys(prediction_options)[5]} />
-                  <Picker.Item label={Object.keys(prediction_options)[7]} value={Object.keys(prediction_options)[7]} />
-                  <Picker.Item label={Object.keys(prediction_options)[8]} value={Object.keys(prediction_options)[8]} />
+                  <Picker.Item label={Object.keys(availableGames)[0]} value={Object.keys(availableGames)[0]} />
+                  <Picker.Item label={Object.keys(availableGames)[1]} value={Object.keys(availableGames)[1]} />
+                  <Picker.Item label={Object.keys(availableGames)[2]} value={Object.keys(availableGames)[2]} />
+                  <Picker.Item label={Object.keys(availableGames)[3]} value={Object.keys(availableGames)[3]} />
+                  <Picker.Item label={Object.keys(availableGames)[4]} value={Object.keys(availableGames)[4]} />
+                  <Picker.Item label={Object.keys(availableGames)[5]} value={Object.keys(availableGames)[5]} />
+                  <Picker.Item label={Object.keys(availableGames)[7]} value={Object.keys(availableGames)[7]} />
+                  <Picker.Item label={Object.keys(availableGames)[8]} value={Object.keys(availableGames)[8]} />
                 </Picker>
+
                 <FlatList
-                  data={Object.keys(prediction_options[this.state.predictValue])}
-                  renderItem={({item}) => <Text>{item}</Text>}
-                  keyExtractor={(item, index) => index.toString()}
+                  data={Object.keys(availableGames[this.state.predictValue])}
+                  numColumns={3}
+                  renderItem={({item}) => this.predictListItem(item)} 
                 />
               </View>
             : <Text>NOPE</Text>
@@ -359,9 +396,11 @@ const mapStateToProps = state => {
     predictions: state.forum.predictions,
     match_messages: state.forum.match_messages,
     prediction_options: state.forum.prediction_options,
+    availableGames: state.forum.availableGames,
    };
 };
 
 export default connect(mapStateToProps, { 
-  getListPrediction, postMessageToMatch, getListOfMessages, getListPredictionOptions
+  getListPrediction, postMessageToMatch, getListOfMessages, 
+  getListPredictionOptions, makePrediction, getAvailableGames
 })(MatchDetail);
