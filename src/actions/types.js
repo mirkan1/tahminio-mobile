@@ -46,7 +46,7 @@ export const GET_USER_FEED = 'get_user_feed';							// DONE
 
 // ForumActions
 //export const MATCH_FETCH = 'match_fetch';
-export const MAKE_PREDICTION = 'make_prediction';
+export const MAKE_PREDICTION = 'make_prediction';						// SEMI-DONE
 export const GET_PREDICTION_LIST = 'get_prediction_list';				// DONE
 export const GET_PREDICTION_OPTIONS = 'get_prediction_options';
 export const GET_PREDICTION = 'get_prediction';

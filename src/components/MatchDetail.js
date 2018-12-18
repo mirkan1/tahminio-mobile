@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Text, View, Image, Dimensions, ScrollView, FlatList, Picker, TouchableOpacity } from 'react-native';
+import { Text, View, Image, Dimensions, ScrollView, FlatList, Picker, TouchableOpacity, Easing, Animated } from 'react-native';
 import { Card, CardSection, Spinner, } from './common';
 import { Icon, Button } from 'native-base';
 import { ButtonGroup, Divider, SearchBar } from 'react-native-elements';
@@ -59,7 +59,11 @@ const MatchCard = ({ home_team, away_team, first_half_score, score }) => {
 
 
 class MatchDetail extends Component {
-  state = { selectedIndex: 0, value: '', predictValue: "Handikap" }
+  state = { 
+    selectedIndex: 0, 
+    value: '', 
+    predictValue: "Handikap",
+  }
 
   onChangeText(value) {
     this.setState({ value })
@@ -201,6 +205,7 @@ class MatchDetail extends Component {
           <Button large style={{ flex: 1 }} onPress={() => this.onPostMessageToMatchPress()}>
             <Text>Post</Text>
           </Button>
+
         </View>
       );
     }
@@ -264,6 +269,13 @@ class MatchDetail extends Component {
     };
     this.setState({ selectedIndex: selectedIndex });
   }
+
+  /*popUpPrediction() {
+    const { value } = this.props;
+    Animated.timing(this._width, {
+      toValue: value,
+    }).start();
+  }*/
 
   render() {
     const { 

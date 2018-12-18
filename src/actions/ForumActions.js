@@ -11,6 +11,7 @@ import {
   ERROR_ACCURED,
   GET_PREDICTION_OPTIONS,
   GET_AVAILABLE_GAMES,
+  GET_PREDICTION,
 } from './types';
 
 export const makePrediction = ({ token }, match_id, text, game ) => {
@@ -114,28 +115,30 @@ export const getListOfMessages = ({ token }, match_id) => {
   };
 };
 
-export const getPrediction = ({ match_id, prediction_id, TEXT, GAME }) => {
+export const getPrediction = ({ token }, match_id, prediction_id ) => {
   // Description: Returns the requested prediction
   // Endpoint `GET /v1/matches/:match_id/predictions/:prediction_id/`
   // Response: 200 and a Prediction object
   return (dispatch) => {
-    dispatch({ type: GET_PREDICTION });
+    dispatch({ type: IS_LOADING });
 
     axios.get(`http://api.tahmin.io/v1/matches/${match_id}/predictions/${prediction_id}/`,
       {
-        text: TEXT,
-        game: GAME
-      },
-      {
       headers:
-        { 
-        Authorization: `Token ${token}`
+      { 
+        Authorization: token !== null ? `Token ${token}` : ``
       }
     })
-      .then(() => {
-        // Done prediction and render to the same page
+      .then(request => {
+        dispatch({ 
+          type: GET_PREDICTION,
+          payload: request.data
+        }),
+        console.log(request.data)
       })
-      .catch(err => console.log(err));
+      .catch(err => 
+        console.log(err),
+        dispatch({ type: ERROR_ACCURED }));
   };
 };
 
@@ -300,6 +303,7 @@ export const undoUpvotePrediction = (token=null, match_id, prediction_id) => {
   // Description: Undo upvotes the given prediction
 	// Endpoint `POST /v1/matches/:match_id/predictions/:prediction_id/undoupvote/`
 	// Response: 200
+  // DO NOT WORKS FOR SOME REASON
 	return (dispatch) => {
     axios.post(`http://api.tahmin.io/v1/matches/${match_id}/predictions/${prediction_id}/undoupvote/`, {}, {
       headers: 

@@ -1,4 +1,4 @@
-import { View, Text, KeyboardAvoidingView } from 'react-native';
+import { View, Text, KeyboardAvoidingView, Animated } from 'react-native';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { 
@@ -10,9 +10,21 @@ import {
 import { Card, CardSection, Input, Spinner } from './common';
 import { Button } from 'native-base';
 
-class Login extends Component {
-  state = { formStatus: 'login' };
+var _animate =  new Animated.Value(10) 
 
+class Login extends Component {
+  state = { formStatus: 'login'};
+
+  startAnimationAQ() {
+    // ONLY SPRING WORKS FOR SOME FUCKING REASON FIND WHY AND FIX AMK SEYINI
+    // CANNOT ANIMATE SHIT!!!
+    Animated.spring(_animate, {
+      toValue: 1000,
+      duration: 10,
+      useNativeDriver: false, // <-- Add this
+    }).start();
+  }
+        
   onUsernameChange(text) {
     this.props.usernameChanged(text);
   }
@@ -50,9 +62,18 @@ class Login extends Component {
       return <Spinner size="large" />;
     }
     return (
-      <Button block style={{ marginLeft: 40, marginRight: 40, marginTop: 10, flex: 1 }} onPress={this.onButtonPress.bind(this)}>
-        <Text style={{ textAlign: 'center', fontSize: 20, }}>Login</Text>
-      </Button>
+
+      <View>
+        <Animated.View style={styles.myStyle} />
+
+        <Button block style={{ marginLeft: 40, marginRight: 40, marginTop: 10, flex: 1 }} onPress={() => this.startAnimationAQ()}>
+          <Text> click me </Text>
+        </Button>
+
+        <Button block style={{ marginLeft: 40, marginRight: 40, marginTop: 10, flex: 1 }} onPress={this.onButtonPress.bind(this)}>
+          <Text style={{ textAlign: 'center', fontSize: 20, }}>Login</Text>
+        </Button>
+      </View>
     );
   }
 
@@ -103,6 +124,9 @@ const styles = {
   },
   inputStyle: {
     height: 40,
+  },
+  myStyle: {
+    backgroundColor: 'red', width: _animate, height: _animate
   }
 };
 

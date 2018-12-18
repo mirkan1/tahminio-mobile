@@ -9,6 +9,7 @@ import {
   ERROR_ACCURED,
   GET_PREDICTION_OPTIONS,
   GET_AVAILABLE_GAMES,
+  GET_PREDICTION,
 } from '../actions/types';
 
 const INITIAL_STATE = { 
@@ -19,6 +20,7 @@ const INITIAL_STATE = {
   error: null,
   prediction_options: null,
   availableGames: null,
+  selectedPrediction: null,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -38,9 +40,11 @@ export default (state = INITIAL_STATE, action) => {
     case ERROR_ACCURED:
       return { ...state, loading: false, error: "Something went wrong" };
     case GET_PREDICTION_OPTIONS:
-      return { ...state, prediction_options: action.payload };
+      return { ...state, prediction_options: action.payload, error: null };
     case GET_AVAILABLE_GAMES:
-      return { ...state, availableGames: action.payload }
+      return { ...state, availableGames: action.payload, error: null }
+    case GET_PREDICTION:
+      return { ...state, selectedPrediction: action.payload, error: null }
     default:
       return state;
   }

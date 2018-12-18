@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Icon, Button } from 'native-base';
+import { Icon } from 'native-base';
 import { Text, View, Image, Dimensions, ScrollView, FlatList, StyleSheet } from 'react-native';
 import {
   upvotePrediction,
   undoUpvotePrediction,
+  getPrediction,
 } from '../actions';
+import { Button } from 'native-base';
 
 class PredictionCard extends Component {
-  state = { upvoted: false }
+  state = { upvoted: false };
 
-  componentWillMount() {
-    this.setState({ upvoted: this.props.prediction.upvoted});
+  componentDidMount() {
+    this.setState({ upvoted: this.props.prediction.upvoted });
   }
 
 	onUpvotePrediction(prediction_id) {
@@ -24,6 +26,11 @@ class PredictionCard extends Component {
     const { token, match_id } = this.props;
     this.props.undoUpvotePrediction(token, match_id, prediction_id );
     this.setState({ upvoted: !this.state.upvoted });
+  }
+
+  onGetPrediction(prediction_id) {
+    const { token, match_id } = this.props;
+    this.props.getPrediction({ token }, match_id, prediction_id);
   }
 
   renderUpvoteButton() {
@@ -56,13 +63,20 @@ class PredictionCard extends Component {
       <View style={{ margin: 5, flexDirection: 'row' }}>
         <View>
           <Text>{prediction.game}</Text>
+          <Text>{prediction.id}</Text>
           <Text>{prediction.text}</Text>
           <Text>{prediction.user.username}</Text>
           <Text>user skill points: {prediction.user.skill_point}</Text>
           <Text>upvote count: {prediction.upvote_count}</Text>
+          <Button 
+            transparent
+            onPress={() => this.onGetPrediction(prediction.id)}
+          >
+          <Text>GetPrediction</Text>
+        </Button>
         </View>
 
-        <View style={{ flex: 1}}>
+        <View style={{ flex: 1 }}>
           {this.renderUpvoteButton()}
         </View>
       </View>
@@ -83,6 +97,5 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, {
-  upvotePrediction,
-  undoUpvotePrediction,
+  upvotePrediction, undoUpvotePrediction, getPrediction,
 })(PredictionCard);
