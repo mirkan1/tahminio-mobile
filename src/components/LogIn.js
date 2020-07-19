@@ -34,9 +34,7 @@ class Login extends Component {
   }
 
   onButtonPress() {
-    //const { username, password } = this.props;
-    var username = 'mirkan1';
-    var password = 'anadolu123';
+    const { username, password } = this.props;
     this.props.userLogin({ username, password });
   }
 
